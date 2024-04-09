@@ -1,3 +1,4 @@
+import 'package:daily_checklist_application/src/core/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 
 class MainApp extends StatelessWidget {
@@ -5,12 +6,8 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
-      ),
+    return MaterialApp.router(
+      routerConfig: AppPages.routeConfig,
     );
   }
 }
