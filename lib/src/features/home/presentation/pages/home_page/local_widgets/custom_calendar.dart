@@ -153,7 +153,16 @@ class _CalendarPainter extends CustomPainter {
     final int startDayOffset =
         DateUtils.firstDayOffset(year, month, localizations);
 
-    int maxDayInPreviousMonth = DateUtils.getDaysInMonth(year, month - 1);
+    int previousMonth = month - 1;
+    int previousYear = year;
+
+    if (previousMonth < 1) {
+      previousMonth = 12;
+      previousYear--;
+    }
+
+    int maxDayInPreviousMonth =
+        DateUtils.getDaysInMonth(previousYear, previousMonth);
 
     int currentDay = -startDayOffset + 1;
 

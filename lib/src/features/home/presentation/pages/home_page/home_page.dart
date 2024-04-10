@@ -12,7 +12,7 @@ class HomePage extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(8),
           child: CustomCalendar(
-            initialDateTime: DateTime(2024, 3),
+            initialDateTime: DateTime(2024, 1),
           ),
         ),
       ),
