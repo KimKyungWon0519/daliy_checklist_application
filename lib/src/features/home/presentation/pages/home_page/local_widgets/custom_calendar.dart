@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 class CustomCalendar extends StatefulWidget {
@@ -19,7 +21,13 @@ class _CustomCalendarState extends State<CustomCalendar> {
 
   @override
   Widget build(BuildContext context) {
-    return _MonthYeaderHeader(_localizations.formatMonthYear(DateTime.now()));
+    return Column(
+      children: [
+        _MonthYeaderHeader(_localizations.formatMonthYear(DateTime.now())),
+        const SizedBox(height: 16),
+        _Weekday(),
+      ],
+    );
   }
 }
 
@@ -37,5 +45,38 @@ class _MonthYeaderHeader extends StatelessWidget {
           .titleLarge
           ?.copyWith(fontWeight: FontWeight.bold),
     );
+  }
+}
+
+class _Weekday extends StatelessWidget {
+  const _Weekday({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: _getWeekday(context),
+    );
+  }
+
+  List<Widget> _getWeekday(BuildContext context) {
+    final MaterialLocalizations localizations =
+        MaterialLocalizations.of(context);
+    final List<Widget> weekday = [];
+
+    for (int i = localizations.firstDayOfWeekIndex;
+        weekday.length < DateTime.daysPerWeek;
+        i = (i + 1) & DateTime.daysPerWeek) {
+      final String dayOfWeek = localizations.narrowWeekdays[i];
+
+      weekday.add(
+        Text(
+          dayOfWeek,
+          style: const TextStyle(fontWeight: FontWeight.bold),
+        ),
+      );
+    }
+
+    return weekday;
   }
 }
