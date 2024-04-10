@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'local_widgets/custom_calendar.dart';
+
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
@@ -9,12 +11,8 @@ class HomePage extends StatelessWidget {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(8),
-          child: CalendarDatePicker(
-            firstDate: DateTime(1900),
-            initialDate: DateTime.now(),
-            lastDate: DateTime(2100),
-            currentDate: DateTime.now(),
-            onDateChanged: (value) {},
+          child: CustomCalendar(
+            initialDateTime: DateTime(2024, 3),
           ),
         ),
       ),
