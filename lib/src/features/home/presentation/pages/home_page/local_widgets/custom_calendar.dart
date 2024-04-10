@@ -25,7 +25,7 @@ class _CustomCalendarState extends State<CustomCalendar> {
       children: [
         _MonthYeaderHeader(_localizations.formatMonthYear(DateTime.now())),
         const SizedBox(height: 16),
-        _Weekday(),
+        const _Weekday(),
       ],
     );
   }
