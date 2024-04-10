@@ -153,13 +153,25 @@ class _CalendarPainter extends CustomPainter {
     final int startDayOffset =
         DateUtils.firstDayOffset(year, month, localizations);
 
+    int maxDayInPreviousMonth = DateUtils.getDaysInMonth(year, month - 1);
+
     int currentDay = -startDayOffset + 1;
 
-    while (currentDay <= maxDayInMonth) {
+    while (currentDay <= 6 * 7) {
       if (currentDay < 1) {
-        days.add(const _Day(''));
-      } else {
+        days.insert(
+            0,
+            _Day(
+              '${maxDayInPreviousMonth--}',
+              color: Colors.grey,
+            ));
+      } else if (currentDay <= maxDayInMonth) {
         days.add(_Day('$currentDay'));
+      } else {
+        days.add(_Day(
+          '${currentDay - maxDayInMonth}',
+          color: Colors.grey,
+        ));
       }
 
       currentDay++;
@@ -195,14 +207,18 @@ class _Weekday {
 
 class _Day {
   final String name;
+  final Color color;
 
-  const _Day(this.name);
+  const _Day(
+    this.name, {
+    this.color = Colors.black,
+  });
 
   void paint(Canvas canvas, Offset offset) {
     final TextPainter textPainter = TextPainter(
       text: TextSpan(
         text: name,
-        style: const TextStyle(color: Colors.black),
+        style: TextStyle(color: color),
       ),
       textDirection: TextDirection.ltr,
     )..layout();
