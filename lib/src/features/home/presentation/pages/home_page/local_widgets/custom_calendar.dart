@@ -19,14 +19,14 @@ class _CustomCalendarState extends State<CustomCalendar> {
 
   @override
   Widget build(BuildContext context) {
-    return _Header(_localizations.formatMonthYear(DateTime.now()));
+    return _MonthYeaderHeader(_localizations.formatMonthYear(DateTime.now()));
   }
 }
 
-class _Header extends StatelessWidget {
+class _MonthYeaderHeader extends StatelessWidget {
   final String title;
 
-  const _Header(this.title);
+  const _MonthYeaderHeader(this.title);
 
   @override
   Widget build(BuildContext context) {
