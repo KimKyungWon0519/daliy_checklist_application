@@ -11,9 +11,7 @@ class HomePage extends StatelessWidget {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(8),
-          child: CustomCalendar(
-            initialDateTime: DateTime(2024, 1),
-          ),
+          child: CustomCalendar(),
         ),
       ),
     );
