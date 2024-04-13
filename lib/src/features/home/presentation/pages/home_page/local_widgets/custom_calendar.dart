@@ -23,15 +23,7 @@ class _CustomCalendarState extends State<CustomCalendar> {
   void initState() {
     super.initState();
 
-    _currentDate = DateTime.now();
-    int month = _currentDate.month;
-
-    _firstDate = _currentDate.copyWith(month: month - maxDateMonth);
-    _lastDate = _currentDate.copyWith(month: month + maxDateMonth);
-
-    _dateLength = DateUtils.monthDelta(_firstDate, _lastDate);
-
-    _pageController = PageController(initialPage: _dateLength ~/ 2);
+    _initValue();
   }
 
   @override
@@ -51,18 +43,12 @@ class _CustomCalendarState extends State<CustomCalendar> {
           height: MediaQuery.sizeOf(context).height / 1.5,
           child: PageView.builder(
             controller: _pageController,
-            onPageChanged: (value) {
-              DateTime dateTime =
-                  DateUtils.addMonthsToMonthDate(_firstDate, value);
-
-              setState(() {
-                _currentDate = dateTime;
-              });
-            },
+            onPageChanged: (value) => _changeDate(value),
             itemBuilder: (context, index) {
               return CustomPaint(
                 painter: CalendarPainter(
                   dateTime: DateUtils.addMonthsToMonthDate(_firstDate, index),
+                  currentDateTime: _currentDate,
                   localizations: _localizations,
                 ),
               );
@@ -72,6 +58,26 @@ class _CustomCalendarState extends State<CustomCalendar> {
         ),
       ],
     );
+  }
+
+  void _initValue() {
+    _currentDate = DateTime.now();
+    int month = _currentDate.month;
+
+    _firstDate = _currentDate.copyWith(month: month - maxDateMonth);
+    _lastDate = _currentDate.copyWith(month: month + maxDateMonth);
+
+    _dateLength = DateUtils.monthDelta(_firstDate, _lastDate);
+
+    _pageController = PageController(initialPage: _dateLength ~/ 2);
+  }
+
+  void _changeDate(int monthIndex) {
+    DateTime dateTime = DateUtils.addMonthsToMonthDate(_firstDate, monthIndex);
+
+    setState(() {
+      _currentDate = dateTime;
+    });
   }
 }
 

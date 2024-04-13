@@ -5,10 +5,12 @@ class CalendarPainter extends CustomPainter {
 
   final MaterialLocalizations localizations;
   final DateTime dateTime;
+  final DateTime currentDateTime;
 
   CalendarPainter({
     required this.localizations,
     required this.dateTime,
+    required this.currentDateTime,
   });
 
   @override
@@ -45,7 +47,7 @@ class CalendarPainter extends CustomPainter {
     for (int i = 0; i < day.length; i++) {
       if (i % 7 == 0) {
         lineIndex++;
-      } else {}
+      }
 
       final double dayWidth = size.width / 7;
       final double dayHeight = (size.height - startDayPanelOffset) / 6;
@@ -53,7 +55,7 @@ class CalendarPainter extends CustomPainter {
       final double dx = dayWidth * (i % 7) + dayWidth / 2;
       final double dy = dayHeight * (lineIndex - 1);
 
-      day[i].paint(canvas, Offset(dx, startDayPanelOffset + dy));
+      day[i].paint(canvas, Offset(dx, startDayPanelOffset + dy + 5));
     }
   }
 
@@ -111,7 +113,11 @@ class CalendarPainter extends CustomPainter {
               color: Colors.grey,
             ));
       } else if (currentDay <= maxDayInMonth) {
-        days.add(_Day('$currentDay'));
+        days.add(_Day(
+          '$currentDay',
+          isCurrent: DateUtils.isSameDay(
+              DateTime.now(), dateTime.copyWith(day: currentDay)),
+        ));
       } else {
         days.add(_Day(
           '${currentDay - maxDayInMonth}',
@@ -153,26 +159,38 @@ class _Weekday {
 class _Day {
   final String name;
   final Color color;
+  final bool isCurrent;
 
   const _Day(
     this.name, {
     this.color = Colors.black,
+    this.isCurrent = false,
   });
 
   void paint(Canvas canvas, Offset offset) {
     final TextPainter textPainter = TextPainter(
       text: TextSpan(
         text: name,
-        style: TextStyle(color: color),
+        style: TextStyle(color: isCurrent ? Colors.white : Colors.black),
       ),
       textDirection: TextDirection.ltr,
     )..layout();
+
+    if (isCurrent) {
+      canvas.drawCircle(
+          Offset(
+            offset.dx,
+            offset.dy + textPainter.height / 2,
+          ),
+          textPainter.height,
+          Paint()..color = Colors.teal);
+    }
 
     textPainter.paint(
       canvas,
       Offset(
         offset.dx - textPainter.width / 2,
-        offset.dy + 5,
+        offset.dy,
       ),
     );
   }
