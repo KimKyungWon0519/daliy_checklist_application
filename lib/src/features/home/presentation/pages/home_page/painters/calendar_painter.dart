@@ -171,7 +171,7 @@ class _Day {
     final TextPainter textPainter = TextPainter(
       text: TextSpan(
         text: name,
-        style: TextStyle(color: isCurrent ? Colors.white : Colors.black),
+        style: TextStyle(color: isCurrent ? Colors.white : color),
       ),
       textDirection: TextDirection.ltr,
     )..layout();
