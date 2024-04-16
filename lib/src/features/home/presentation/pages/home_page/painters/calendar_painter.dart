@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 class CalendarPainter extends CustomPainter {
@@ -6,6 +8,8 @@ class CalendarPainter extends CustomPainter {
   final MaterialLocalizations localizations;
   final DateTime dateTime;
   final DateTime currentDateTime;
+
+  final List<_DayPanel> _dayPanels = [];
 
   CalendarPainter({
     required this.localizations,
@@ -25,6 +29,17 @@ class CalendarPainter extends CustomPainter {
     return false;
   }
 
+  @override
+  bool? hitTest(Offset position) {
+    for (_DayPanel dayPanel in _dayPanels) {
+      if (dayPanel.isSelect(position)) {
+        log('datetime : ${dayPanel.dateTime}');
+      }
+    }
+
+    return super.hitTest(position);
+  }
+
   void _drawWeekday(Canvas canvas, Size size) {
     final List<_Weekday> weekday = _getWeekday();
     final int weekdayLength = weekday.length;
@@ -39,7 +54,7 @@ class CalendarPainter extends CustomPainter {
   }
 
   void _drawDay(Canvas canvas, Size size) {
-    final List<_Day> day = _getDays();
+    final List<_DayTextPaint> day = _getDays();
     final double startDayPanelOffset = size.height / 7 / 2;
 
     int lineIndex = 0;
@@ -56,6 +71,24 @@ class CalendarPainter extends CustomPainter {
       final double dy = dayHeight * (lineIndex - 1);
 
       day[i].paint(canvas, Offset(dx, startDayPanelOffset + dy + 5));
+
+      if (day[i].isActive) {
+        _DayPanel dayPanel = _DayPanel(
+          dateTime: dateTime.copyWith(day: int.parse(day[i].name)),
+          path: Path()
+            ..addRect(
+              Rect.fromLTRB(
+                  dayWidth * (i % 7),
+                  startDayPanelOffset + dayHeight * (lineIndex - 1),
+                  dayWidth * (i % 7) + dayWidth,
+                  startDayPanelOffset +
+                      dayHeight * (lineIndex - 1) +
+                      dayHeight),
+            ),
+        );
+
+        _dayPanels.add(dayPanel);
+      }
     }
   }
 
@@ -83,8 +116,8 @@ class CalendarPainter extends CustomPainter {
     return weekday;
   }
 
-  List<_Day> _getDays() {
-    final List<_Day> days = [];
+  List<_DayTextPaint> _getDays() {
+    final List<_DayTextPaint> days = [];
 
     final int year = dateTime.year, month = dateTime.month;
     final int maxDayInMonth = DateUtils.getDaysInMonth(year, month);
@@ -107,22 +140,16 @@ class CalendarPainter extends CustomPainter {
     while (currentDay < 6 * 7) {
       if (currentDay < 1) {
         days.insert(
-            0,
-            _Day(
-              '${maxDayInPreviousMonth--}',
-              color: Colors.grey,
-            ));
+            0, _DayTextPaint.isInactive(name: '${maxDayInPreviousMonth--}'));
       } else if (currentDay <= maxDayInMonth) {
-        days.add(_Day(
-          '$currentDay',
+        days.add(_DayTextPaint.isActive(
+          name: '$currentDay',
           isCurrent: DateUtils.isSameDay(
               DateTime.now(), dateTime.copyWith(day: currentDay)),
         ));
       } else {
-        days.add(_Day(
-          '${currentDay - maxDayInMonth}',
-          color: Colors.grey,
-        ));
+        days.add(
+            _DayTextPaint.isInactive(name: '${currentDay - maxDayInMonth}'));
       }
 
       currentDay++;
@@ -156,16 +183,39 @@ class _Weekday {
   }
 }
 
-class _Day {
+class _DayTextPaint {
   final String name;
   final Color color;
   final bool isCurrent;
+  final bool isActive;
 
-  const _Day(
+  const _DayTextPaint(
     this.name, {
-    this.color = Colors.black,
-    this.isCurrent = false,
+    required this.color,
+    required this.isCurrent,
+    required this.isActive,
   });
+
+  factory _DayTextPaint.isActive({
+    required String name,
+    required bool isCurrent,
+  }) =>
+      _DayTextPaint(
+        name,
+        color: Colors.black,
+        isCurrent: isCurrent,
+        isActive: true,
+      );
+
+  factory _DayTextPaint.isInactive({
+    required String name,
+  }) =>
+      _DayTextPaint(
+        name,
+        color: Colors.grey,
+        isCurrent: false,
+        isActive: false,
+      );
 
   void paint(Canvas canvas, Offset offset) {
     final TextPainter textPainter = TextPainter(
@@ -194,4 +244,16 @@ class _Day {
       ),
     );
   }
+}
+
+class _DayPanel {
+  final Path path;
+  final DateTime dateTime;
+
+  _DayPanel({
+    required this.path,
+    required this.dateTime,
+  });
+
+  bool isSelect(Offset position) => path.contains(position);
 }
