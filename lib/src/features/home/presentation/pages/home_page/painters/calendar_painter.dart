@@ -8,6 +8,7 @@ class CalendarPainter extends CustomPainter {
   final MaterialLocalizations localizations;
   final DateTime dateTime;
   final DateTime currentDateTime;
+  final DateTime selectDateTime;
 
   final List<_DayPanel> _dayPanels = [];
 
@@ -15,6 +16,7 @@ class CalendarPainter extends CustomPainter {
     required this.localizations,
     required this.dateTime,
     required this.currentDateTime,
+    required this.selectDateTime,
   });
 
   @override
@@ -54,7 +56,7 @@ class CalendarPainter extends CustomPainter {
   }
 
   void _drawDay(Canvas canvas, Size size) {
-    final List<_DayTextPaint> day = _getDays();
+    final List<_Day> day = _getDays();
     final double startDayPanelOffset = size.height / 7 / 2;
 
     int lineIndex = 0;
@@ -70,7 +72,19 @@ class CalendarPainter extends CustomPainter {
       final double dx = dayWidth * (i % 7) + dayWidth / 2;
       final double dy = dayHeight * (lineIndex - 1);
 
-      day[i].paint(canvas, Offset(dx, startDayPanelOffset + dy + 5));
+      if (day[i].isSelect) {
+        canvas.drawRRect(
+            RRect.fromLTRBR(
+              dayWidth * (i % 7),
+              startDayPanelOffset + dayHeight * (lineIndex - 1),
+              dayWidth * (i % 7) + dayWidth,
+              startDayPanelOffset + dayHeight * (lineIndex - 1) + dayHeight,
+              const Radius.circular(5),
+            ),
+            Paint()..color = Colors.grey[300]!);
+      }
+
+      day[i].paint(canvas, Offset(dx, startDayPanelOffset + dy + 10));
 
       if (day[i].isActive) {
         _DayPanel dayPanel = _DayPanel(
@@ -116,8 +130,8 @@ class CalendarPainter extends CustomPainter {
     return weekday;
   }
 
-  List<_DayTextPaint> _getDays() {
-    final List<_DayTextPaint> days = [];
+  List<_Day> _getDays() {
+    final List<_Day> days = [];
 
     final int year = dateTime.year, month = dateTime.month;
     final int maxDayInMonth = DateUtils.getDaysInMonth(year, month);
@@ -139,17 +153,17 @@ class CalendarPainter extends CustomPainter {
 
     while (currentDay < 6 * 7) {
       if (currentDay < 1) {
-        days.insert(
-            0, _DayTextPaint.isInactive(name: '${maxDayInPreviousMonth--}'));
+        days.insert(0, _Day.isInactive(name: '${maxDayInPreviousMonth--}'));
       } else if (currentDay <= maxDayInMonth) {
-        days.add(_DayTextPaint.isActive(
+        days.add(_Day.isActive(
           name: '$currentDay',
           isCurrent: DateUtils.isSameDay(
               DateTime.now(), dateTime.copyWith(day: currentDay)),
+          isSelect: DateUtils.isSameDay(
+              dateTime.copyWith(day: currentDay), selectDateTime),
         ));
       } else {
-        days.add(
-            _DayTextPaint.isInactive(name: '${currentDay - maxDayInMonth}'));
+        days.add(_Day.isInactive(name: '${currentDay - maxDayInMonth}'));
       }
 
       currentDay++;
@@ -183,37 +197,42 @@ class _Weekday {
   }
 }
 
-class _DayTextPaint {
+class _Day {
   final String name;
   final Color color;
   final bool isCurrent;
+  final bool isSelect;
   final bool isActive;
 
-  const _DayTextPaint(
+  const _Day(
     this.name, {
     required this.color,
     required this.isCurrent,
     required this.isActive,
+    required this.isSelect,
   });
 
-  factory _DayTextPaint.isActive({
+  factory _Day.isActive({
     required String name,
     required bool isCurrent,
+    required bool isSelect,
   }) =>
-      _DayTextPaint(
+      _Day(
         name,
         color: Colors.black,
         isCurrent: isCurrent,
+        isSelect: isSelect,
         isActive: true,
       );
 
-  factory _DayTextPaint.isInactive({
+  factory _Day.isInactive({
     required String name,
   }) =>
-      _DayTextPaint(
+      _Day(
         name,
         color: Colors.grey,
         isCurrent: false,
+        isSelect: false,
         isActive: false,
       );
 

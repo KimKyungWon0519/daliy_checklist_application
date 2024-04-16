@@ -17,6 +17,7 @@ class _CustomCalendarState extends State<CustomCalendar> {
   late DateTime _firstDate;
   late DateTime _lastDate;
   late DateTime _currentDate;
+  late DateTime _selectDate;
   late MaterialLocalizations _localizations;
 
   @override
@@ -50,6 +51,7 @@ class _CustomCalendarState extends State<CustomCalendar> {
                   dateTime: DateUtils.addMonthsToMonthDate(_firstDate, index),
                   currentDateTime: _currentDate,
                   localizations: _localizations,
+                  selectDateTime: _selectDate,
                 ),
               );
             },
@@ -62,6 +64,8 @@ class _CustomCalendarState extends State<CustomCalendar> {
 
   void _initValue() {
     _currentDate = DateTime.now();
+    _selectDate = _currentDate;
+
     int month = _currentDate.month;
 
     _firstDate = _currentDate.copyWith(month: month - maxDateMonth);
