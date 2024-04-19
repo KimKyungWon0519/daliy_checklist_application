@@ -5,7 +5,6 @@ class CalendarPainter extends CustomPainter {
 
   final MaterialLocalizations localizations;
   final DateTime dateTime;
-  final DateTime currentDateTime;
   final DateTime selectDateTime;
 
   final List<_DayPanel> _dayPanels = [];
@@ -13,7 +12,6 @@ class CalendarPainter extends CustomPainter {
   CalendarPainter({
     required this.localizations,
     required this.dateTime,
-    required this.currentDateTime,
     required this.selectDateTime,
   });
 
