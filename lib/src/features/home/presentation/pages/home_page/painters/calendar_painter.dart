@@ -7,7 +7,6 @@ class CalendarPainter extends CustomPainter {
   final DateTime dateTime;
   final DateTime currentDateTime;
   final DateTime selectDateTime;
-  final Function(DateTime dateTime) onChanged;
 
   final List<_DayPanel> _dayPanels = [];
 
@@ -16,7 +15,6 @@ class CalendarPainter extends CustomPainter {
     required this.dateTime,
     required this.currentDateTime,
     required this.selectDateTime,
-    required this.onChanged,
   });
 
   @override
@@ -161,12 +159,14 @@ class CalendarPainter extends CustomPainter {
     return days;
   }
 
-  void onClick(Offset position) {
+  DateTime? isClickDay(Offset position) {
     for (_DayPanel dayPanel in _dayPanels) {
       if (dayPanel.path.contains(position)) {
-        onChanged(dayPanel.dateTime);
+        return dayPanel.dateTime;
       }
     }
+
+    return null;
   }
 }
 

@@ -51,16 +51,18 @@ class _CustomCalendarState extends State<CustomCalendar> {
                 currentDateTime: _currentDate,
                 localizations: _localizations,
                 selectDateTime: _selectDate,
-                onChanged: (dateTime) {
-                  setState(() {
-                    _selectDate = dateTime;
-                  });
-                },
               );
 
               return GestureDetector(
                 onTapUp: (details) {
-                  calendarPainter.onClick(details.localPosition);
+                  DateTime? dateTime =
+                      calendarPainter.isClickDay(details.localPosition);
+
+                  if (dateTime == null) return;
+
+                  setState(() {
+                    _selectDate = dateTime;
+                  });
                 },
                 child: CustomPaint(
                   painter: calendarPainter,
