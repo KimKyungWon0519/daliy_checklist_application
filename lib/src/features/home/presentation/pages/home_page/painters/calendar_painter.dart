@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 
 class CalendarPainter extends CustomPainter {
@@ -9,6 +7,7 @@ class CalendarPainter extends CustomPainter {
   final DateTime dateTime;
   final DateTime currentDateTime;
   final DateTime selectDateTime;
+  final Function(DateTime dateTime) onChanged;
 
   final List<_DayPanel> _dayPanels = [];
 
@@ -17,6 +16,7 @@ class CalendarPainter extends CustomPainter {
     required this.dateTime,
     required this.currentDateTime,
     required this.selectDateTime,
+    required this.onChanged,
   });
 
   @override
@@ -27,19 +27,8 @@ class CalendarPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return false;
-  }
-
-  @override
-  bool? hitTest(Offset position) {
-    for (_DayPanel dayPanel in _dayPanels) {
-      if (dayPanel.isSelect(position)) {
-        log('datetime : ${dayPanel.dateTime}');
-      }
-    }
-
-    return super.hitTest(position);
+  bool shouldRepaint(covariant CalendarPainter oldDelegate) {
+    return true;
   }
 
   void _drawWeekday(Canvas canvas, Size size) {
@@ -170,6 +159,14 @@ class CalendarPainter extends CustomPainter {
     }
 
     return days;
+  }
+
+  void onClick(Offset position) {
+    for (_DayPanel dayPanel in _dayPanels) {
+      if (dayPanel.path.contains(position)) {
+        onChanged(dayPanel.dateTime);
+      }
+    }
   }
 }
 

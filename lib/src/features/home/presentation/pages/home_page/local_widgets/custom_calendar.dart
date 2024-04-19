@@ -46,12 +46,24 @@ class _CustomCalendarState extends State<CustomCalendar> {
             controller: _pageController,
             onPageChanged: (value) => _changeDate(value),
             itemBuilder: (context, index) {
-              return CustomPaint(
-                painter: CalendarPainter(
-                  dateTime: DateUtils.addMonthsToMonthDate(_firstDate, index),
-                  currentDateTime: _currentDate,
-                  localizations: _localizations,
-                  selectDateTime: _selectDate,
+              CalendarPainter calendarPainter = CalendarPainter(
+                dateTime: DateUtils.addMonthsToMonthDate(_firstDate, index),
+                currentDateTime: _currentDate,
+                localizations: _localizations,
+                selectDateTime: _selectDate,
+                onChanged: (dateTime) {
+                  setState(() {
+                    _selectDate = dateTime;
+                  });
+                },
+              );
+
+              return GestureDetector(
+                onTapUp: (details) {
+                  calendarPainter.onClick(details.localPosition);
+                },
+                child: CustomPaint(
+                  painter: calendarPainter,
                 ),
               );
             },
