@@ -39,7 +39,7 @@ class _CustomCalendarState extends State<CustomCalendar> {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        _MonthYeaderHeader(_localizations.formatMonthYear(_currentDate)),
+        _MonthHeader(_localizations.formatMonthYear(_currentDate)),
         SizedBox(
           height: MediaQuery.sizeOf(context).height / 1.5,
           child: PageView.builder(
@@ -99,10 +99,10 @@ class _CustomCalendarState extends State<CustomCalendar> {
   }
 }
 
-class _MonthYeaderHeader extends StatelessWidget {
+class _MonthHeader extends StatelessWidget {
   final String title;
 
-  const _MonthYeaderHeader(this.title);
+  const _MonthHeader(this.title);
 
   @override
   Widget build(BuildContext context) {
