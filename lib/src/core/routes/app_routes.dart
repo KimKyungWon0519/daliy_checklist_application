@@ -1,4 +1,4 @@
-import 'package:daily_checklist_application/src/features/home/presentation/pages/home_page.dart';
+import 'package:daily_checklist_application/src/features/home/presentation/pages/home_page/home_page.dart';
 import 'package:go_router/go_router.dart';
 
 final class AppRoutes {
