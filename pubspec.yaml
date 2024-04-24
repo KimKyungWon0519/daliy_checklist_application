@@ -11,6 +11,8 @@ dependencies:
     sdk: flutter
   get_it: ^7.6.7
   go_router: ^13.2.3
+  home_feat_presentation:
+    path: ./home_feature/presentation
 
 dev_dependencies:
   flutter_test:

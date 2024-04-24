@@ -1,5 +1,5 @@
-import 'package:daily_checklist_application/src/features/home/presentation/pages/home_page/painters/calendar_painter.dart';
 import 'package:flutter/material.dart';
+import 'package:home_feat_presentation/pages/home_page/painters/calendar_painter.dart';
 
 class _CalendarProvider extends InheritedWidget {
   final DateTime selectedDateTime;
