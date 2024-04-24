@@ -1,17 +1,25 @@
 import 'package:flutter/material.dart';
 
 import 'local_widgets/custom_calendar.dart';
+import 'local_widgets/task_sheet.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(8),
-          child: CustomCalendar(),
+        child: Stack(
+          children: [
+            Padding(
+              padding: EdgeInsets.all(8),
+              child: CustomCalendar(),
+            ),
+            SizedBox.expand(
+              child: TaskSheet(),
+            ),
+          ],
         ),
       ),
     );
