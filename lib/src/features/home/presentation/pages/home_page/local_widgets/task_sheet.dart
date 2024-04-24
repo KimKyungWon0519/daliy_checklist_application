@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'task_panel.dart';
+import 'task_panel_body.dart';
+import 'task_panel_header.dart';
 
 class TaskSheet extends StatefulWidget {
   const TaskSheet({super.key});
@@ -61,18 +62,7 @@ class _TaskPanel extends StatelessWidget {
           ),
           pinned: true,
         ),
-        SliverList(
-          delegate: SliverChildBuilderDelegate(
-            (context, index) {
-              return CheckboxListTile(
-                title: Text('$index'),
-                value: false,
-                onChanged: (value) {},
-              );
-            },
-            childCount: 100,
-          ),
-        ),
+        const TaskPanelBody(),
       ],
     );
   }
