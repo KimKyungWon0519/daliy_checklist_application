@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:presentation/constants/app_constants.dart';
+import 'package:presentation/constants/routes.dart';
 import 'package:presentation/presenters/viewmodels/home_viewmodel.dart';
 
 class Header extends SliverPersistentHeaderDelegate {
@@ -112,11 +113,8 @@ class _Title extends ConsumerWidget {
         elevation: 0.0,
         centerTitle: true,
         title: Text(DateFormat('yyyy/MM/dd').format(selectedDateTime)),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.add),
-          ),
+        actions: const [
+          _AddIconButton(),
         ],
       ),
     );
@@ -129,7 +127,9 @@ class _AddIconButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      onPressed: () {},
+      onPressed: () {
+        context.pushNamed(add.name!);
+      },
       icon: const Icon(Icons.add),
     );
   }
