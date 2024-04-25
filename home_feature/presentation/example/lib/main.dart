@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:presentation/presentation.dart';
 
 void main() {
@@ -13,8 +14,13 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: HomePage(),
+    return MaterialApp.router(
+      routerConfig: GoRouter(
+        routes: [
+          home,
+        ],
+        initialLocation: home.path,
+      ),
     );
   }
 }
