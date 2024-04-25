@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
+import 'package:presentation/constants/app_constants.dart';
+import 'package:presentation/presenters/viewmodels/home_viewmodel.dart';
 
 class Header extends SliverPersistentHeaderDelegate {
   final DraggableScrollableController? draggableSheetController;
@@ -91,18 +95,22 @@ class _Handle extends StatelessWidget {
   }
 }
 
-class _Title extends StatelessWidget {
+class _Title extends ConsumerWidget {
   const _Title({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final HomeViewModel homeViewModel = viewModelProvider<HomeViewModel>();
+    final DateTime selectedDateTime =
+        ref.watch(homeViewModel.selectedDateProvider);
+
     return Theme(
       data: ThemeData(useMaterial3: false),
       child: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0.0,
         centerTitle: true,
-        title: Text('2024/05/19'),
+        title: Text(DateFormat('yyyy/MM/dd').format(selectedDateTime)),
         actions: [
           IconButton(
             onPressed: () {},

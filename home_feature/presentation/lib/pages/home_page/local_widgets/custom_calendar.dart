@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:presentation/constants/app_constants.dart';
 import 'package:presentation/pages/home_page/painters/calendar_painter.dart';
+import 'package:presentation/presenters/viewmodels/home_viewmodel.dart';
 
 class _CalendarProvider extends InheritedWidget {
   final DateTime selectedDateTime;
@@ -37,27 +40,43 @@ class _CalendarProvider extends InheritedWidget {
   String get monthName => localizations.formatMonthYear(viewDateTime);
 }
 
-class CustomCalendar extends StatefulWidget {
+class CustomCalendar extends ConsumerStatefulWidget {
   const CustomCalendar({super.key});
 
   @override
-  State<CustomCalendar> createState() => _CustomCalendarState();
+  ConsumerState<CustomCalendar> createState() => _CustomCalendarState();
 }
 
-class _CustomCalendarState extends State<CustomCalendar> {
-  DateTime _selectedDateTime = DateTime.now();
-  DateTime _viewDateTime = DateTime.now();
+class _CustomCalendarState extends ConsumerState<CustomCalendar> {
+  late final HomeViewModel _homeViewModel;
+  late DateTime _viewDateTime;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _homeViewModel = viewModelProvider<HomeViewModel>();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    _viewDateTime = ref.read(_homeViewModel.selectedDateProvider);
+  }
 
   @override
   Widget build(BuildContext context) {
+    DateTime selectedDateTime = ref.watch(_homeViewModel.selectedDateProvider);
+
     return _CalendarProvider(
-      selectedDateTime: _selectedDateTime,
+      selectedDateTime: selectedDateTime,
       viewDateTime: _viewDateTime,
       localizations: MaterialLocalizations.of(context),
       onPressedDay: (selectedDateTime) {
-        setState(() {
-          _selectedDateTime = selectedDateTime;
-        });
+        ref
+            .read(_homeViewModel.selectedDateProvider.notifier)
+            .update((state) => state = selectedDateTime);
       },
       onChangeMonth: (dateTime) {
         setState(() {
