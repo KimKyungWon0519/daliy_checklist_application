@@ -1,9 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class HomeViewModel {
-  late final StateProvider<DateTime> currentDateProvider;
+  late final StateProvider<DateTime> selectedDateProvider;
 
   HomeViewModel() {
-    currentDateProvider = StateProvider((ref) => DateTime.now());
+    selectedDateProvider = StateProvider((ref) => DateTime.now());
   }
 }
