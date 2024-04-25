@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:presentation/constants/app_constants.dart';
 import 'package:presentation/presenters/viewmodels/home_viewmodel.dart';
@@ -118,6 +119,18 @@ class _Title extends ConsumerWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class _AddIconButton extends StatelessWidget {
+  const _AddIconButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      onPressed: () {},
+      icon: const Icon(Icons.add),
     );
   }
 }
