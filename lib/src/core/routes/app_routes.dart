@@ -1,5 +1,5 @@
 import 'package:go_router/go_router.dart';
-import 'package:home_feat_presentation/presentation.dart';
+import 'package:home_feature/home_feature.dart';
 
 final class AppRoutes {
   const AppRoutes._();
