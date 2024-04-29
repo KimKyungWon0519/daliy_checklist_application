@@ -5,7 +5,7 @@ import 'package:presentation/presenters/viewmodels/home_viewmodel.dart';
 import 'local_widgets/custom_calendar.dart';
 import 'local_widgets/task_sheet.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   final VoidCallback? onClickAddButton;
 
   const HomePage({
@@ -14,9 +14,21 @@ class HomePage extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    final HomeViewModel viewModel = viewModelProvider<HomeViewModel>();
+  State<HomePage> createState() => _HomePageState();
+}
 
+class _HomePageState extends State<HomePage> {
+  late final HomeViewModel _viewModel;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _viewModel = viewModelProvider<HomeViewModel>();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: Stack(
@@ -24,13 +36,13 @@ class HomePage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8),
               child: CustomCalendar(
-                selectedDateProvider: viewModel.selectedDateProvider,
+                selectedDateProvider: _viewModel.selectedDateProvider,
               ),
             ),
             SizedBox.expand(
               child: TaskSheet(
-                onClickAddButton: onClickAddButton,
-                selectedDateProvider: viewModel.selectedDateProvider,
+                onClickAddButton: widget.onClickAddButton,
+                selectedDateProvider: _viewModel.selectedDateProvider,
               ),
             ),
           ],
