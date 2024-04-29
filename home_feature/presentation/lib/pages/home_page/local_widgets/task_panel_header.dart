@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:presentation/constants/app_constants.dart';
-import 'package:presentation/presenters/viewmodels/home_viewmodel.dart';
 
 class Header extends SliverPersistentHeaderDelegate {
   final DraggableScrollableController? draggableSheetController;
   final ScrollController? scrollController;
   final VoidCallback? onClickAddButton;
+  final StateProvider<DateTime> selectedDateProvider;
 
   const Header({
     this.draggableSheetController,
     this.scrollController,
     this.onClickAddButton,
+    required this.selectedDateProvider,
   });
 
   @override
@@ -33,7 +33,10 @@ class Header extends SliverPersistentHeaderDelegate {
         child: Column(
           children: [
             const _Handle(),
-            _Title(onClickAddButton: onClickAddButton),
+            _Title(
+              onClickAddButton: onClickAddButton,
+              selectedDateProvider: selectedDateProvider,
+            ),
           ],
         ),
       ),
@@ -98,17 +101,17 @@ class _Handle extends StatelessWidget {
 
 class _Title extends ConsumerWidget {
   final VoidCallback? onClickAddButton;
+  final StateProvider<DateTime> selectedDateProvider;
 
   const _Title({
     super.key,
     this.onClickAddButton,
+    required this.selectedDateProvider,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final HomeViewModel homeViewModel = viewModelProvider<HomeViewModel>();
-    final DateTime selectedDateTime =
-        ref.watch(homeViewModel.selectedDateProvider);
+    final DateTime selectedDateTime = ref.watch(selectedDateProvider);
 
     return Theme(
       data: ThemeData(useMaterial3: false),

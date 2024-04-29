@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:presentation/constants/app_constants.dart';
+import 'package:presentation/presenters/viewmodels/home_viewmodel.dart';
 
 import 'local_widgets/custom_calendar.dart';
 import 'local_widgets/task_sheet.dart';
@@ -13,16 +15,23 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final HomeViewModel viewModel = viewModelProvider<HomeViewModel>();
+
     return Scaffold(
       body: SafeArea(
         child: Stack(
           children: [
-            const Padding(
-              padding: EdgeInsets.all(8),
-              child: CustomCalendar(),
+            Padding(
+              padding: const EdgeInsets.all(8),
+              child: CustomCalendar(
+                selectedDateProvider: viewModel.selectedDateProvider,
+              ),
             ),
             SizedBox.expand(
-              child: TaskSheet(onClickAddButton: onClickAddButton),
+              child: TaskSheet(
+                onClickAddButton: onClickAddButton,
+                selectedDateProvider: viewModel.selectedDateProvider,
+              ),
             ),
           ],
         ),

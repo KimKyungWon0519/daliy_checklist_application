@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:presentation/constants/app_constants.dart';
 import 'package:presentation/pages/home_page/painters/calendar_painter.dart';
-import 'package:presentation/presenters/viewmodels/home_viewmodel.dart';
 
 class _CalendarProvider extends InheritedWidget {
   final DateTime selectedDateTime;
@@ -41,33 +39,30 @@ class _CalendarProvider extends InheritedWidget {
 }
 
 class CustomCalendar extends ConsumerStatefulWidget {
-  const CustomCalendar({super.key});
+  final StateProvider<DateTime> selectedDateProvider;
+
+  const CustomCalendar({
+    super.key,
+    required this.selectedDateProvider,
+  });
 
   @override
   ConsumerState<CustomCalendar> createState() => _CustomCalendarState();
 }
 
 class _CustomCalendarState extends ConsumerState<CustomCalendar> {
-  late final HomeViewModel _homeViewModel;
   late DateTime _viewDateTime;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _homeViewModel = viewModelProvider<HomeViewModel>();
-  }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    _viewDateTime = ref.read(_homeViewModel.selectedDateProvider);
+    _viewDateTime = ref.read(widget.selectedDateProvider);
   }
 
   @override
   Widget build(BuildContext context) {
-    DateTime selectedDateTime = ref.watch(_homeViewModel.selectedDateProvider);
+    DateTime selectedDateTime = ref.watch(widget.selectedDateProvider);
 
     return _CalendarProvider(
       selectedDateTime: selectedDateTime,
@@ -75,7 +70,7 @@ class _CustomCalendarState extends ConsumerState<CustomCalendar> {
       localizations: MaterialLocalizations.of(context),
       onPressedDay: (selectedDateTime) {
         ref
-            .read(_homeViewModel.selectedDateProvider.notifier)
+            .read(widget.selectedDateProvider.notifier)
             .update((state) => state = selectedDateTime);
       },
       onChangeMonth: (dateTime) {
