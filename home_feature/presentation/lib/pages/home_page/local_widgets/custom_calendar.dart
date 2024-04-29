@@ -191,6 +191,7 @@ class _MonthPanel extends StatelessWidget {
       dateTime: dateTime,
       localizations: calendarProvider.localizations,
       selectDateTime: selectedDateTime,
+      highlightDayColor: Theme.of(context).colorScheme.primary,
     );
 
     return GestureDetector(

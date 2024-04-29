@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:presentation/constants/app_constants.dart';
-import 'package:presentation/constants/routes.dart';
 import 'package:presentation/presenters/viewmodels/home_viewmodel.dart';
 
 class Header extends SliverPersistentHeaderDelegate {
   final DraggableScrollableController? draggableSheetController;
   final ScrollController? scrollController;
+  final VoidCallback? onClickAddButton;
 
   const Header({
     this.draggableSheetController,
     this.scrollController,
+    this.onClickAddButton,
   });
 
   @override
@@ -27,14 +27,13 @@ class Header extends SliverPersistentHeaderDelegate {
       onVerticalDragEnd: (details) {
         onDragEnd();
       },
-      child: Container(
+      child: SizedBox(
         height: maxExtent,
         width: double.infinity,
-        color: Colors.teal[100],
-        child: const Column(
+        child: Column(
           children: [
-            _Handle(),
-            _Title(),
+            const _Handle(),
+            _Title(onClickAddButton: onClickAddButton),
           ],
         ),
       ),
@@ -98,7 +97,12 @@ class _Handle extends StatelessWidget {
 }
 
 class _Title extends ConsumerWidget {
-  const _Title({super.key});
+  final VoidCallback? onClickAddButton;
+
+  const _Title({
+    super.key,
+    this.onClickAddButton,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -113,8 +117,8 @@ class _Title extends ConsumerWidget {
         elevation: 0.0,
         centerTitle: true,
         title: Text(DateFormat('yyyy/MM/dd').format(selectedDateTime)),
-        actions: const [
-          _AddIconButton(),
+        actions: [
+          _AddIconButton(onClickAddButton: onClickAddButton),
         ],
       ),
     );
@@ -122,14 +126,17 @@ class _Title extends ConsumerWidget {
 }
 
 class _AddIconButton extends StatelessWidget {
-  const _AddIconButton({super.key});
+  final VoidCallback? onClickAddButton;
+
+  const _AddIconButton({
+    super.key,
+    this.onClickAddButton,
+  });
 
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      onPressed: () {
-        context.pushNamed(add.name!);
-      },
+      onPressed: onClickAddButton,
       icon: const Icon(Icons.add),
     );
   }

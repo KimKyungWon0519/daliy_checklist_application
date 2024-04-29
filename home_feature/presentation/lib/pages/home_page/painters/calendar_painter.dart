@@ -9,10 +9,13 @@ class CalendarPainter extends CustomPainter {
 
   final List<_DayPanel> _dayPanels = [];
 
+  final Color highlightDayColor;
+
   CalendarPainter({
     required this.localizations,
     required this.dateTime,
     required this.selectDateTime,
+    required this.highlightDayColor,
   });
 
   @override
@@ -146,6 +149,7 @@ class CalendarPainter extends CustomPainter {
               DateTime.now(), dateTime.copyWith(day: currentDay)),
           isSelect: DateUtils.isSameDay(
               dateTime.copyWith(day: currentDay), selectDateTime),
+          highlightDayColor: highlightDayColor,
         ));
       } else {
         days.add(_Day.isInactive(name: '${currentDay - maxDayInMonth}'));
@@ -198,6 +202,7 @@ class _Day {
   final bool isCurrent;
   final bool isSelect;
   final bool isActive;
+  final Color highlightDayColor;
 
   const _Day(
     this.name, {
@@ -205,12 +210,14 @@ class _Day {
     required this.isCurrent,
     required this.isActive,
     required this.isSelect,
+    this.highlightDayColor = Colors.transparent,
   });
 
   factory _Day.isActive({
     required String name,
     required bool isCurrent,
     required bool isSelect,
+    required Color highlightDayColor,
   }) =>
       _Day(
         name,
@@ -218,6 +225,7 @@ class _Day {
         isCurrent: isCurrent,
         isSelect: isSelect,
         isActive: true,
+        highlightDayColor: highlightDayColor,
       );
 
   factory _Day.isInactive({
@@ -247,7 +255,7 @@ class _Day {
             offset.dy + textPainter.height / 2,
           ),
           textPainter.height,
-          Paint()..color = Colors.teal);
+          Paint()..color = highlightDayColor);
     }
 
     textPainter.paint(
