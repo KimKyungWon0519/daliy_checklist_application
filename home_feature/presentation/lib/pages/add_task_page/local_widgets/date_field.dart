@@ -18,9 +18,7 @@ class DateField extends ConsumerWidget {
     final SelectedDate selectedDate = ref.watch(selectedDateProvider);
 
     return TextField(
-      controller: TextEditingController(
-        text: DateFormat('yyyy/MM/dd').format(selectedDate.startDate),
-      ),
+      controller: TextEditingController(text: _formatText(selectedDate)),
       decoration: const InputDecoration(
         labelText: '날짜',
         icon: Icon(Icons.calendar_month),
@@ -34,6 +32,20 @@ class DateField extends ConsumerWidget {
         _onClickEvent(ref, context);
       },
     );
+  }
+
+  String _formatText(final SelectedDate selectedDate) {
+    final DateFormat dateFormat = DateFormat('yyyy/MM/dd');
+
+    final String startDate = dateFormat.format(selectedDate.startDate);
+
+    if (selectedDate.endDate != null) {
+      final String endDate = dateFormat.format(selectedDate.endDate!);
+
+      return '$startDate ~ $endDate';
+    }
+
+    return startDate;
   }
 
   void _onClickEvent(final WidgetRef ref, final BuildContext context) {
@@ -55,7 +67,13 @@ class DateField extends ConsumerWidget {
       firstDate: DateTime(1900),
       lastDate: DateTime(2300),
       initialDate: ref.read(selectedDateProvider).startDate,
-    );
+    ).then((value) {
+      if (value == null) return;
+
+      ref
+          .read(selectedDateProvider.notifier)
+          .update((state) => state = state.copyWith(startDate: value));
+    });
   }
 
   void _changePeriod(final WidgetRef ref, final BuildContext context) {
