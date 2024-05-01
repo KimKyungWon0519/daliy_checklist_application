@@ -79,10 +79,19 @@ class DateField extends ConsumerWidget {
   }
 
   void _changePeriod(final WidgetRef ref, final BuildContext context) {
+    final SelectedDate selectedDate = ref.read(selectedDateProvider);
+
     showDateRangePicker(
       context: context,
-      firstDate: DateTime(1900),
-      lastDate: DateTime(2300),
-    );
+      firstDate: DateTime(selectedDate.startDate.year - 100),
+      lastDate: DateTime(selectedDate.endDate!.year + 100),
+      initialDateRange: DateTimeRange(
+          start: selectedDate.startDate, end: selectedDate.endDate!),
+    ).then((value) {
+      if (value == null) return;
+
+      ref.read(selectedDateProvider.notifier).update((state) =>
+          state = state.copyWith(startDate: value.start, endDate: value.end));
+    });
   }
 }
