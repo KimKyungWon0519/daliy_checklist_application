@@ -5,7 +5,7 @@ import 'task_panel_body.dart';
 import 'task_panel_header.dart';
 
 class TaskSheet extends StatefulWidget {
-  final VoidCallback? onClickAddButton;
+  final Function(DateTime)? onClickAddButton;
   final StateProvider<DateTime> selectedDateProvider;
 
   const TaskSheet({
@@ -60,7 +60,7 @@ class _TaskSheetState extends State<TaskSheet> {
 class _TaskPanel extends StatelessWidget {
   final DraggableScrollableController? controller;
   final ScrollController? scrollController;
-  final VoidCallback? onClickAddButton;
+  final Function(DateTime)? onClickAddButton;
   final StateProvider<DateTime> selectedDateProvider;
 
   const _TaskPanel({

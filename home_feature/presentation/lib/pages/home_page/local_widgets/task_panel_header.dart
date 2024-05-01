@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 class Header extends SliverPersistentHeaderDelegate {
   final DraggableScrollableController? draggableSheetController;
   final ScrollController? scrollController;
-  final VoidCallback? onClickAddButton;
+  final Function(DateTime)? onClickAddButton;
   final StateProvider<DateTime> selectedDateProvider;
 
   const Header({
@@ -100,7 +100,7 @@ class _Handle extends StatelessWidget {
 }
 
 class _Title extends ConsumerWidget {
-  final VoidCallback? onClickAddButton;
+  final Function(DateTime)? onClickAddButton;
   final StateProvider<DateTime> selectedDateProvider;
 
   const _Title({
@@ -121,25 +121,34 @@ class _Title extends ConsumerWidget {
         centerTitle: true,
         title: Text(DateFormat('yyyy/MM/dd').format(selectedDateTime)),
         actions: [
-          _AddIconButton(onClickAddButton: onClickAddButton),
+          _AddIconButton(
+            onClickAddButton: onClickAddButton,
+            selectedDateProvider: selectedDateProvider,
+          ),
         ],
       ),
     );
   }
 }
 
-class _AddIconButton extends StatelessWidget {
-  final VoidCallback? onClickAddButton;
+class _AddIconButton extends ConsumerWidget {
+  final Function(DateTime)? onClickAddButton;
+  final StateProvider<DateTime> selectedDateProvider;
 
   const _AddIconButton({
     super.key,
     this.onClickAddButton,
+    required this.selectedDateProvider,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return IconButton(
-      onPressed: onClickAddButton,
+      onPressed: () {
+        DateTime selectedDate = ref.read(selectedDateProvider);
+
+        onClickAddButton?.call(selectedDate);
+      },
       icon: const Icon(Icons.add),
     );
   }

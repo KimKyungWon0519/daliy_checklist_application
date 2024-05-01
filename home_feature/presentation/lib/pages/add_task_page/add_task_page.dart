@@ -1,4 +1,6 @@
+import 'package:domain/domain.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:presentation/constants/app_constants.dart';
 import 'package:presentation/pages/add_task_page/local_widgets/date_field.dart';
 import 'package:presentation/pages/add_task_page/local_widgets/date_range_type_chips.dart';
@@ -7,12 +9,25 @@ import 'package:presentation/presenters/viewmodels/add_viewmodel.dart';
 import 'local_widgets/add_button.dart';
 import 'local_widgets/goal_field.dart';
 
-class AddTaskPage extends StatelessWidget {
-  const AddTaskPage({super.key});
+class AddTaskPage extends ConsumerWidget {
+  final DateTime initialDate;
+
+  const AddTaskPage({
+    super.key,
+    required this.initialDate,
+  });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final AddViewModel addViewModel = viewModelProvider<AddViewModel>();
+
+    WidgetsBinding.instance.addPostFrameCallback(
+      (timeStamp) {
+        ref
+            .read(addViewModel.selectedDateProvider.notifier)
+            .update((state) => state.copyWith(startDate: initialDate));
+      },
+    );
 
     return Scaffold(
       appBar: AppBar(
@@ -36,7 +51,10 @@ class AddTaskPage extends StatelessWidget {
               DateRangePicker(
                 dateTypeProvider: addViewModel.dateTypeProvider,
               ),
-              const DateField(),
+              DateField(
+                dateTypeProvider: addViewModel.dateTypeProvider,
+                selectedDateProvider: addViewModel.selectedDateProvider,
+              ),
             ],
           ),
         ),
