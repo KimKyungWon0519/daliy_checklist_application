@@ -62,11 +62,13 @@ class DateField extends ConsumerWidget {
   }
 
   void _changeDaily(final WidgetRef ref, final BuildContext context) {
+    final DateTime startDate = ref.read(selectedDateProvider).startDate;
+
     showDatePicker(
       context: context,
-      firstDate: DateTime(1900),
-      lastDate: DateTime(2300),
-      initialDate: ref.read(selectedDateProvider).startDate,
+      firstDate: DateTime(startDate.year - 100),
+      lastDate: DateTime(startDate.month + 100),
+      initialDate: startDate,
     ).then((value) {
       if (value == null) return;
 
