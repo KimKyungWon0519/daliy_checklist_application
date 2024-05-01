@@ -1,5 +1,3 @@
-import 'package:domain/domain.dart';
-
 class SelectedDate {
   final DateTime startDate;
   final DateTime? endDate;
@@ -19,5 +17,9 @@ class SelectedDate {
       startDate: startDate ?? this.startDate,
       endDate: endDate ?? this.endDate,
     );
+  }
+
+  SelectedDate deleteEndDate() {
+    return SelectedDate(startDate: startDate);
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:presentation/constants/app_constants.dart';
+import 'package:presentation/constants/ui_constants.dart';
 import 'package:presentation/presenters/viewmodels/home_viewmodel.dart';
 
 import 'local_widgets/custom_calendar.dart';
@@ -34,7 +35,7 @@ class _HomePageState extends State<HomePage> {
         child: Stack(
           children: [
             Padding(
-              padding: const EdgeInsets.all(8),
+              padding: bodyPadding,
               child: CustomCalendar(
                 selectedDateProvider: _viewModel.selectedDateProvider,
               ),

@@ -50,6 +50,7 @@ class AddTaskPage extends ConsumerWidget {
               const Divider(),
               DateRangePicker(
                 dateTypeProvider: addViewModel.dateTypeProvider,
+                selectedDateProvider: addViewModel.selectedDateProvider,
               ),
               DateField(
                 dateTypeProvider: addViewModel.dateTypeProvider,

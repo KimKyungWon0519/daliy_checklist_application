@@ -67,7 +67,7 @@ class DateField extends ConsumerWidget {
     showDatePicker(
       context: context,
       firstDate: DateTime(startDate.year - 100),
-      lastDate: DateTime(startDate.month + 100),
+      lastDate: DateTime(startDate.year + 100),
       initialDate: startDate,
     ).then((value) {
       if (value == null) return;
