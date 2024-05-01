@@ -1,3 +1,5 @@
+import 'package:domain/domain.dart';
+
 class SelectedDate {
   final DateTime startDate;
   final DateTime? endDate;
@@ -6,6 +8,8 @@ class SelectedDate {
     required this.startDate,
     this.endDate,
   });
+
+  factory SelectedDate.empty() => SelectedDate(startDate: DateTime.now());
 
   SelectedDate copyWith({
     DateTime? startDate,
