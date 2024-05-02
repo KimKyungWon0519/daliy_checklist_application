@@ -7,7 +7,7 @@ import 'local_widgets/custom_calendar.dart';
 import 'local_widgets/task_sheet.dart';
 
 class HomePage extends StatefulWidget {
-  final Function(DateTime)? onClickAddButton;
+  final void Function(DateTime)? onClickAddButton;
 
   const HomePage({
     super.key,

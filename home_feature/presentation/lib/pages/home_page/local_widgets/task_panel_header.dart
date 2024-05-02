@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:presentation/constants/ui_constants.dart';
 
 class Header extends SliverPersistentHeaderDelegate {
+  final _headerSize = kToolbarHeight + 10;
+
   final DraggableScrollableController? draggableSheetController;
   final ScrollController? scrollController;
   final Function(DateTime)? onClickAddButton;
@@ -44,20 +47,20 @@ class Header extends SliverPersistentHeaderDelegate {
   }
 
   @override
-  double get maxExtent => kToolbarHeight + 10;
+  double get maxExtent => _headerSize;
 
   @override
-  double get minExtent => kToolbarHeight + 10;
+  double get minExtent => _headerSize;
 
   @override
   bool shouldRebuild(covariant Header oldDelegate) {
     return true;
   }
 
-  void onDragUpdate(double offsetY, double height) {
+  void onDragUpdate(final double offsetY, final double height) {
     double moveOffset = 1 - offsetY / height;
 
-    moveOffset = moveOffset.clamp(0.25, 1);
+    moveOffset = moveOffset.clamp(taskListPanelMinSize, taskListPanelMaxSize);
 
     draggableSheetController?.jumpTo(moveOffset);
   }
@@ -66,14 +69,15 @@ class Header extends SliverPersistentHeaderDelegate {
     if (draggableSheetController == null) return;
 
     final DraggableScrollableController controller = draggableSheetController!;
-    final double medianSize = (0.25 + 1) / 2, currentSize = controller.size;
+    final double medianSize = (taskListPanelMinSize + taskListPanelMaxSize) / 2,
+        currentSize = controller.size;
 
-    double movementSize = 0.25;
+    double movementSize = taskListPanelMinSize;
 
     if (currentSize >= medianSize) {
-      movementSize = 1;
+      movementSize = taskListPanelMaxSize;
     } else {
-      movementSize = 0.25;
+      movementSize = taskListPanelMinSize;
       scrollController?.jumpTo(0);
     }
 

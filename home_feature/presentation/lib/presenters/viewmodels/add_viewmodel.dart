@@ -13,7 +13,7 @@ class AddViewModel {
     taskProvider = StateProvider<Task>((ref) => Task.empty());
   }
 
-  void addTask(Task task) {
+  void addTask(final Task task) {
     log(task.toString());
   }
 }

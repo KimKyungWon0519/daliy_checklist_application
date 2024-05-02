@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:presentation/constants/ui_constants.dart';
 
 import 'task_panel_body.dart';
 import 'task_panel_header.dart';
@@ -32,9 +33,9 @@ class _TaskSheetState extends State<TaskSheet> {
   Widget build(BuildContext context) {
     return DraggableScrollableSheet(
       controller: _controller,
-      initialChildSize: 0.25,
-      minChildSize: 0.25,
-      maxChildSize: 1,
+      initialChildSize: taskListPanelMinSize,
+      minChildSize: taskListPanelMinSize,
+      maxChildSize: taskListPanelMaxSize,
       snap: true,
       builder: (context, scrollController) {
         return Container(
