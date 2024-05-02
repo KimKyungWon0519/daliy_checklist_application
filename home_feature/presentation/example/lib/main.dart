@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import 'package:presentation/pages/add_task_page/add_task_page.dart';
 import 'package:presentation/pages/home_page/home_page.dart';
 import 'package:presentation/presentation.dart';
@@ -25,15 +26,26 @@ class MainApp extends StatelessWidget {
               path: '/home',
               name: 'home',
               builder: (context, state) => HomePage(
-                    onClickAddButton: () {
-                      context.pushNamed('add');
+                    onClickAddButton: (DateTime selectedDate) {
+                      context.pushNamed(
+                        'add',
+                        pathParameters: {
+                          'start_date':
+                              DateFormat('yyyy/MM/dd').format(selectedDate),
+                        },
+                      );
                     },
                   ),
               routes: [
                 GoRoute(
-                  path: 'add',
+                  path: 'add/:start_date',
                   name: 'add',
-                  builder: (context, state) => const AddTaskPage(),
+                  builder: (context, state) {
+                    final DateTime initialDate = DateFormat('yyyy/MM/dd')
+                        .parse(state.pathParameters['start_date']!);
+
+                    return AddTaskPage(initialDate: initialDate);
+                  },
                 ),
               ]),
         ],
