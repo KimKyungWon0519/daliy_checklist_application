@@ -1,15 +1,16 @@
 import 'package:domain/domain.dart';
+import 'package:domain/model/task.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class DateRangePicker extends StatelessWidget {
   final StateProvider<DateType> dateTypeProvider;
-  final StateProvider<SelectedDate> selectedDateProvider;
+  final StateProvider<Task> taskProvider;
 
   const DateRangePicker({
     super.key,
     required this.dateTypeProvider,
-    required this.selectedDateProvider,
+    required this.taskProvider,
   });
 
   @override
@@ -18,12 +19,12 @@ class DateRangePicker extends StatelessWidget {
       children: [
         _DailyChip(
           dateTypeProvider: dateTypeProvider,
-          selectedDateProvider: selectedDateProvider,
+          taskProvider: taskProvider,
         ),
         const SizedBox(width: 10),
         _PeriodChip(
           dateTypeProvider: dateTypeProvider,
-          selectedDateProvider: selectedDateProvider,
+          taskProvider: taskProvider,
         ),
       ],
     );
@@ -32,12 +33,12 @@ class DateRangePicker extends StatelessWidget {
 
 class _DailyChip extends StatelessWidget {
   final StateProvider<DateType> dateTypeProvider;
-  final StateProvider<SelectedDate> selectedDateProvider;
+  final StateProvider<Task> taskProvider;
 
   const _DailyChip({
     super.key,
     required this.dateTypeProvider,
-    required this.selectedDateProvider,
+    required this.taskProvider,
   });
 
   @override
@@ -46,19 +47,19 @@ class _DailyChip extends StatelessWidget {
       label: '하루',
       value: DateType.daily,
       dateTypeProvider: dateTypeProvider,
-      selectedDateProvider: selectedDateProvider,
+      taskProvider: taskProvider,
     );
   }
 }
 
 class _PeriodChip extends StatelessWidget {
   final StateProvider<DateType> dateTypeProvider;
-  final StateProvider<SelectedDate> selectedDateProvider;
+  final StateProvider<Task> taskProvider;
 
   const _PeriodChip({
     super.key,
     required this.dateTypeProvider,
-    required this.selectedDateProvider,
+    required this.taskProvider,
   });
 
   @override
@@ -67,7 +68,7 @@ class _PeriodChip extends StatelessWidget {
       label: '기간',
       value: DateType.period,
       dateTypeProvider: dateTypeProvider,
-      selectedDateProvider: selectedDateProvider,
+      taskProvider: taskProvider,
     );
   }
 }
@@ -75,14 +76,14 @@ class _PeriodChip extends StatelessWidget {
 class _BaseChip extends ConsumerWidget {
   final String label;
   final StateProvider<DateType> dateTypeProvider;
-  final StateProvider<SelectedDate> selectedDateProvider;
+  final StateProvider<Task> taskProvider;
   final DateType value;
 
   const _BaseChip({
     super.key,
     required this.label,
     required this.dateTypeProvider,
-    required this.selectedDateProvider,
+    required this.taskProvider,
     required this.value,
   });
 
@@ -115,13 +116,21 @@ class _BaseChip extends ConsumerWidget {
   void _changeSelectedDate(final DateType type, final WidgetRef ref) {
     switch (type) {
       case DateType.daily:
-        ref
-            .read(selectedDateProvider.notifier)
-            .update((state) => state = state.deleteEndDate());
+        ref.read(taskProvider.notifier).update((state) {
+          SelectedDate selectedDate = state.selectedDate;
+
+          return state.copyWith(selectedDate: selectedDate.deleteEndDate());
+        });
         break;
       case DateType.period:
-        ref.read(selectedDateProvider.notifier).update((state) => state = state
-            .copyWith(endDate: state.startDate.add(const Duration(days: 1))));
+        ref.read(taskProvider.notifier).update((state) {
+          SelectedDate selectedDate = state.selectedDate;
+          DateTime endDate =
+              selectedDate.startDate.add(const Duration(days: 1));
+
+          return state.copyWith(
+              selectedDate: selectedDate.copyWith(endDate: endDate));
+        });
         break;
     }
   }

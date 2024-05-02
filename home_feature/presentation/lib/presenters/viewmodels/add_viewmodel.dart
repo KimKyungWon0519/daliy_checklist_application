@@ -1,15 +1,15 @@
 import 'package:domain/domain.dart';
+import 'package:domain/model/task.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class AddViewModel {
   late final StateProvider<DateType> dateTypeProvider;
-  late final StateProvider<SelectedDate> selectedDateProvider;
-
-  String goalText = '';
+  late final StateProvider<Task> taskProvider;
 
   AddViewModel() {
     dateTypeProvider = StateProvider<DateType>((ref) => DateType.daily);
-    selectedDateProvider =
-        StateProvider<SelectedDate>((ref) => SelectedDate.empty());
+    taskProvider = StateProvider<Task>((ref) => Task.empty());
   }
+
+  void addTask(Task task) {}
 }

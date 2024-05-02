@@ -1,24 +1,25 @@
 import 'package:domain/domain.dart';
+import 'package:domain/model/task.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
 class DateField extends ConsumerWidget {
   final StateProvider<DateType> dateTypeProvider;
-  final StateProvider<SelectedDate> selectedDateProvider;
+  final StateProvider<Task> taskProvider;
 
   const DateField({
     super.key,
     required this.dateTypeProvider,
-    required this.selectedDateProvider,
+    required this.taskProvider,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final SelectedDate selectedDate = ref.watch(selectedDateProvider);
+    final Task task = ref.watch(taskProvider);
 
     return TextField(
-      controller: TextEditingController(text: _formatText(selectedDate)),
+      controller: TextEditingController(text: _formatText(task.selectedDate)),
       decoration: const InputDecoration(
         labelText: '날짜',
         icon: Icon(Icons.calendar_month),
@@ -62,7 +63,7 @@ class DateField extends ConsumerWidget {
   }
 
   void _changeDaily(final WidgetRef ref, final BuildContext context) {
-    final DateTime startDate = ref.read(selectedDateProvider).startDate;
+    final DateTime startDate = ref.read(taskProvider).selectedDate.startDate;
 
     showDatePicker(
       context: context,
@@ -72,14 +73,17 @@ class DateField extends ConsumerWidget {
     ).then((value) {
       if (value == null) return;
 
-      ref
-          .read(selectedDateProvider.notifier)
-          .update((state) => state = state.copyWith(startDate: value));
+      ref.read(taskProvider.notifier).update((state) {
+        SelectedDate selectedDate = state.selectedDate;
+
+        return state.copyWith(
+            selectedDate: selectedDate.copyWith(startDate: value));
+      });
     });
   }
 
   void _changePeriod(final WidgetRef ref, final BuildContext context) {
-    final SelectedDate selectedDate = ref.read(selectedDateProvider);
+    final SelectedDate selectedDate = ref.read(taskProvider).selectedDate;
 
     showDateRangePicker(
       context: context,
@@ -90,8 +94,13 @@ class DateField extends ConsumerWidget {
     ).then((value) {
       if (value == null) return;
 
-      ref.read(selectedDateProvider.notifier).update((state) =>
-          state = state.copyWith(startDate: value.start, endDate: value.end));
+      ref.read(taskProvider.notifier).update((state) {
+        return state.copyWith(
+            selectedDate: SelectedDate(
+          startDate: value.start,
+          endDate: value.end,
+        ));
+      });
     });
   }
 }

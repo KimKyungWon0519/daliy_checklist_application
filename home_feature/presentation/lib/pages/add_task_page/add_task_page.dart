@@ -1,4 +1,5 @@
 import 'package:domain/domain.dart';
+import 'package:domain/model/task.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:presentation/constants/app_constants.dart';
@@ -23,17 +24,22 @@ class AddTaskPage extends ConsumerWidget {
 
     WidgetsBinding.instance.addPostFrameCallback(
       (timeStamp) {
-        ref
-            .read(addViewModel.selectedDateProvider.notifier)
-            .update((state) => state.copyWith(startDate: initialDate));
+        ref.read(addViewModel.taskProvider.notifier).update((state) =>
+            state.copyWith(selectedDate: SelectedDate(startDate: initialDate)));
       },
     );
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('새로운 목표'),
-        actions: const [
-          AddButton(),
+        actions: [
+          AddButton(
+            onPressed: () {
+              final Task task = ref.read(addViewModel.taskProvider);
+
+              addViewModel.addTask(task);
+            },
+          ),
         ],
       ),
       body: Padding(
@@ -47,16 +53,20 @@ class AddTaskPage extends ConsumerWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               GoalField(
-                onChanged: (value) => addViewModel.goalText = value,
+                onChanged: (value) {
+                  ref
+                      .read(addViewModel.taskProvider.notifier)
+                      .update((state) => state.copyWith(goal: value));
+                },
               ),
               const Divider(),
               DateRangePicker(
                 dateTypeProvider: addViewModel.dateTypeProvider,
-                selectedDateProvider: addViewModel.selectedDateProvider,
+                taskProvider: addViewModel.taskProvider,
               ),
               DateField(
                 dateTypeProvider: addViewModel.dateTypeProvider,
-                selectedDateProvider: addViewModel.selectedDateProvider,
+                taskProvider: addViewModel.taskProvider,
               ),
             ],
           ),

@@ -20,4 +20,9 @@ class Task {
       selectedDate: selectedDate ?? this.selectedDate,
     );
   }
+
+  @override
+  String toString() {
+    return 'goal : $goal, selectedDate : $selectedDate';
+  }
 }

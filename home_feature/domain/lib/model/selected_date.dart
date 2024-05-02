@@ -22,4 +22,9 @@ class SelectedDate {
   SelectedDate deleteEndDate() {
     return SelectedDate(startDate: startDate);
   }
+
+  @override
+  String toString() {
+    return 'startDate : $startDate, endDate : $endDate';
+  }
 }
