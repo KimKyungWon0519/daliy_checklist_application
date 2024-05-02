@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 
 class GoalField extends StatelessWidget {
-  const GoalField({super.key});
+  final void Function(String value) onChanged;
+
+  const GoalField({
+    super.key,
+    required this.onChanged,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return const TextField(
-      decoration: InputDecoration(
+    return TextField(
+      onChanged: onChanged,
+      decoration: const InputDecoration(
         labelText: '목표',
         icon: Icon(Icons.short_text_rounded),
         contentPadding: EdgeInsets.all(8),

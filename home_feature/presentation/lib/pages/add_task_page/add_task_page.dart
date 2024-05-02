@@ -46,7 +46,9 @@ class AddTaskPage extends ConsumerWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const GoalField(),
+              GoalField(
+                onChanged: (value) => addViewModel.goalText = value,
+              ),
               const Divider(),
               DateRangePicker(
                 dateTypeProvider: addViewModel.dateTypeProvider,
