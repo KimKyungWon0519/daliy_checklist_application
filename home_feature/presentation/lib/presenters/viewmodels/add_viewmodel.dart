@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:domain/domain.dart';
 import 'package:domain/model/task.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -11,5 +13,7 @@ class AddViewModel {
     taskProvider = StateProvider<Task>((ref) => Task.empty());
   }
 
-  void addTask(Task task) {}
+  void addTask(Task task) {
+    log(task.toString());
+  }
 }
