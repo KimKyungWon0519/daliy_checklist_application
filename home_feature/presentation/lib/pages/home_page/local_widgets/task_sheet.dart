@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:home_feature/constants/ui_constants.dart';
 
 import 'task_panel_body.dart';
 import 'task_panel_header.dart';
 
 class TaskSheet extends StatefulWidget {
-  final VoidCallback? onClickAddButton;
+  final Function(DateTime)? onClickAddButton;
+  final StateProvider<DateTime> selectedDateProvider;
 
   const TaskSheet({
     super.key,
     this.onClickAddButton,
+    required this.selectedDateProvider,
   });
 
   @override
@@ -29,9 +33,9 @@ class _TaskSheetState extends State<TaskSheet> {
   Widget build(BuildContext context) {
     return DraggableScrollableSheet(
       controller: _controller,
-      initialChildSize: 0.25,
-      minChildSize: 0.25,
-      maxChildSize: 1,
+      initialChildSize: taskListPanelMinSize,
+      minChildSize: taskListPanelMinSize,
+      maxChildSize: taskListPanelMaxSize,
       snap: true,
       builder: (context, scrollController) {
         return Container(
@@ -46,6 +50,7 @@ class _TaskSheetState extends State<TaskSheet> {
             controller: _controller,
             scrollController: scrollController,
             onClickAddButton: widget.onClickAddButton,
+            selectedDateProvider: widget.selectedDateProvider,
           ),
         );
       },
@@ -56,13 +61,15 @@ class _TaskSheetState extends State<TaskSheet> {
 class _TaskPanel extends StatelessWidget {
   final DraggableScrollableController? controller;
   final ScrollController? scrollController;
-  final VoidCallback? onClickAddButton;
+  final Function(DateTime)? onClickAddButton;
+  final StateProvider<DateTime> selectedDateProvider;
 
   const _TaskPanel({
     super.key,
     this.controller,
     this.scrollController,
     this.onClickAddButton,
+    required this.selectedDateProvider,
   });
 
   @override
@@ -75,6 +82,7 @@ class _TaskPanel extends StatelessWidget {
             draggableSheetController: controller,
             scrollController: scrollController,
             onClickAddButton: onClickAddButton,
+            selectedDateProvider: selectedDateProvider,
           ),
           pinned: true,
         ),

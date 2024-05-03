@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:presentation/constants/app_constants.dart';
-import 'package:presentation/pages/home_page/painters/calendar_painter.dart';
-import 'package:presentation/presenters/viewmodels/home_viewmodel.dart';
+import 'package:home_feature/constants/ui_constants.dart';
+import 'package:home_feature/pages/home_page/painters/calendar_painter.dart';
 
 class _CalendarProvider extends InheritedWidget {
   final DateTime selectedDateTime;
@@ -20,11 +19,11 @@ class _CalendarProvider extends InheritedWidget {
     required this.localizations,
   });
 
-  static _CalendarProvider? maybeOf(BuildContext context) {
+  static _CalendarProvider? maybeOf(final BuildContext context) {
     return context.dependOnInheritedWidgetOfExactType<_CalendarProvider>();
   }
 
-  static _CalendarProvider of(BuildContext context) {
+  static _CalendarProvider of(final BuildContext context) {
     final _CalendarProvider? result = maybeOf(context);
 
     assert(result != null, 'No CalendarProvider found in context');
@@ -41,33 +40,30 @@ class _CalendarProvider extends InheritedWidget {
 }
 
 class CustomCalendar extends ConsumerStatefulWidget {
-  const CustomCalendar({super.key});
+  final StateProvider<DateTime> selectedDateProvider;
+
+  const CustomCalendar({
+    super.key,
+    required this.selectedDateProvider,
+  });
 
   @override
   ConsumerState<CustomCalendar> createState() => _CustomCalendarState();
 }
 
 class _CustomCalendarState extends ConsumerState<CustomCalendar> {
-  late final HomeViewModel _homeViewModel;
   late DateTime _viewDateTime;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _homeViewModel = viewModelProvider<HomeViewModel>();
-  }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    _viewDateTime = ref.read(_homeViewModel.selectedDateProvider);
+    _viewDateTime = ref.read(widget.selectedDateProvider);
   }
 
   @override
   Widget build(BuildContext context) {
-    DateTime selectedDateTime = ref.watch(_homeViewModel.selectedDateProvider);
+    final DateTime selectedDateTime = ref.watch(widget.selectedDateProvider);
 
     return _CalendarProvider(
       selectedDateTime: selectedDateTime,
@@ -75,8 +71,8 @@ class _CustomCalendarState extends ConsumerState<CustomCalendar> {
       localizations: MaterialLocalizations.of(context),
       onPressedDay: (selectedDateTime) {
         ref
-            .read(_homeViewModel.selectedDateProvider.notifier)
-            .update((state) => state = selectedDateTime);
+            .read(widget.selectedDateProvider.notifier)
+            .update((state) => selectedDateTime);
       },
       onChangeMonth: (dateTime) {
         setState(() {
@@ -102,7 +98,7 @@ class _MonthHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    _CalendarProvider calendarProvider = _CalendarProvider.of(context);
+    final _CalendarProvider calendarProvider = _CalendarProvider.of(context);
 
     return Text(
       calendarProvider.monthName,
@@ -122,8 +118,6 @@ class _MonthPageView extends StatefulWidget {
 }
 
 class _MonthPageViewState extends State<_MonthPageView> {
-  final int _maxDateMonth = 100;
-
   late final PageController _pageController;
   late final int _dateLength;
 
@@ -140,7 +134,7 @@ class _MonthPageViewState extends State<_MonthPageView> {
 
   @override
   Widget build(BuildContext context) {
-    _CalendarProvider calendarProvider = _CalendarProvider.of(context);
+    final _CalendarProvider calendarProvider = _CalendarProvider.of(context);
 
     return PageView.builder(
       controller: _pageController,
@@ -158,16 +152,20 @@ class _MonthPageViewState extends State<_MonthPageView> {
 
     int month = _currentDate.month;
 
-    _firstDate = _currentDate.copyWith(month: month - _maxDateMonth);
-    _lastDate = _currentDate.copyWith(month: month + _maxDateMonth);
+    _firstDate = _currentDate.copyWith(month: month - dateRange);
+    _lastDate = _currentDate.copyWith(month: month + dateRange);
 
     _dateLength = DateUtils.monthDelta(_firstDate, _lastDate);
 
     _pageController = PageController(initialPage: _dateLength ~/ 2);
   }
 
-  void _changeDate(int monthIndex, _CalendarProvider calendarProvider) {
-    DateTime dateTime = DateUtils.addMonthsToMonthDate(_firstDate, monthIndex);
+  void _changeDate(
+    final int monthIndex,
+    final _CalendarProvider calendarProvider,
+  ) {
+    final DateTime dateTime =
+        DateUtils.addMonthsToMonthDate(_firstDate, monthIndex);
 
     calendarProvider.onChangeMonth(dateTime);
   }
@@ -185,9 +183,9 @@ class _MonthPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    _CalendarProvider calendarProvider = _CalendarProvider.of(context);
+    final _CalendarProvider calendarProvider = _CalendarProvider.of(context);
 
-    CalendarPainter calendarPainter = CalendarPainter(
+    final CalendarPainter calendarPainter = CalendarPainter(
       dateTime: dateTime,
       localizations: calendarProvider.localizations,
       selectDateTime: selectedDateTime,

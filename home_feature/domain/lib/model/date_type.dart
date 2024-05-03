@@ -1,0 +1,4 @@
+enum DateType {
+  daily,
+  period,
+}
