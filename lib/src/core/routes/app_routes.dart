@@ -1,12 +1,35 @@
-import 'package:daily_checklist_application/src/features/home/presentation/pages/home_page.dart';
 import 'package:go_router/go_router.dart';
+import 'package:home_feature/presentation.dart';
+import 'package:intl/intl.dart';
 
 final class AppRoutes {
   const AppRoutes._();
 
   static final GoRoute home = GoRoute(
     path: '/home',
-    builder: (context, state) => const HomePage(),
+    name: 'home',
+    builder: (context, state) => HomePage(
+      onClickAddButton: (DateTime selectedDate) {
+        context.pushNamed(
+          add.name!,
+          pathParameters: {
+            'start_date': DateFormat('yyyy/MM/dd').format(selectedDate),
+          },
+        );
+      },
+    ),
+    routes: [add],
+  );
+
+  static final GoRoute add = GoRoute(
+    path: 'add/:start_date',
+    name: 'add',
+    builder: (context, state) {
+      final DateTime initialDate =
+          DateFormat('yyyy/MM/dd').parse(state.pathParameters['start_date']!);
+
+      return AddTaskPage(initialDate: initialDate);
+    },
   );
 
   static final List<GoRoute> routes = [
