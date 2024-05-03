@@ -2,10 +2,10 @@ import 'package:domain/domain.dart';
 import 'package:domain/model/task.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:presentation/constants/app_constants.dart';
-import 'package:presentation/pages/add_task_page/local_widgets/date_field.dart';
-import 'package:presentation/pages/add_task_page/local_widgets/date_range_type_chips.dart';
-import 'package:presentation/presenters/viewmodels/add_viewmodel.dart';
+import 'package:home_feature/constants/app_constants.dart';
+import 'package:home_feature/pages/add_task_page/local_widgets/date_field.dart';
+import 'package:home_feature/pages/add_task_page/local_widgets/date_range_type_chips.dart';
+import 'package:home_feature/presenters/viewmodels/add_viewmodel.dart';
 
 import 'local_widgets/add_button.dart';
 import 'local_widgets/goal_field.dart';

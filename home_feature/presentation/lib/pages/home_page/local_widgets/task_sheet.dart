@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:presentation/constants/ui_constants.dart';
+import 'package:home_feature/constants/ui_constants.dart';
 
 import 'task_panel_body.dart';
 import 'task_panel_header.dart';

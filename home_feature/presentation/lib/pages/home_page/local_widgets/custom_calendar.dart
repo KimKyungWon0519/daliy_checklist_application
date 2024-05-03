@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:presentation/constants/ui_constants.dart';
-import 'package:presentation/pages/home_page/painters/calendar_painter.dart';
+import 'package:home_feature/constants/ui_constants.dart';
+import 'package:home_feature/pages/home_page/painters/calendar_painter.dart';
 
 class _CalendarProvider extends InheritedWidget {
   final DateTime selectedDateTime;
