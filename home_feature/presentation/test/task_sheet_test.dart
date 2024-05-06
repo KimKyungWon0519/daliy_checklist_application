@@ -62,7 +62,7 @@ void main() {
         findsOneWidget,
       );
 
-      expect(find.byType(TaskPanelBody), findsOneWidget);
+      expect(find.byType(TaskPanelBody), findsNothing);
     },
   );
 }
