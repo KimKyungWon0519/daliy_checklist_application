@@ -4,7 +4,7 @@ on:
   pull_request:
 
 jobs:
-  test:
+  home_feature_test:
     runs-on: ubuntu-latest
 
     steps:
@@ -19,5 +19,5 @@ jobs:
       - name: Get Dependencies
         run: flutter pub get
 
-      - name: Testing presentation on Home Feature
+      - name: Testing presentation
         run: flutter test -- ./home_feature/presentation
