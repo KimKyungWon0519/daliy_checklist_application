@@ -10,4 +10,8 @@ class TaskDatabase {
       directory: directory,
     );
   }
+
+  Future<int> addTask(Task task) {
+    return _isar.writeTxn(() => _isar.tasks.put(task));
+  }
 }
