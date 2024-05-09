@@ -19,5 +19,4 @@ jobs:
       - name: Get Dependencies
         run: flutter pub get
 
-      - name: Testing presentation
-        run: flutter test -- ./home_feature/*
+      - run: flutter test -- ./home_feature/*
