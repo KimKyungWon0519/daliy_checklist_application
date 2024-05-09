@@ -11,6 +11,10 @@ void main() {
     late TaskDatabase taskDatabase;
 
     setUpAll(() async {
+      if (directory.existsSync()) {
+        directory.deleteSync(recursive: true);
+      }
+
       directory.createSync();
 
       await Isar.initializeIsarCore(download: true);
@@ -28,6 +32,16 @@ void main() {
         int result = await taskDatabase.addTask(task);
 
         expect(result, i);
+      }
+    });
+
+    test('get all task', () async {
+      List<Task> tasks = await taskDatabase.getAllTask();
+
+      expect(tasks.length, 3);
+
+      for (int i = 0; i < 2; i++) {
+        expect(tasks[i].id, i + 1);
       }
     });
 

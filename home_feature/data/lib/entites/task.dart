@@ -4,13 +4,13 @@ part 'task.g.dart';
 
 @collection
 class Task {
-  final Id id = Isar.autoIncrement;
+  Id id = Isar.autoIncrement;
 
   final String goal;
   final DateTime startDate;
   final DateTime? endDate;
 
-  const Task({
+  Task({
     required this.goal,
     required this.startDate,
     this.endDate,
