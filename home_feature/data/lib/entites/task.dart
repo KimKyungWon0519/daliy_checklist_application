@@ -13,6 +13,6 @@ class Task {
   const Task({
     required this.goal,
     required this.startDate,
-    required this.endDate,
+    this.endDate,
   });
 }
