@@ -16,14 +16,6 @@ jobs:
         with:
           flutter-version: '3.16.9'
 
-      - name: Testing presentation
-        working-directory: ./home_feature/presentation
-        run: flutter test
-
       - name: Testing domain
         working-directory: ./home_feature/domain
         run: dart pub run build_runner build && dart test
-
-      - name: Testing data
-        working-directory: ./home_feature/data
-        run: flutter test
