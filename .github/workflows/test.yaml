@@ -22,4 +22,4 @@ jobs:
 
       - name: Testing data
         working-directory: ./home_feature/data
-        run: dart test
+        run: dart pub run build_runner build && dart test
