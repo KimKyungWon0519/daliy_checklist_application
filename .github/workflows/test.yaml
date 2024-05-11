@@ -19,3 +19,7 @@ jobs:
       - name: Testing domain
         working-directory: ./home_feature/domain
         run: dart pub run build_runner build && dart test
+
+      - name: Testing data
+        working-directory: ./home_feature/data
+        run: dart pub run build_runner build && dart test
