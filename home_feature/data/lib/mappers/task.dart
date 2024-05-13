@@ -10,3 +10,15 @@ extension DomainTaskMapper on Model.Task {
     );
   }
 }
+
+extension DataTaskMapper on Entity.Task {
+  Model.Task toModel() {
+    return Model.Task(
+      goal: goal,
+      selectedDate: Model.SelectedDate(
+        startDate: startDate,
+        endDate: endDate,
+      ),
+    );
+  }
+}
