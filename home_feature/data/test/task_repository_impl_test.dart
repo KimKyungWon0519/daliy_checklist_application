@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:data/data.dart';
+import 'package:data/data_sources/task_database.dart';
 import 'package:data/repositories/task_repository_impl.dart';
 import 'package:domain/domain.dart';
 import 'package:isar/isar.dart';
@@ -37,6 +37,16 @@ void main() {
         int result = await taskRepositoryImpl.addTask(task);
 
         expect(result, i);
+      }
+    });
+
+    test('get all task', () async {
+      List<Task> tasks = await taskRepositoryImpl.getAllTask();
+
+      expect(tasks.length, 3);
+
+      for (int i = 0; i < 2; i++) {
+        expect(tasks[i].goal, equals('test_${i + 1}'));
       }
     });
 
