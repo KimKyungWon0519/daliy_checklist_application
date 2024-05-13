@@ -42,4 +42,22 @@ void main() {
       expect(tasks, equals(sourceTasks));
     });
   });
+
+  test('add task', () async {
+    final TaskRepository taskRepository = MockTaskRepository();
+    final AddTask addTask = AddTask(taskRepository);
+
+    final Task task = Task(
+      goal: 'goal_1',
+      selectedDate: SelectedDate(
+        startDate: DateTime.now(),
+      ),
+    );
+
+    when(taskRepository.addTask(task)).thenAnswer((_) async => 1);
+
+    final int result = await addTask.addTask(task);
+
+    expect(result, 1);
+  });
 }
