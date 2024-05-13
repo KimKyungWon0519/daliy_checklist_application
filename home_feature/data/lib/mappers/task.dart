@@ -1,7 +1,7 @@
 import 'package:data/entites/task.dart' as Entity;
 import 'package:domain/domain.dart' as Model;
 
-extension TaskMapper on Model.Task {
+extension DomainTaskMapper on Model.Task {
   Entity.Task toEntity() {
     return Entity.Task(
       goal: goal,
