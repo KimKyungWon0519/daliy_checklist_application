@@ -3,20 +3,20 @@ import 'package:data/mappers/task.dart';
 import 'package:domain/domain.dart';
 
 class TaskRepositoryImpl implements TaskRepository {
-  final TaskDatabase taskDatabase;
+  late final TaskDatabase _taskDatabase;
 
   TaskRepositoryImpl({
-    required this.taskDatabase,
-  });
+    required TaskDatabase taskDatabase,
+  }) : _taskDatabase = taskDatabase;
 
   @override
   Future<int> addTask(Task task) {
-    return taskDatabase.addTask(task.toEntity());
+    return _taskDatabase.addTask(task.toEntity());
   }
 
   @override
   Future<List<Task>> getAllTask() {
-    return taskDatabase
+    return _taskDatabase
         .getAllTask()
         .then((value) => value.map((e) => e.toModel()).toList());
   }
