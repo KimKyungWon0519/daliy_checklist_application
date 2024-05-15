@@ -36,19 +36,22 @@ void main() {
     });
 
     test('get tasks', () async {
-      when(taskRepository.getAllTask()).thenAnswer((_) async => List.generate(
-            3,
-            (index) => Task(
-              goal: '$index',
-              selectedDate: SelectedDate(
-                startDate: DateTime.now(),
-              ),
-            ),
-          ));
+      List<Task> sourceTasks = List.generate(
+        3,
+        (index) => Task(
+          goal: '$index',
+          selectedDate: SelectedDate(
+            startDate: DateTime.now(),
+          ),
+        ),
+      );
+
+      when(taskRepository.getAllTask()).thenAnswer((_) async => sourceTasks);
 
       final List<Task> tasks = await taskRepository.getAllTask();
 
       expect(tasks.length, 3);
+      expect(tasks, equals(sourceTasks));
     });
   });
 }
