@@ -1,3 +1,7 @@
+# Build Files
+*.g.*
+libisar.so
+
 # Miscellaneous
 *.class
 *.log
