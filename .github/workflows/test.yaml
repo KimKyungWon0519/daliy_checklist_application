@@ -16,7 +16,14 @@ jobs:
         with:
           flutter-version: '3.16.9'
 
-      - name: Get Dependencies
-        run: flutter pub get
+      - name: Testing presentation
+        working-directory: ./home_feature/presentation
+        run: flutter test
 
-      - run: flutter test -- ./home_feature/*
+      - name: Testing domain
+        working-directory: ./home_feature/domain
+        run: dart pub run build_runner build && dart test
+
+      - name: Testing data
+        working-directory: ./home_feature/data
+        run: flutter test
