@@ -1,5 +1,5 @@
-import 'package:home_feature/presentation.dart';
+import 'package:home_feature/home_feature.dart' as HomeFeature;
 
 void init() {
-  initialize();
+  HomeFeature.initialize();
 }

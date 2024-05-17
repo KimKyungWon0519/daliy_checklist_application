@@ -5,7 +5,8 @@ import 'package:intl/intl.dart';
 import 'package:presentation/presentation.dart';
 
 void main() {
-  initialize();
+  viewModelProvider.registerFactory(() => AddViewModel());
+  viewModelProvider.registerFactory(() => HomeViewModel());
 
   runApp(const ProviderScope(child: MainApp()));
 }
