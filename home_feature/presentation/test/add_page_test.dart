@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:get_it/get_it.dart';
 import 'package:presentation/constants/app_constants.dart';
 import 'package:presentation/pages/add_task_page/add_task_page.dart';
 import 'package:presentation/pages/add_task_page/local_widgets/date_field.dart';
@@ -10,7 +9,6 @@ import 'package:presentation/pages/add_task_page/local_widgets/goal_field.dart';
 import 'package:presentation/presenters/viewmodels/add_viewmodel.dart';
 
 void main() {
-  viewModelProvider = GetIt.I;
   viewModelProvider.registerFactory(() => AddViewModel());
   testWidgets('test goal input widget', (widgetTester) async {
     await widgetTester.pumpWidget(
