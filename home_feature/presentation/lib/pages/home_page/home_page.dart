@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:home_feature/constants/app_constants.dart';
-import 'package:home_feature/constants/ui_constants.dart';
-import 'package:home_feature/presenters/viewmodels/home_viewmodel.dart';
+import 'package:presentation/constants/app_constants.dart';
+import 'package:presentation/constants/ui_constants.dart';
+import 'package:presentation/presenters/viewmodels/home_viewmodel.dart';
 
 import 'local_widgets/custom_calendar.dart';
 import 'local_widgets/task_sheet.dart';

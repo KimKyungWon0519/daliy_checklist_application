@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
-import 'package:home_feature/constants/app_constants.dart';
-import 'package:home_feature/pages/home_page/local_widgets/task_panel_body.dart';
-import 'package:home_feature/pages/home_page/local_widgets/task_panel_header.dart';
-import 'package:home_feature/pages/home_page/local_widgets/task_sheet.dart';
-import 'package:home_feature/presenters/viewmodels/home_viewmodel.dart';
+import 'package:presentation/constants/app_constants.dart';
+import 'package:presentation/pages/home_page/local_widgets/task_panel_body.dart';
+import 'package:presentation/pages/home_page/local_widgets/task_panel_header.dart';
+import 'package:presentation/pages/home_page/local_widgets/task_sheet.dart';
+import 'package:presentation/presenters/viewmodels/home_viewmodel.dart';
 
 void main() {
   viewModelProvider = GetIt.I;
