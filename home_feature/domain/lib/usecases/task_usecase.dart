@@ -4,8 +4,9 @@ import 'package:domain/repositories/task_repository.dart';
 class GetTask {
   late final TaskRepository _taskRepository;
 
-  GetTask(final TaskRepository taskRepository)
-      : _taskRepository = taskRepository;
+  GetTask({
+    required final TaskRepository taskRepository,
+  }) : _taskRepository = taskRepository;
 
   Future<List<Task>> getAllTask() {
     return _taskRepository.getAllTask();
@@ -15,8 +16,9 @@ class GetTask {
 class AddTask {
   late final TaskRepository _taskRepository;
 
-  AddTask(final TaskRepository taskRepository)
-      : _taskRepository = taskRepository;
+  AddTask({
+    required final TaskRepository taskRepository,
+  }) : _taskRepository = taskRepository;
 
   Future<int> addTask(Task task) {
     return _taskRepository.addTask(task);
