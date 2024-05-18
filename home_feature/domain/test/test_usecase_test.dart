@@ -12,7 +12,7 @@ import 'test_usecase_test.mocks.dart';
 void main() {
   group('Test Get Task usecase', () {
     final TaskRepository taskRepository = MockTaskRepository();
-    final GetTask getTask = GetTask(taskRepository);
+    final GetTask getTask = GetTask(taskRepository: taskRepository);
 
     test('Test empty get all', () async {
       when(getTask.getAllTask()).thenAnswer((_) async => []);
@@ -45,7 +45,7 @@ void main() {
 
   test('add task', () async {
     final TaskRepository taskRepository = MockTaskRepository();
-    final AddTask addTask = AddTask(taskRepository);
+    final AddTask addTask = AddTask(taskRepository: taskRepository);
 
     final Task task = Task(
       goal: 'goal_1',

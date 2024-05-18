@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:home_feature/home_feature.dart';
 import 'package:intl/intl.dart';
-import 'package:presentation/presentation.dart';
+import 'package:path_provider/path_provider.dart';
 
-void main() {
-  viewModelProvider.registerFactory(() => AddViewModel());
-  viewModelProvider.registerFactory(() => HomeViewModel());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  initialize((await getApplicationDocumentsDirectory()).path);
 
   runApp(const ProviderScope(child: MainApp()));
 }

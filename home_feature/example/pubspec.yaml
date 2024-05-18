@@ -12,8 +12,9 @@ dependencies:
   flutter_riverpod: ^2.5.1
   go_router: ^14.0.0
   intl: ^0.19.0
-  presentation:
+  home_feature:
     path: ../
+  path_provider: ^2.1.3
 
 dev_dependencies:
   flutter_test:
