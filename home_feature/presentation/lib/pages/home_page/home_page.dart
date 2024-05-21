@@ -7,11 +7,11 @@ import 'local_widgets/custom_calendar.dart';
 import 'local_widgets/task_sheet.dart';
 
 class HomePage extends StatefulWidget {
-  final void Function(DateTime)? onClickAddButton;
+  final void Function(DateTime)? pageNavigator;
 
   const HomePage({
     super.key,
-    this.onClickAddButton,
+    this.pageNavigator,
   });
 
   @override
@@ -42,8 +42,9 @@ class _HomePageState extends State<HomePage> {
             ),
             SizedBox.expand(
               child: TaskSheet(
-                onClickAddButton: widget.onClickAddButton,
+                pageNavigator: widget.pageNavigator,
                 selectedDateProvider: _viewModel.selectedDateProvider,
+                tasksProvider: _viewModel.tasksProvider,
               ),
             ),
           ],

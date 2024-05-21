@@ -17,9 +17,10 @@ void main() {
         child: MaterialApp(
           home: Scaffold(
             body: TaskSheet(
-              onClickAddButton: null,
+              pageNavigator: null,
               selectedDateProvider:
                   viewModelProvider<HomeViewModel>().selectedDateProvider,
+              tasksProvider: viewModelProvider<HomeViewModel>().tasksProvider,
             ),
           ),
         ),

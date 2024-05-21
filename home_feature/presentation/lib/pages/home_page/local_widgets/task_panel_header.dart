@@ -8,13 +8,13 @@ class Header extends SliverPersistentHeaderDelegate {
 
   final DraggableScrollableController? draggableSheetController;
   final ScrollController? scrollController;
-  final Function(DateTime)? onClickAddButton;
+  final Function(DateTime)? pageNavigator;
   final StateProvider<DateTime> selectedDateProvider;
 
   const Header({
     this.draggableSheetController,
     this.scrollController,
-    this.onClickAddButton,
+    this.pageNavigator,
     required this.selectedDateProvider,
   });
 
@@ -37,7 +37,7 @@ class Header extends SliverPersistentHeaderDelegate {
           children: [
             const _Handle(),
             _Title(
-              onClickAddButton: onClickAddButton,
+              pageNavigator: pageNavigator,
               selectedDateProvider: selectedDateProvider,
             ),
           ],
@@ -104,12 +104,12 @@ class _Handle extends StatelessWidget {
 }
 
 class _Title extends ConsumerWidget {
-  final Function(DateTime)? onClickAddButton;
+  final Function(DateTime)? pageNavigator;
   final StateProvider<DateTime> selectedDateProvider;
 
   const _Title({
     super.key,
-    this.onClickAddButton,
+    this.pageNavigator,
     required this.selectedDateProvider,
   });
 
@@ -126,7 +126,7 @@ class _Title extends ConsumerWidget {
         title: Text(DateFormat('yyyy/MM/dd').format(selectedDateTime)),
         actions: [
           _AddIconButton(
-            onClickAddButton: onClickAddButton,
+            pageNavigator: pageNavigator,
             selectedDateProvider: selectedDateProvider,
           ),
         ],
@@ -136,12 +136,12 @@ class _Title extends ConsumerWidget {
 }
 
 class _AddIconButton extends ConsumerWidget {
-  final Function(DateTime)? onClickAddButton;
+  final Function(DateTime)? pageNavigator;
   final StateProvider<DateTime> selectedDateProvider;
 
   const _AddIconButton({
     super.key,
-    this.onClickAddButton,
+    this.pageNavigator,
     required this.selectedDateProvider,
   });
 
@@ -151,7 +151,7 @@ class _AddIconButton extends ConsumerWidget {
       onPressed: () {
         DateTime selectedDate = ref.read(selectedDateProvider);
 
-        onClickAddButton?.call(selectedDate);
+        pageNavigator?.call(selectedDate);
       },
       icon: const Icon(Icons.add),
     );

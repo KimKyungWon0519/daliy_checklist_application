@@ -10,22 +10,39 @@ import 'package:presentation/presenters/viewmodels/add_viewmodel.dart';
 import 'local_widgets/add_button.dart';
 import 'local_widgets/goal_field.dart';
 
-class AddTaskPage extends ConsumerWidget {
+class AddTaskPage extends ConsumerStatefulWidget {
   final DateTime initialDate;
+  final void Function()? pageNavigator;
 
   const AddTaskPage({
     super.key,
     required this.initialDate,
+    this.pageNavigator,
   });
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<AddTaskPage> createState() => _AddTaskPageState();
+}
+
+class _AddTaskPageState extends ConsumerState<AddTaskPage> {
+  late final GlobalKey<FormState> _formKey;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _formKey = GlobalKey<FormState>();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final AddViewModel addViewModel = viewModelProvider<AddViewModel>();
 
     WidgetsBinding.instance.addPostFrameCallback(
       (timeStamp) {
         ref.read(addViewModel.taskProvider.notifier).update((state) =>
-            state.copyWith(selectedDate: SelectedDate(startDate: initialDate)));
+            state.copyWith(
+                selectedDate: SelectedDate(startDate: widget.initialDate)));
       },
     );
 
@@ -34,12 +51,8 @@ class AddTaskPage extends ConsumerWidget {
         title: const Text('새로운 목표'),
         actions: [
           AddButton(
-            onPressed: () {
-              final Task task = ref.read(addViewModel.taskProvider);
-
-              addViewModel.addTask(task);
-            },
-          ),
+            onPressed: () => _onPressedAddButton(addViewModel),
+          )
         ],
       ),
       body: Padding(
@@ -52,12 +65,15 @@ class AddTaskPage extends ConsumerWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              GoalField(
-                onChanged: (value) {
-                  ref
-                      .read(addViewModel.taskProvider.notifier)
-                      .update((state) => state.copyWith(goal: value));
-                },
+              Form(
+                key: _formKey,
+                child: GoalField(
+                  onChanged: (value) {
+                    ref
+                        .read(addViewModel.taskProvider.notifier)
+                        .update((state) => state.copyWith(goal: value));
+                  },
+                ),
               ),
               const Divider(),
               DateRangePicker(
@@ -73,5 +89,22 @@ class AddTaskPage extends ConsumerWidget {
         ),
       ),
     );
+  }
+
+  void _onPressedAddButton(final AddViewModel addViewModel) async {
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+
+      final Task task = ref.read(addViewModel.taskProvider);
+
+      showDialog(
+          context: context,
+          builder: (context) =>
+              const Center(child: CircularProgressIndicator()));
+
+      await addViewModel.addTask(task).then((value) => Navigator.pop(context));
+
+      widget.pageNavigator?.call();
+    }
   }
 }
