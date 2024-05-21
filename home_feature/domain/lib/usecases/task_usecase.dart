@@ -8,8 +8,8 @@ class GetTask {
     required final TaskRepository taskRepository,
   }) : _taskRepository = taskRepository;
 
-  Future<List<Task>> getAllTask() {
-    return _taskRepository.getAllTask();
+  Future<List<Task>> getAllTask(DateTime date) {
+    return _taskRepository.getAllTask(date);
   }
 }
 

@@ -9,6 +9,8 @@ import 'task_repository_test.mocks.dart';
 @GenerateMocks([TaskRepository])
 void main() {
   group('test task repository', () {
+    final DateTime dateTime = DateTime.now();
+
     TaskRepository taskRepository = MockTaskRepository();
 
     test('add task', () async {
@@ -27,9 +29,9 @@ void main() {
     });
 
     test('get empty tasks', () async {
-      when(taskRepository.getAllTask()).thenAnswer((_) async => []);
+      when(taskRepository.getAllTask(dateTime)).thenAnswer((_) async => []);
 
-      final List<Task> tasks = await taskRepository.getAllTask();
+      final List<Task> tasks = await taskRepository.getAllTask(dateTime);
 
       expect(tasks.length, 0);
       expect(tasks, []);
@@ -46,9 +48,10 @@ void main() {
         ),
       );
 
-      when(taskRepository.getAllTask()).thenAnswer((_) async => sourceTasks);
+      when(taskRepository.getAllTask(dateTime))
+          .thenAnswer((_) async => sourceTasks);
 
-      final List<Task> tasks = await taskRepository.getAllTask();
+      final List<Task> tasks = await taskRepository.getAllTask(dateTime);
 
       expect(tasks.length, 3);
       expect(tasks, equals(sourceTasks));

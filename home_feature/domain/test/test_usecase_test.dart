@@ -11,13 +11,14 @@ import 'test_usecase_test.mocks.dart';
 @GenerateMocks([TaskRepository])
 void main() {
   group('Test Get Task usecase', () {
+    final DateTime dateTime = DateTime.now();
     final TaskRepository taskRepository = MockTaskRepository();
     final GetTask getTask = GetTask(taskRepository: taskRepository);
 
     test('Test empty get all', () async {
-      when(getTask.getAllTask()).thenAnswer((_) async => []);
+      when(getTask.getAllTask(dateTime)).thenAnswer((_) async => []);
 
-      List<Task> tasks = await getTask.getAllTask();
+      List<Task> tasks = await getTask.getAllTask(dateTime);
 
       expect(tasks.length, 0);
       expect(tasks, []);
@@ -34,9 +35,9 @@ void main() {
         ),
       );
 
-      when(getTask.getAllTask()).thenAnswer((_) async => sourceTasks);
+      when(getTask.getAllTask(dateTime)).thenAnswer((_) async => sourceTasks);
 
-      final List<Task> tasks = await getTask.getAllTask();
+      final List<Task> tasks = await getTask.getAllTask(dateTime);
 
       expect(tasks.length, 3);
       expect(tasks, equals(sourceTasks));

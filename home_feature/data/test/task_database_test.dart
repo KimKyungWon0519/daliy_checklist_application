@@ -7,7 +7,8 @@ import 'package:test/test.dart';
 
 void main() {
   group('task database test', () {
-    Directory directory = Directory('./test/isar');
+    Directory directory = Directory('./test/isar_database');
+    final DateTime dateTime = DateTime.now();
     late TaskDatabase taskDatabase;
 
     setUpAll(() async {
@@ -26,7 +27,7 @@ void main() {
       for (int i = 1; i <= 3; i++) {
         Task task = Task(
           goal: 'test_$i',
-          startDate: DateTime.now(),
+          startDate: dateTime,
         );
 
         int result = await taskDatabase.addTask(task);
@@ -36,7 +37,7 @@ void main() {
     });
 
     test('get all task', () async {
-      List<Task> tasks = await taskDatabase.getAllTask();
+      List<Task> tasks = await taskDatabase.getAllTask(dateTime);
 
       expect(tasks.length, 3);
 
