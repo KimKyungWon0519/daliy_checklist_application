@@ -14,10 +14,15 @@ class MockHomeViewModel extends Mock implements HomeViewModel {
 
   @override
   final StateProvider<List<Task>> tasksProvider = StateProvider((ref) => []);
+
+  @override
+  Future<List<Task>> getAllTask(DateTime date) {
+    return Future.value([]);
+  }
 }
 
 void main() {
-  viewModelProvider.registerFactory(() => MockHomeViewModel());
+  viewModelProvider.registerFactory<HomeViewModel>(() => MockHomeViewModel());
   testWidgets('Test ui of home screen', (widgetTester) async {
     await widgetTester.pumpWidget(
       const ProviderScope(

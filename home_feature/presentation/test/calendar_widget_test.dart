@@ -18,7 +18,7 @@ class MockHomeViewModel extends Mock implements HomeViewModel {
 }
 
 void main() {
-  viewModelProvider.registerFactory(() => MockHomeViewModel());
+  viewModelProvider.registerFactory<HomeViewModel>(() => MockHomeViewModel());
 
   testWidgets('check calendar widget', (widgetTester) async {
     await widgetTester.pumpWidget(

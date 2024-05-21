@@ -15,11 +15,12 @@ class MockHomeViewModel extends Mock implements HomeViewModel {
       StateProvider((ref) => DateTime.now());
 
   @override
-  final StateProvider<List<Task>> tasksProvider = StateProvider((ref) => []);
+  final StateProvider<List<Task>> tasksProvider =
+      StateProvider((ref) => [Task.empty()]);
 }
 
 void main() {
-  viewModelProvider.registerFactory(() => MockHomeViewModel());
+  viewModelProvider.registerFactory<HomeViewModel>(() => MockHomeViewModel());
 
   testWidgets(
     'check task sheet panel ui',
@@ -39,6 +40,7 @@ void main() {
 
       expect(find.byType(TaskSheet), findsOneWidget);
       expect(find.byType(SliverPersistentHeader), findsOneWidget);
+      expect(find.byType(TaskPanelBody), findsOneWidget);
 
       final Finder sliverPersistentHeaderFinder =
           find.byType(SliverPersistentHeader);
@@ -71,8 +73,6 @@ void main() {
         ),
         findsOneWidget,
       );
-
-      expect(find.byType(TaskPanelBody), findsOneWidget);
     },
   );
 }
