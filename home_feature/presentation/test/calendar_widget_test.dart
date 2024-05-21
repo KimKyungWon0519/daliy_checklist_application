@@ -1,13 +1,24 @@
+import 'package:domain/domain.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/mockito.dart';
 import 'package:presentation/constants/app_constants.dart';
 import 'package:presentation/pages/home_page/local_widgets/custom_calendar.dart';
 import 'package:presentation/pages/home_page/painters/calendar_painter.dart';
 import 'package:presentation/presenters/viewmodels/home_viewmodel.dart';
 
+class MockHomeViewModel extends Mock implements HomeViewModel {
+  @override
+  final StateProvider<DateTime> selectedDateProvider =
+      StateProvider((ref) => DateTime.now());
+
+  @override
+  final StateProvider<List<Task>> tasksProvider = StateProvider((ref) => []);
+}
+
 void main() {
-  viewModelProvider.registerFactory(() => HomeViewModel());
+  viewModelProvider.registerFactory(() => MockHomeViewModel());
 
   testWidgets('check calendar widget', (widgetTester) async {
     await widgetTester.pumpWidget(

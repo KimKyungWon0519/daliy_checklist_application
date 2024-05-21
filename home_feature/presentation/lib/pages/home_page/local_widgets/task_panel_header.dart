@@ -8,14 +8,14 @@ class Header extends SliverPersistentHeaderDelegate {
 
   final DraggableScrollableController? draggableSheetController;
   final ScrollController? scrollController;
-  final Function(DateTime)? pageNavigator;
   final StateProvider<DateTime> selectedDateProvider;
+  final VoidCallback? onPressedAddButton;
 
   const Header({
     this.draggableSheetController,
     this.scrollController,
-    this.pageNavigator,
     required this.selectedDateProvider,
+    this.onPressedAddButton,
   });
 
   @override
@@ -37,8 +37,8 @@ class Header extends SliverPersistentHeaderDelegate {
           children: [
             const _Handle(),
             _Title(
-              pageNavigator: pageNavigator,
               selectedDateProvider: selectedDateProvider,
+              onPressedAddButton: onPressedAddButton,
             ),
           ],
         ),
@@ -104,13 +104,13 @@ class _Handle extends StatelessWidget {
 }
 
 class _Title extends ConsumerWidget {
-  final Function(DateTime)? pageNavigator;
   final StateProvider<DateTime> selectedDateProvider;
+  final VoidCallback? onPressedAddButton;
 
   const _Title({
     super.key,
-    this.pageNavigator,
     required this.selectedDateProvider,
+    this.onPressedAddButton,
   });
 
   @override
@@ -126,8 +126,7 @@ class _Title extends ConsumerWidget {
         title: Text(DateFormat('yyyy/MM/dd').format(selectedDateTime)),
         actions: [
           _AddIconButton(
-            pageNavigator: pageNavigator,
-            selectedDateProvider: selectedDateProvider,
+            onPressedAddButton: onPressedAddButton,
           ),
         ],
       ),
@@ -136,23 +135,17 @@ class _Title extends ConsumerWidget {
 }
 
 class _AddIconButton extends ConsumerWidget {
-  final Function(DateTime)? pageNavigator;
-  final StateProvider<DateTime> selectedDateProvider;
+  final VoidCallback? onPressedAddButton;
 
   const _AddIconButton({
     super.key,
-    this.pageNavigator,
-    required this.selectedDateProvider,
+    this.onPressedAddButton,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return IconButton(
-      onPressed: () {
-        DateTime selectedDate = ref.read(selectedDateProvider);
-
-        pageNavigator?.call(selectedDate);
-      },
+      onPressed: onPressedAddButton,
       icon: const Icon(Icons.add),
     );
   }

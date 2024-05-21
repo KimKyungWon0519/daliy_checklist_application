@@ -26,21 +26,21 @@ class AddTaskPage extends ConsumerStatefulWidget {
 
 class _AddTaskPageState extends ConsumerState<AddTaskPage> {
   late final GlobalKey<FormState> _formKey;
+  late final AddViewModel _viewModel;
 
   @override
   void initState() {
     super.initState();
 
     _formKey = GlobalKey<FormState>();
+    _viewModel = viewModelProvider<AddViewModel>();
   }
 
   @override
   Widget build(BuildContext context) {
-    final AddViewModel addViewModel = viewModelProvider<AddViewModel>();
-
     WidgetsBinding.instance.addPostFrameCallback(
       (timeStamp) {
-        ref.read(addViewModel.taskProvider.notifier).update((state) =>
+        ref.read(_viewModel.taskProvider.notifier).update((state) =>
             state.copyWith(
                 selectedDate: SelectedDate(startDate: widget.initialDate)));
       },
@@ -51,7 +51,7 @@ class _AddTaskPageState extends ConsumerState<AddTaskPage> {
         title: const Text('새로운 목표'),
         actions: [
           AddButton(
-            onPressed: () => _onPressedAddButton(addViewModel),
+            onPressed: () => _onPressedAddButton(),
           )
         ],
       ),
@@ -70,19 +70,19 @@ class _AddTaskPageState extends ConsumerState<AddTaskPage> {
                 child: GoalField(
                   onChanged: (value) {
                     ref
-                        .read(addViewModel.taskProvider.notifier)
+                        .read(_viewModel.taskProvider.notifier)
                         .update((state) => state.copyWith(goal: value));
                   },
                 ),
               ),
               const Divider(),
               DateRangePicker(
-                dateTypeProvider: addViewModel.dateTypeProvider,
-                taskProvider: addViewModel.taskProvider,
+                dateTypeProvider: _viewModel.dateTypeProvider,
+                taskProvider: _viewModel.taskProvider,
               ),
               DateField(
-                dateTypeProvider: addViewModel.dateTypeProvider,
-                taskProvider: addViewModel.taskProvider,
+                dateTypeProvider: _viewModel.dateTypeProvider,
+                taskProvider: _viewModel.taskProvider,
               ),
             ],
           ),
@@ -91,18 +91,18 @@ class _AddTaskPageState extends ConsumerState<AddTaskPage> {
     );
   }
 
-  void _onPressedAddButton(final AddViewModel addViewModel) async {
+  void _onPressedAddButton() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
 
-      final Task task = ref.read(addViewModel.taskProvider);
+      final Task task = ref.read(_viewModel.taskProvider);
 
       showDialog(
           context: context,
           builder: (context) =>
               const Center(child: CircularProgressIndicator()));
 
-      await addViewModel.addTask(task).then((value) => Navigator.pop(context));
+      await _viewModel.addTask(task).then((value) => Navigator.pop(context));
 
       widget.pageNavigator?.call();
     }

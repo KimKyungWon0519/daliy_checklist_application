@@ -10,12 +10,14 @@ class TaskSheet extends StatefulWidget {
   final Function(DateTime)? pageNavigator;
   final StateProvider<DateTime> selectedDateProvider;
   final StateProvider<List<Task>> tasksProvider;
+  final VoidCallback? onPressedAddButton;
 
   const TaskSheet({
     super.key,
     this.pageNavigator,
     required this.selectedDateProvider,
     required this.tasksProvider,
+    this.onPressedAddButton,
   });
 
   @override
@@ -52,9 +54,9 @@ class _TaskSheetState extends State<TaskSheet> {
           child: _TaskPanel(
             controller: _controller,
             scrollController: scrollController,
-            pageNavigator: widget.pageNavigator,
             selectedDateProvider: widget.selectedDateProvider,
             tasksProvider: widget.tasksProvider,
+            onPressedAddButton: widget.onPressedAddButton,
           ),
         );
       },
@@ -65,17 +67,17 @@ class _TaskSheetState extends State<TaskSheet> {
 class _TaskPanel extends StatelessWidget {
   final DraggableScrollableController? controller;
   final ScrollController? scrollController;
-  final Function(DateTime)? pageNavigator;
   final StateProvider<DateTime> selectedDateProvider;
   final StateProvider<List<Task>> tasksProvider;
+  final VoidCallback? onPressedAddButton;
 
   const _TaskPanel({
     super.key,
     this.controller,
     this.scrollController,
-    this.pageNavigator,
     required this.selectedDateProvider,
     required this.tasksProvider,
+    this.onPressedAddButton,
   });
 
   @override
@@ -87,8 +89,8 @@ class _TaskPanel extends StatelessWidget {
           delegate: Header(
             draggableSheetController: controller,
             scrollController: scrollController,
-            pageNavigator: pageNavigator,
             selectedDateProvider: selectedDateProvider,
+            onPressedAddButton: onPressedAddButton,
           ),
           pinned: true,
         ),
