@@ -65,8 +65,6 @@ class _HomePageState extends ConsumerState<HomePage> {
   void _onPressedAddButton() {
     final DateTime selectedDate = ref.read(_viewModel.selectedDateProvider);
 
-    print(selectedDate);
-
     if (widget.pageNavigator != null) {
       widget.pageNavigator!(selectedDate).then((value) async {
         List<Task> tasks = await _viewModel.getAllTask(selectedDate);
