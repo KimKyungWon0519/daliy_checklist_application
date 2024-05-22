@@ -92,6 +92,11 @@ class _AddTaskPageState extends ConsumerState<AddTaskPage> {
   }
 
   void _onPressedAddButton() async {
+    FocusScope.of(context).unfocus();
+
+    // keyboard unfocus delay
+    await Future.delayed(const Duration(milliseconds: 100));
+
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
 
