@@ -46,6 +46,8 @@ class _HomePageState extends ConsumerState<HomePage> {
               padding: bodyPadding,
               child: CustomCalendar(
                 selectedDateProvider: _viewModel.selectedDateProvider,
+                onPressedDay: (selectedDateTime) =>
+                    _onPressedDay(selectedDateTime),
               ),
             ),
             SizedBox.expand(
@@ -72,5 +74,15 @@ class _HomePageState extends ConsumerState<HomePage> {
         ref.read(_viewModel.tasksProvider.notifier).update((state) => tasks);
       });
     }
+  }
+
+  Future<void> _onPressedDay(DateTime selectedDateTime) async {
+    ref
+        .read(_viewModel.selectedDateProvider.notifier)
+        .update((state) => selectedDateTime);
+
+    List<Task> tasks = await _viewModel.getAllTask(selectedDateTime);
+
+    ref.read(_viewModel.tasksProvider.notifier).update((state) => tasks);
   }
 }

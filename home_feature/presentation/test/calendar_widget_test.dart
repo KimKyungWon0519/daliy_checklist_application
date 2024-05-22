@@ -28,6 +28,7 @@ void main() {
             body: CustomCalendar(
               selectedDateProvider:
                   viewModelProvider<HomeViewModel>().selectedDateProvider,
+              onPressedDay: (selectedDateTime) {},
             ),
           ),
         ),

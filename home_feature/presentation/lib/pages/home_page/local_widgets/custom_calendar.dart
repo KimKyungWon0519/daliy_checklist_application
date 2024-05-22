@@ -41,10 +41,12 @@ class _CalendarProvider extends InheritedWidget {
 
 class CustomCalendar extends ConsumerStatefulWidget {
   final StateProvider<DateTime> selectedDateProvider;
+  final void Function(DateTime selectedDateTime) onPressedDay;
 
   const CustomCalendar({
     super.key,
     required this.selectedDateProvider,
+    required this.onPressedDay,
   });
 
   @override
@@ -69,11 +71,7 @@ class _CustomCalendarState extends ConsumerState<CustomCalendar> {
       selectedDateTime: selectedDateTime,
       viewDateTime: _viewDateTime,
       localizations: MaterialLocalizations.of(context),
-      onPressedDay: (selectedDateTime) {
-        ref
-            .read(widget.selectedDateProvider.notifier)
-            .update((state) => selectedDateTime);
-      },
+      onPressedDay: widget.onPressedDay,
       onChangeMonth: (dateTime) {
         setState(() {
           _viewDateTime = dateTime;
