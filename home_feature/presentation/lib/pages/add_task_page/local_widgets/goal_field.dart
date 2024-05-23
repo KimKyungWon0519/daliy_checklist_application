@@ -10,8 +10,7 @@ class GoalField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      onChanged: onChanged,
+    return TextFormField(
       decoration: const InputDecoration(
         labelText: '목표',
         icon: Icon(Icons.short_text_rounded),
@@ -20,6 +19,14 @@ class GoalField extends StatelessWidget {
           borderSide: BorderSide.none,
         ),
       ),
+      validator: _validator,
+      onSaved: (newValue) => onChanged(newValue!),
     );
+  }
+
+  String? _validator(final String? value) {
+    if (value == null || value.isEmpty) return '목표를 입력해주세요.';
+
+    return null;
   }
 }

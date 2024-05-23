@@ -9,8 +9,8 @@ final class AppRoutes {
     path: '/home',
     name: 'home',
     builder: (context, state) => HomePage(
-      onClickAddButton: (DateTime selectedDate) {
-        context.pushNamed(
+      pageNavigator: (DateTime selectedDate) async {
+        await context.pushNamed(
           add.name!,
           pathParameters: {
             'start_date': DateFormat('yyyy/MM/dd').format(selectedDate),
@@ -28,7 +28,10 @@ final class AppRoutes {
       final DateTime initialDate =
           DateFormat('yyyy/MM/dd').parse(state.pathParameters['start_date']!);
 
-      return AddTaskPage(initialDate: initialDate);
+      return AddTaskPage(
+        initialDate: initialDate,
+        pageNavigator: () => context.pop(),
+      );
     },
   );
 

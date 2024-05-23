@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:home_feature/home_feature.dart';
 import 'package:intl/intl.dart';
-import 'package:presentation/presentation.dart';
+import 'package:path_provider/path_provider.dart';
 
-void main() {
-  viewModelProvider.registerFactory(() => AddViewModel());
-  viewModelProvider.registerFactory(() => HomeViewModel());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await initialize((await getApplicationDocumentsDirectory()).path);
 
   runApp(const ProviderScope(child: MainApp()));
 }
@@ -25,8 +27,8 @@ class MainApp extends StatelessWidget {
               path: '/home',
               name: 'home',
               builder: (context, state) => HomePage(
-                    onClickAddButton: (DateTime selectedDate) {
-                      context.pushNamed(
+                    pageNavigator: (DateTime selectedDate) async {
+                      await context.pushNamed(
                         'add',
                         pathParameters: {
                           'start_date':
@@ -43,7 +45,10 @@ class MainApp extends StatelessWidget {
                     final DateTime initialDate = DateFormat('yyyy/MM/dd')
                         .parse(state.pathParameters['start_date']!);
 
-                    return AddTaskPage(initialDate: initialDate);
+                    return AddTaskPage(
+                      initialDate: initialDate,
+                      pageNavigator: () => context.pop(),
+                    );
                   },
                 ),
               ]),

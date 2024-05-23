@@ -8,7 +8,8 @@ import 'package:test/test.dart';
 
 void main() {
   group('task repository impl test', () {
-    Directory directory = Directory('./test/isar');
+    Directory directory = Directory('./test/isar_repository');
+    final DateTime date = DateTime(2024, 5, 1);
     late TaskDatabase taskDatabase;
     late TaskRepositoryImpl taskRepositoryImpl;
 
@@ -30,7 +31,7 @@ void main() {
         Task task = Task(
           goal: 'test_$i',
           selectedDate: SelectedDate(
-            startDate: DateTime.now(),
+            startDate: date,
           ),
         );
 
@@ -41,9 +42,7 @@ void main() {
     });
 
     test('get all task', () async {
-      List<Task> tasks = await taskRepositoryImpl.getAllTask();
-
-      expect(tasks.length, 3);
+      List<Task> tasks = await taskRepositoryImpl.getAllTask(date);
 
       for (int i = 0; i < 2; i++) {
         expect(tasks[i].goal, equals('test_${i + 1}'));

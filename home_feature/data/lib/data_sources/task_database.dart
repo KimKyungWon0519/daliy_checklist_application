@@ -15,7 +15,15 @@ class TaskDatabase {
     return _isar.writeTxn(() => _isar.tasks.put(task));
   }
 
-  Future<List<Task>> getAllTask() {
-    return _isar.txn(() => _isar.tasks.where().findAll());
+  Future<List<Task>> getAllTask(DateTime date) {
+    return _isar.txn(() => _isar.tasks
+        .filter()
+        .group((q) => q.startDateEqualTo(date).and().endDateIsNull())
+        .or()
+        .group((q) => q
+            .startDateLessThan(date, include: true)
+            .and()
+            .endDateGreaterThan(date, include: true))
+        .findAll());
   }
 }

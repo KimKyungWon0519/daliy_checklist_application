@@ -1,11 +1,13 @@
-import 'package:daily_checklist_application/dendency_injection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'dendency_injection.dart';
 import 'src/app.dart';
 
-void main() {
-  init();
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await init();
 
   runApp(const ProviderScope(child: MainApp()));
 }

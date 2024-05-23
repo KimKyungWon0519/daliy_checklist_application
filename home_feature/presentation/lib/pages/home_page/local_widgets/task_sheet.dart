@@ -1,3 +1,4 @@
+import 'package:domain/domain.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:presentation/constants/ui_constants.dart';
@@ -6,13 +7,17 @@ import 'task_panel_body.dart';
 import 'task_panel_header.dart';
 
 class TaskSheet extends StatefulWidget {
-  final Function(DateTime)? onClickAddButton;
+  final Function(DateTime)? pageNavigator;
   final StateProvider<DateTime> selectedDateProvider;
+  final StateProvider<List<Task>> tasksProvider;
+  final VoidCallback? onPressedAddButton;
 
   const TaskSheet({
     super.key,
-    this.onClickAddButton,
+    this.pageNavigator,
     required this.selectedDateProvider,
+    required this.tasksProvider,
+    this.onPressedAddButton,
   });
 
   @override
@@ -49,8 +54,9 @@ class _TaskSheetState extends State<TaskSheet> {
           child: _TaskPanel(
             controller: _controller,
             scrollController: scrollController,
-            onClickAddButton: widget.onClickAddButton,
             selectedDateProvider: widget.selectedDateProvider,
+            tasksProvider: widget.tasksProvider,
+            onPressedAddButton: widget.onPressedAddButton,
           ),
         );
       },
@@ -61,15 +67,17 @@ class _TaskSheetState extends State<TaskSheet> {
 class _TaskPanel extends StatelessWidget {
   final DraggableScrollableController? controller;
   final ScrollController? scrollController;
-  final Function(DateTime)? onClickAddButton;
   final StateProvider<DateTime> selectedDateProvider;
+  final StateProvider<List<Task>> tasksProvider;
+  final VoidCallback? onPressedAddButton;
 
   const _TaskPanel({
     super.key,
     this.controller,
     this.scrollController,
-    this.onClickAddButton,
     required this.selectedDateProvider,
+    required this.tasksProvider,
+    this.onPressedAddButton,
   });
 
   @override
@@ -81,12 +89,12 @@ class _TaskPanel extends StatelessWidget {
           delegate: Header(
             draggableSheetController: controller,
             scrollController: scrollController,
-            onClickAddButton: onClickAddButton,
             selectedDateProvider: selectedDateProvider,
+            onPressedAddButton: onPressedAddButton,
           ),
           pinned: true,
         ),
-        const TaskPanelBody(),
+        TaskPanelBody(tasksProvider: tasksProvider),
       ],
     );
   }
