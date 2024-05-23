@@ -34,10 +34,7 @@ class _AddTaskPageState extends ConsumerState<AddTaskPage> {
 
     _formKey = GlobalKey<FormState>();
     _viewModel = viewModelProvider<AddViewModel>();
-  }
 
-  @override
-  Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback(
       (timeStamp) {
         ref.read(_viewModel.taskProvider.notifier).update((state) =>
@@ -45,7 +42,10 @@ class _AddTaskPageState extends ConsumerState<AddTaskPage> {
                 selectedDate: SelectedDate(startDate: widget.initialDate)));
       },
     );
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('새로운 목표'),

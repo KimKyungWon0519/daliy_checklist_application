@@ -8,7 +8,7 @@ import 'package:test/test.dart';
 void main() {
   group('task database test', () {
     Directory directory = Directory('./test/isar_database');
-    final DateTime dateTime = DateTime.now();
+    final DateTime dateTime = DateTime(2024, 5, 1);
     late TaskDatabase taskDatabase;
 
     setUpAll(() async {

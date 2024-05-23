@@ -16,7 +16,14 @@ class TaskDatabase {
   }
 
   Future<List<Task>> getAllTask(DateTime date) {
-    return _isar
-        .txn(() => _isar.tasks.filter().startDateEqualTo(date).findAll());
+    return _isar.txn(() => _isar.tasks
+        .filter()
+        .group((q) => q.startDateEqualTo(date).and().endDateIsNull())
+        .or()
+        .group((q) => q
+            .startDateLessThan(date, include: true)
+            .and()
+            .endDateGreaterThan(date, include: true))
+        .findAll());
   }
 }

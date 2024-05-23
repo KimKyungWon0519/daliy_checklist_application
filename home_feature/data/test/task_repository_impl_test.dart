@@ -9,7 +9,7 @@ import 'package:test/test.dart';
 void main() {
   group('task repository impl test', () {
     Directory directory = Directory('./test/isar_repository');
-    final DateTime date = DateTime.now();
+    final DateTime date = DateTime(2024, 5, 1);
     late TaskDatabase taskDatabase;
     late TaskRepositoryImpl taskRepositoryImpl;
 
