@@ -42,7 +42,7 @@ void main() {
     });
 
     test('get all task', () async {
-      List<Task> tasks = await taskRepositoryImpl.getAllTask(date);
+      List<Task> tasks = await taskRepositoryImpl.getTaskOnSelectedDate(date);
 
       for (int i = 0; i < 2; i++) {
         expect(tasks[i].goal, equals('test_${i + 1}'));

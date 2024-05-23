@@ -9,7 +9,7 @@ class GetTask {
   }) : _taskRepository = taskRepository;
 
   Future<List<Task>> getAllTask(DateTime date) {
-    return _taskRepository.getAllTask(date);
+    return _taskRepository.getTaskOnSelectedDate(date);
   }
 }
 

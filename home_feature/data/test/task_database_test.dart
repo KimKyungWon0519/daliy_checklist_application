@@ -37,7 +37,7 @@ void main() {
     });
 
     test('get all task', () async {
-      List<Task> tasks = await taskDatabase.getAllTask(dateTime);
+      List<Task> tasks = await taskDatabase.getTaskOnSelectedDate(dateTime);
 
       expect(tasks.length, 3);
 
