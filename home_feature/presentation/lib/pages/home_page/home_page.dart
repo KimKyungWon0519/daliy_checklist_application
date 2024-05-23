@@ -31,7 +31,9 @@ class _HomePageState extends ConsumerState<HomePage> {
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       _viewModel.getAllTask(DateTime.now()).then((value) {
-        ref.read(_viewModel.tasksProvider.notifier).update((state) => value);
+        ref
+            .read(_viewModel.selectedDateTasksProvider.notifier)
+            .update((state) => value);
       });
     });
   }
@@ -54,7 +56,7 @@ class _HomePageState extends ConsumerState<HomePage> {
               child: TaskSheet(
                 pageNavigator: widget.pageNavigator,
                 selectedDateProvider: _viewModel.selectedDateProvider,
-                tasksProvider: _viewModel.tasksProvider,
+                tasksProvider: _viewModel.selectedDateTasksProvider,
                 onPressedAddButton: () => _onPressedAddButton(),
               ),
             ),
@@ -71,7 +73,9 @@ class _HomePageState extends ConsumerState<HomePage> {
       widget.pageNavigator!(selectedDate).then((value) async {
         List<Task> tasks = await _viewModel.getAllTask(selectedDate);
 
-        ref.read(_viewModel.tasksProvider.notifier).update((state) => tasks);
+        ref
+            .read(_viewModel.selectedDateTasksProvider.notifier)
+            .update((state) => tasks);
       });
     }
   }
@@ -83,6 +87,8 @@ class _HomePageState extends ConsumerState<HomePage> {
 
     List<Task> tasks = await _viewModel.getAllTask(selectedDateTime);
 
-    ref.read(_viewModel.tasksProvider.notifier).update((state) => tasks);
+    ref
+        .read(_viewModel.selectedDateTasksProvider.notifier)
+        .update((state) => tasks);
   }
 }
