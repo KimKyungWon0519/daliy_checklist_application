@@ -8,8 +8,12 @@ class GetTask {
     required final TaskRepository taskRepository,
   }) : _taskRepository = taskRepository;
 
-  Future<List<Task>> getAllTask(DateTime date) {
+  Future<List<Task>> getTaskOnSelectedDate(DateTime date) {
     return _taskRepository.getTaskOnSelectedDate(date);
+  }
+
+  Future<List<Task>> getTaskOnMonth(int year, int month) {
+    return _taskRepository.getTaskOnMonth(year, month);
   }
 }
 
