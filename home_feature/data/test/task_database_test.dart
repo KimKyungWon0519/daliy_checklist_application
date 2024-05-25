@@ -36,7 +36,7 @@ void main() {
       }
     });
 
-    test('get all task', () async {
+    test('get task on selected date', () async {
       List<Task> tasks = await taskDatabase.getTaskOnSelectedDate(dateTime);
 
       expect(tasks.length, 3);
@@ -44,6 +44,23 @@ void main() {
       for (int i = 0; i < 2; i++) {
         expect(tasks[i].id, i + 1);
       }
+    });
+
+    test('get task on month', () async {
+      int result = 0;
+      result = await taskDatabase
+          .addTask(Task(goal: 'test_month', startDate: DateTime(2024, 4, 1)));
+
+      expect(result, 4);
+
+      result = await taskDatabase
+          .addTask(Task(goal: 'test_month', startDate: DateTime(2024, 6, 1)));
+
+      expect(result, 5);
+
+      List<Task> tasks = await taskDatabase.getTaskOnMonth(2024, 5);
+
+      expect(tasks.length, 3);
     });
 
     tearDownAll(() {

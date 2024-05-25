@@ -22,4 +22,11 @@ class TaskRepositoryImpl implements TaskRepository {
         .getTaskOnSelectedDate(target)
         .then((value) => value.map((e) => e.toModel()).toList());
   }
+
+  @override
+  Future<List<Task>> getTaskOnMonth(int year, int month) {
+    return _taskDatabase
+        .getTaskOnMonth(year, month)
+        .then((value) => value.map((e) => e.toModel()).toList());
+  }
 }
