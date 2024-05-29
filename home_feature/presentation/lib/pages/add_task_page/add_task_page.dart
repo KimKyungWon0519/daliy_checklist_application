@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:presentation/constants/app_constants.dart';
 import 'package:presentation/pages/add_task_page/local_widgets/date_field.dart';
 import 'package:presentation/pages/add_task_page/local_widgets/date_range_type_chips.dart';
+import 'package:presentation/pages/add_task_page/local_widgets/input_panel.dart';
 import 'package:presentation/presenters/viewmodels/add_viewmodel.dart';
 
 import 'local_widgets/add_button.dart';
@@ -62,29 +63,9 @@ class _AddTaskPageState extends ConsumerState<AddTaskPage> {
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
               color: Theme.of(context).colorScheme.secondaryContainer),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Form(
-                key: _formKey,
-                child: GoalField(
-                  onChanged: (value) {
-                    ref
-                        .read(_viewModel.taskProvider.notifier)
-                        .update((state) => state.copyWith(goal: value));
-                  },
-                ),
-              ),
-              const Divider(),
-              DateRangePicker(
-                dateTypeProvider: _viewModel.dateTypeProvider,
-                taskProvider: _viewModel.taskProvider,
-              ),
-              DateField(
-                dateTypeProvider: _viewModel.dateTypeProvider,
-                taskProvider: _viewModel.taskProvider,
-              ),
-            ],
+          child: InputPanel(
+            dateTypeProvider: _viewModel.dateTypeProvider,
+            taskProvider: _viewModel.taskProvider,
           ),
         ),
       ),
