@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'color_tile.dart';
 import 'default_panel.dart';
 
 class StylePanel extends StatelessWidget {
@@ -7,19 +8,9 @@ class StylePanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultPanel(
+    return const DefaultPanel(
       children: [
-        ListTile(
-          title: const Text('색상'),
-          leading: Container(
-            width: 20,
-            height: 20,
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(100)),
-              color: Colors.red,
-            ),
-          ),
-        ),
+        ColorTile(),
       ],
     );
   }
