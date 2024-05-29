@@ -6,6 +6,7 @@ import 'package:presentation/constants/app_constants.dart';
 import 'package:presentation/pages/add_task_page/local_widgets/date_field.dart';
 import 'package:presentation/pages/add_task_page/local_widgets/date_range_type_chips.dart';
 import 'package:presentation/pages/add_task_page/local_widgets/input_panel.dart';
+import 'package:presentation/pages/add_task_page/local_widgets/style_panel.dart';
 import 'package:presentation/presenters/viewmodels/add_viewmodel.dart';
 
 import 'local_widgets/add_button.dart';
@@ -58,15 +59,15 @@ class _AddTaskPageState extends ConsumerState<AddTaskPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8),
-        child: Container(
-          padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              color: Theme.of(context).colorScheme.secondaryContainer),
-          child: InputPanel(
-            dateTypeProvider: _viewModel.dateTypeProvider,
-            taskProvider: _viewModel.taskProvider,
-          ),
+        child: Column(
+          children: [
+            InputPanel(
+              dateTypeProvider: _viewModel.dateTypeProvider,
+              taskProvider: _viewModel.taskProvider,
+            ),
+            SizedBox(height: 5),
+            StylePanel(),
+          ],
         ),
       ),
     );
