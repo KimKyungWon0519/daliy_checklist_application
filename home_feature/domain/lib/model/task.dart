@@ -23,6 +23,6 @@ class Task {
 
   @override
   String toString() {
-    return 'goal : $goal, selectedDate : $selectedDate';
+    return '(Task)[goal : $goal, selectedDate : $selectedDate]';
   }
 }

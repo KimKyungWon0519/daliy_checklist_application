@@ -58,9 +58,9 @@ void main() {
 
       expect(result, 5);
 
-      List<Task> tasks = await taskDatabase.getTaskOnMonth(2024, 5);
+      List<Task> tasks = await taskDatabase.getAllTasks();
 
-      expect(tasks.length, 3);
+      expect(tasks.length, 5);
     });
 
     tearDownAll(() {

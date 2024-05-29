@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class HomeViewModel {
   late final StateProvider<DateTime> selectedDateProvider;
   late final StateProvider<List<Task>> selectedDateTasksProvider;
+  late final StateProvider<List<Task>> allTasksProvider;
 
   late final GetTask _getTask;
 
@@ -12,9 +13,14 @@ class HomeViewModel {
   }) : _getTask = getTask {
     selectedDateProvider = StateProvider((ref) => DateTime.now());
     selectedDateTasksProvider = StateProvider((ref) => []);
+    allTasksProvider = StateProvider((ref) => []);
   }
 
-  Future<List<Task>> getAllTask(final DateTime date) {
-    return _getTask.getAllTask(date);
+  Future<List<Task>> getTaskOnSelectedDate(final DateTime date) {
+    return _getTask.getTaskOnSelectedDate(date);
+  }
+
+  Future<List<Task>> getAllTasks() {
+    return _getTask.getAllTasks();
   }
 }

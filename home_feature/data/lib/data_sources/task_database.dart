@@ -27,12 +27,7 @@ class TaskDatabase {
         .findAll());
   }
 
-  Future<List<Task>> getTaskOnMonth(int year, int month) {
-    final DateTime start = DateTime(year, month, 1);
-    final DateTime end =
-        DateTime(year, month + 1, 1).subtract(const Duration(days: 1));
-
-    return _isar
-        .txn(() => _isar.tasks.filter().startDateBetween(start, end).findAll());
+  Future<List<Task>> getAllTasks() {
+    return _isar.txn(() => _isar.tasks.where().findAll());
   }
 }

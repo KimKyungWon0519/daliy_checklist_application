@@ -12,8 +12,8 @@ class GetTask {
     return _taskRepository.getTaskOnSelectedDate(date);
   }
 
-  Future<List<Task>> getTaskOnMonth(int year, int month) {
-    return _taskRepository.getTaskOnMonth(year, month);
+  Future<List<Task>> getAllTasks() {
+    return _taskRepository.getAllTasks();
   }
 }
 

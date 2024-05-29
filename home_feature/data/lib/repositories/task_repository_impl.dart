@@ -24,9 +24,9 @@ class TaskRepositoryImpl implements TaskRepository {
   }
 
   @override
-  Future<List<Task>> getTaskOnMonth(int year, int month) {
+  Future<List<Task>> getAllTasks() {
     return _taskDatabase
-        .getTaskOnMonth(year, month)
+        .getAllTasks()
         .then((value) => value.map((e) => e.toModel()).toList());
   }
 }

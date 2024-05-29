@@ -13,10 +13,19 @@ class MockHomeViewModel extends Mock implements HomeViewModel {
       StateProvider((ref) => DateTime.now());
 
   @override
-  final StateProvider<List<Task>> tasksProvider = StateProvider((ref) => []);
+  final StateProvider<List<Task>> selectedDateTasksProvider =
+      StateProvider((ref) => []);
 
   @override
-  Future<List<Task>> getAllTask(DateTime date) {
+  final StateProvider<List<Task>> allTasksProvider = StateProvider((ref) => []);
+
+  @override
+  Future<List<Task>> getAllTasks() {
+    return Future.value([]);
+  }
+
+  @override
+  Future<List<Task>> getTaskOnSelectedDate(final DateTime date) {
     return Future.value([]);
   }
 }

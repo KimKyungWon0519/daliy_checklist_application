@@ -15,7 +15,7 @@ class MockHomeViewModel extends Mock implements HomeViewModel {
       StateProvider((ref) => DateTime.now());
 
   @override
-  final StateProvider<List<Task>> tasksProvider =
+  final StateProvider<List<Task>> selectedDateTasksProvider =
       StateProvider((ref) => [Task.empty()]);
 }
 
@@ -32,7 +32,8 @@ void main() {
               pageNavigator: null,
               selectedDateProvider:
                   viewModelProvider<HomeViewModel>().selectedDateProvider,
-              tasksProvider: viewModelProvider<HomeViewModel>().tasksProvider,
+              tasksProvider:
+                  viewModelProvider<HomeViewModel>().selectedDateTasksProvider,
             ),
           ),
         ),

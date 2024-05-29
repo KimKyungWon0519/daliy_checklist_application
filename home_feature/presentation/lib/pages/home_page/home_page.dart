@@ -30,11 +30,17 @@ class _HomePageState extends ConsumerState<HomePage> {
     _viewModel = viewModelProvider<HomeViewModel>();
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      _viewModel.getAllTask(DateTime.now()).then((value) {
+      final DateTime nowDate = DateTime.now();
+
+      _viewModel.getTaskOnSelectedDate(nowDate).then((value) {
         ref
             .read(_viewModel.selectedDateTasksProvider.notifier)
             .update((state) => value);
       });
+
+      _viewModel.getAllTasks().then((value) => ref
+          .read(_viewModel.allTasksProvider.notifier)
+          .update((state) => value));
     });
   }
 
@@ -48,6 +54,7 @@ class _HomePageState extends ConsumerState<HomePage> {
               padding: bodyPadding,
               child: CustomCalendar(
                 selectedDateProvider: _viewModel.selectedDateProvider,
+                allTasksProvider: _viewModel.allTasksProvider,
                 onPressedDay: (selectedDateTime) =>
                     _onPressedDay(selectedDateTime),
               ),
@@ -71,11 +78,13 @@ class _HomePageState extends ConsumerState<HomePage> {
 
     if (widget.pageNavigator != null) {
       widget.pageNavigator!(selectedDate).then((value) async {
-        List<Task> tasks = await _viewModel.getAllTask(selectedDate);
-
-        ref
+        await _viewModel.getTaskOnSelectedDate(selectedDate).then((value) => ref
             .read(_viewModel.selectedDateTasksProvider.notifier)
-            .update((state) => tasks);
+            .update((state) => value));
+
+        await _viewModel.getAllTasks().then((value) => ref
+            .read(_viewModel.allTasksProvider.notifier)
+            .update((state) => value));
       });
     }
   }
@@ -85,7 +94,7 @@ class _HomePageState extends ConsumerState<HomePage> {
         .read(_viewModel.selectedDateProvider.notifier)
         .update((state) => selectedDateTime);
 
-    List<Task> tasks = await _viewModel.getAllTask(selectedDateTime);
+    List<Task> tasks = await _viewModel.getTaskOnSelectedDate(selectedDateTime);
 
     ref
         .read(_viewModel.selectedDateTasksProvider.notifier)
