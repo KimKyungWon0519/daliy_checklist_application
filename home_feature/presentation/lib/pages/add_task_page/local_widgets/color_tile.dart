@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:presentation/pages/add_task_page/local_widgets/color_picker_dialog.dart';
 
-class ColorTile extends StatelessWidget {
+class ColorTile extends StatefulWidget {
   const ColorTile({super.key});
 
+  @override
+  State<ColorTile> createState() => _ColorTileState();
+}
+
+class _ColorTileState extends State<ColorTile> {
   @override
   Widget build(BuildContext context) {
     return ListTile(
@@ -15,6 +21,12 @@ class ColorTile extends StatelessWidget {
           color: Colors.red,
         ),
       ),
+      onTap: () {
+        showDialog(
+          context: context,
+          builder: (context) => const ColorPickerDialog(),
+        );
+      },
     );
   }
 }
