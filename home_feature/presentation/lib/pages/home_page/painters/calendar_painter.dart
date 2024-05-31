@@ -169,8 +169,6 @@ class CalendarPainter extends CustomPainter {
         _Bar bar = _Bar(
           barCount: barCount,
           task: task,
-          color:
-              Color((Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1),
         );
 
         for (int k = 0; k < diffDay; k++) {
@@ -475,7 +473,6 @@ class _Bar {
 
   final int barCount;
   final Task task;
-  final Color color;
 
   bool isStartDate;
   bool isEndDate;
@@ -483,7 +480,6 @@ class _Bar {
   _Bar({
     required this.barCount,
     required this.task,
-    required this.color,
     this.isStartDate = false,
     this.isEndDate = false,
   });
@@ -509,14 +505,13 @@ class _Bar {
           topRight: endCorner,
           bottomRight: endCorner,
         ),
-        Paint()..color = color);
+        Paint()..color = Color(task.colorCode));
   }
 
   _Bar copy() {
     return _Bar(
       barCount: barCount,
       task: task,
-      color: color,
       isEndDate: isEndDate,
       isStartDate: isStartDate,
     );

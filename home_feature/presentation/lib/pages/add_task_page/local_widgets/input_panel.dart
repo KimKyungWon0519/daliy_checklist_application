@@ -7,7 +7,7 @@ import 'date_field.dart';
 import 'date_range_type_chips.dart';
 import 'goal_field.dart';
 
-class InputPanel extends ConsumerStatefulWidget {
+class InputPanel extends ConsumerWidget {
   final StateProvider<Task> taskProvider;
   final StateProvider<DateType> dateTypeProvider;
 
@@ -18,41 +18,24 @@ class InputPanel extends ConsumerStatefulWidget {
   });
 
   @override
-  ConsumerState<InputPanel> createState() => _InputPanelState();
-}
-
-class _InputPanelState extends ConsumerState<InputPanel> {
-  late final GlobalKey<FormState> _formKey;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _formKey = GlobalKey<FormState>();
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return DefaultPanel(
       children: [
-        Form(
-          key: _formKey,
-          child: GoalField(
-            onChanged: (value) {
-              ref
-                  .read(widget.taskProvider.notifier)
-                  .update((state) => state.copyWith(goal: value));
-            },
-          ),
+        GoalField(
+          onChanged: (value) {
+            ref
+                .read(taskProvider.notifier)
+                .update((state) => state.copyWith(goal: value));
+          },
         ),
         const Divider(),
         DateRangePicker(
-          dateTypeProvider: widget.dateTypeProvider,
-          taskProvider: widget.taskProvider,
+          dateTypeProvider: dateTypeProvider,
+          taskProvider: taskProvider,
         ),
         DateField(
-          dateTypeProvider: widget.dateTypeProvider,
-          taskProvider: widget.taskProvider,
+          dateTypeProvider: dateTypeProvider,
+          taskProvider: taskProvider,
         ),
       ],
     );

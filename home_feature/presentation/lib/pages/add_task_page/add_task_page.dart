@@ -61,9 +61,12 @@ class _AddTaskPageState extends ConsumerState<AddTaskPage> {
         padding: const EdgeInsets.all(8),
         child: Column(
           children: [
-            InputPanel(
-              dateTypeProvider: _viewModel.dateTypeProvider,
-              taskProvider: _viewModel.taskProvider,
+            Form(
+              key: _formKey,
+              child: InputPanel(
+                dateTypeProvider: _viewModel.dateTypeProvider,
+                taskProvider: _viewModel.taskProvider,
+              ),
             ),
             const SizedBox(height: 5),
             StylePanel(
