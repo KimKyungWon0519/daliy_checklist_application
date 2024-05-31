@@ -65,8 +65,10 @@ class _AddTaskPageState extends ConsumerState<AddTaskPage> {
               dateTypeProvider: _viewModel.dateTypeProvider,
               taskProvider: _viewModel.taskProvider,
             ),
-            SizedBox(height: 5),
-            StylePanel(),
+            const SizedBox(height: 5),
+            StylePanel(
+              taskProvider: _viewModel.taskProvider,
+            ),
           ],
         ),
       ),

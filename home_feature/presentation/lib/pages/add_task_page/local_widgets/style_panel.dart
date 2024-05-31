@@ -1,16 +1,25 @@
+import 'package:domain/model/task.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'color_tile.dart';
 import 'default_panel.dart';
 
 class StylePanel extends StatelessWidget {
-  const StylePanel({super.key});
+  final StateProvider<Task> taskProvider;
+
+  const StylePanel({
+    super.key,
+    required this.taskProvider,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return const DefaultPanel(
+    return DefaultPanel(
       children: [
-        ColorTile(),
+        ColorTile(
+          taskProvider: taskProvider,
+        ),
       ],
     );
   }
