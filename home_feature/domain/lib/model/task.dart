@@ -14,7 +14,7 @@ class Task {
   factory Task.empty() => Task(
         goal: '',
         selectedDate: SelectedDate.empty(),
-        colorCode: 0xFFFFFFFF,
+        colorCode: 0xFFFF0000,
       );
 
   Task copyWith({
