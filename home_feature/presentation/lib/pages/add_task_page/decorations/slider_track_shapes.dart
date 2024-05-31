@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class GradientRectSliderTrackShape extends SliderTrackShape
@@ -67,5 +69,24 @@ class GradientRectSliderTrackShape extends SliderTrackShape
       ),
       trackPaint,
     );
+  }
+
+  @override
+  Rect getPreferredRect({
+    required RenderBox parentBox,
+    Offset offset = Offset.zero,
+    required SliderThemeData sliderTheme,
+    bool isEnabled = false,
+    bool isDiscrete = false,
+  }) {
+    final double thumbWidth =
+        sliderTheme.thumbShape!.getPreferredSize(isEnabled, isDiscrete).width -
+            10;
+    final trackHeight = sliderTheme.trackHeight;
+    final trackLeft = offset.dx;
+    final trackTop = offset.dy + (parentBox.size.height - trackHeight!) / 2;
+    final trackWidth = parentBox.size.width;
+    return Rect.fromLTRB(trackLeft + thumbWidth, trackTop,
+        trackWidth - thumbWidth, trackTop + trackHeight);
   }
 }

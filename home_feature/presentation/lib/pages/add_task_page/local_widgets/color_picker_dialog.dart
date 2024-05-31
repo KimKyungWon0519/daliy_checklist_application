@@ -27,7 +27,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
             height: 100,
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
+            padding: const EdgeInsets.all(10),
             child: Column(
               children: [
                 _HueSlider(
@@ -72,28 +72,22 @@ class _HueSlider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        const Text('H'),
-        Expanded(
-          child: _ColorSlider(
-            colors: const [
-              Colors.red,
-              Colors.orange,
-              Colors.yellow,
-              Colors.green,
-              Colors.blue,
-              Colors.indigo,
-              Colors.purple,
-              Colors.red,
-            ],
-            value: value,
-            thumbColor: hueColor,
-            max: 360,
-            onChanged: onChanged,
-          ),
-        ),
+    return _ColorSlider(
+      name: 'H',
+      colors: const [
+        Colors.red,
+        Colors.orange,
+        Colors.yellow,
+        Colors.green,
+        Colors.blue,
+        Colors.indigo,
+        Colors.purple,
+        Colors.red,
       ],
+      value: value,
+      thumbColor: hueColor,
+      max: 360,
+      onChanged: onChanged,
     );
   }
 }
@@ -114,27 +108,22 @@ class _LightnessSlider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        const Text('L'),
-        Expanded(
-          child: _ColorSlider(
-            colors: [
-              Colors.black,
-              hueColor,
-              Colors.white,
-            ],
-            value: lightness,
-            thumbColor: mainColor,
-            onChanged: onChanged,
-          ),
-        ),
+    return _ColorSlider(
+      name: 'L',
+      colors: [
+        Colors.black,
+        hueColor,
+        Colors.white,
       ],
+      value: lightness,
+      thumbColor: mainColor,
+      onChanged: onChanged,
     );
   }
 }
 
 class _ColorSlider extends StatelessWidget {
+  final String name;
   final List<Color> colors;
   final Color thumbColor;
   final double value;
@@ -143,6 +132,7 @@ class _ColorSlider extends StatelessWidget {
 
   const _ColorSlider({
     super.key,
+    required this.name,
     required this.colors,
     required this.thumbColor,
     required this.value,
@@ -153,17 +143,30 @@ class _ColorSlider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SliderTheme(
-      data: SliderThemeData(
-        trackShape: GradientRectSliderTrackShape(colors),
-        thumbColor: thumbColor,
-      ),
-      child: Slider(
-        value: value,
-        onChanged: onChanged,
-        max: max,
-        min: min,
-      ),
+    return Row(
+      children: [
+        Expanded(
+          flex: 1,
+          child: Center(
+            child: Text(name),
+          ),
+        ),
+        Expanded(
+          flex: 9,
+          child: SliderTheme(
+            data: SliderThemeData(
+              trackShape: GradientRectSliderTrackShape(colors),
+              thumbColor: thumbColor,
+            ),
+            child: Slider(
+              value: value,
+              onChanged: onChanged,
+              max: max,
+              min: min,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
