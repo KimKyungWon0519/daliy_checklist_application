@@ -52,8 +52,36 @@ class _ColorPickerDialogState extends State<ColorPickerDialog> {
               ],
             ),
           ),
+          Align(
+            alignment: Alignment.centerRight,
+            child: Padding(
+              padding: const EdgeInsets.all(5),
+              child: _SaveButton(
+                onPressed: () {
+                  Navigator.pop(context, mainColor);
+                },
+              ),
+            ),
+          )
         ],
       ),
+    );
+  }
+}
+
+class _SaveButton extends StatelessWidget {
+  final VoidCallback? onPressed;
+
+  const _SaveButton({
+    super.key,
+    this.onPressed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+      onPressed: onPressed,
+      child: Text('저장'),
     );
   }
 }
