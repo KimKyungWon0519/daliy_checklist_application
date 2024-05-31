@@ -33,7 +33,9 @@ class _ColorTileState extends ConsumerState<ColorTile> {
       onTap: () {
         showDialog<Color>(
           context: context,
-          builder: (context) => const ColorPickerDialog(),
+          builder: (context) => ColorPickerDialog(
+            color: Color(colorCode),
+          ),
         ).then((value) {
           if (value != null) {
             ref

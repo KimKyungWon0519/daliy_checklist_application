@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:presentation/pages/add_task_page/decorations/slider_track_shapes.dart';
 
 class ColorPickerDialog extends StatefulWidget {
-  const ColorPickerDialog({super.key});
+  final Color color;
+
+  const ColorPickerDialog({
+    super.key,
+    required this.color,
+  });
 
   @override
   State<ColorPickerDialog> createState() => _ColorPickerDialogState();
@@ -11,6 +16,15 @@ class ColorPickerDialog extends StatefulWidget {
 class _ColorPickerDialogState extends State<ColorPickerDialog> {
   double _hue = 0;
   double _lightness = 0.5;
+
+  @override
+  void initState() {
+    super.initState();
+
+    HSLColor hslColor = HSLColor.fromColor(widget.color);
+    _hue = hslColor.hue;
+    _lightness = hslColor.lightness;
+  }
 
   @override
   Widget build(BuildContext context) {
