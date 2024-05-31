@@ -32,6 +32,7 @@ void main() {
           selectedDate: SelectedDate(
             startDate: DateTime.now(),
           ),
+          colorCode: 0xFFFFFFFF,
         ),
       );
 
@@ -54,6 +55,7 @@ void main() {
       selectedDate: SelectedDate(
         startDate: DateTime.now(),
       ),
+      colorCode: 0xFFFFFFFF,
     );
 
     when(taskRepository.addTask(task)).thenAnswer((_) async => 1);

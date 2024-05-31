@@ -7,6 +7,7 @@ extension DomainTaskMapper on Model.Task {
       goal: goal,
       startDate: selectedDate.startDate,
       endDate: selectedDate.endDate,
+      colorCode: colorCode,
     );
   }
 }
@@ -19,6 +20,7 @@ extension DataTaskMapper on Entity.Task {
         startDate: startDate,
         endDate: endDate,
       ),
+      colorCode: colorCode,
     );
   }
 }

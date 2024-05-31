@@ -9,10 +9,12 @@ class Task {
   final String goal;
   final DateTime startDate;
   final DateTime? endDate;
+  final int colorCode;
 
   Task({
     required this.goal,
     required this.startDate,
+    required this.colorCode,
     this.endDate,
   });
 }

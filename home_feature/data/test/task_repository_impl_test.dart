@@ -33,6 +33,7 @@ void main() {
           selectedDate: SelectedDate(
             startDate: date,
           ),
+          colorCode: 0xFFFFFFFF,
         );
 
         int result = await taskRepositoryImpl.addTask(task);
@@ -56,6 +57,7 @@ void main() {
         selectedDate: SelectedDate(
           startDate: DateTime(2024, 4),
         ),
+        colorCode: 0xFFFFFFFF,
       ));
 
       expect(result, 4);
@@ -65,6 +67,7 @@ void main() {
         selectedDate: SelectedDate(
           startDate: DateTime(2024, 6),
         ),
+        colorCode: 0xFFFFFFFF,
       ));
 
       expect(result, 5);

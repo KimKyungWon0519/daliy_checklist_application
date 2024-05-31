@@ -25,10 +25,8 @@ void main() {
 
     test('add 3 task', () async {
       for (int i = 1; i <= 3; i++) {
-        Task task = Task(
-          goal: 'test_$i',
-          startDate: dateTime,
-        );
+        Task task =
+            Task(goal: 'test_$i', startDate: dateTime, colorCode: 0xFFFFFFFF);
 
         int result = await taskDatabase.addTask(task);
 
@@ -48,13 +46,19 @@ void main() {
 
     test('get task on month', () async {
       int result = 0;
-      result = await taskDatabase
-          .addTask(Task(goal: 'test_month', startDate: DateTime(2024, 4, 1)));
+      result = await taskDatabase.addTask(Task(
+        goal: 'test_month',
+        startDate: DateTime(2024, 4, 1),
+        colorCode: 0xFFFFFFFF,
+      ));
 
       expect(result, 4);
 
-      result = await taskDatabase
-          .addTask(Task(goal: 'test_month', startDate: DateTime(2024, 6, 1)));
+      result = await taskDatabase.addTask(Task(
+        goal: 'test_month',
+        startDate: DateTime(2024, 6, 1),
+        colorCode: 0xFFFFFFFF,
+      ));
 
       expect(result, 5);
 
