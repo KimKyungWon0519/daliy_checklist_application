@@ -67,7 +67,7 @@ class CalendarPainter extends CustomPainter {
   }
 
   void _drawDay(final Canvas canvas, final Size size) {
-    final double dayTextPadding = _startDayPanelOffset + 10;
+    final double textPanelSize = _dayHeight / 3;
     int lineIndex = 0;
 
     for (int i = 0; i < _days.length; i++) {
@@ -78,7 +78,10 @@ class CalendarPainter extends CustomPainter {
       final double dx = _dayWidth * (i % _weekdayCnt) + _dayWidth / 2;
       final double dy = _dayHeight * (lineIndex - 1);
 
-      _days[i].paint(canvas, Offset(dx, dy + dayTextPadding));
+      _days[i].paint(
+          canvas,
+          Offset(dx, dy + _startDayPanelOffset + (_dayHeight / 3) / 2),
+          textPanelSize * 0.4);
 
       if (_days[i].isActive) {
         _DayPanel dayPanel = _DayPanel(
@@ -193,9 +196,11 @@ class CalendarPainter extends CustomPainter {
   }
 
   void _drawBarPanels(final Canvas canvas, final Size size) {
-    final double startBarYOffset = _startDayPanelOffset + 32;
-    const int barSize = 10;
-    const int barVerticalPadding = 8;
+    const int barVerticalPadding = 4;
+    final double initializeBarOffset = _startDayPanelOffset + _dayHeight / 3;
+    final double barSize =
+        ((_dayHeight - _dayHeight / 3) - (barVerticalPadding * 5)) / 5;
+
     const int barHorizontal = 2;
 
     List<_BarPanel> barPanels = _getBarPanels();
@@ -206,36 +211,39 @@ class CalendarPainter extends CustomPainter {
         lineIndex++;
       }
 
+      final double defaultDayWidth = _dayWidth * (i % _weekdayCnt);
+      final double initializeY =
+          _dayHeight * (lineIndex - 1) + initializeBarOffset;
+
       _BarPanel barPanel = barPanels[i];
       List<_Bar> bars = barPanel.bars;
 
       for (int j = 0; j < bars.length; j++) {
         _Bar bar = bars[j];
 
-        final defaultDayWidth = _dayWidth * (i % _weekdayCnt);
-        final defaultDayHeight = _dayHeight * (lineIndex - 1) +
-            barSize * bar.barCount +
-            startBarYOffset;
+        final double barStartOffset =
+            initializeY + (barSize + barVerticalPadding) * bar.barCount;
 
         bar.paint(
           canvas,
           left: defaultDayWidth + (bar.isStartDate ? barHorizontal : 0),
-          top: defaultDayHeight,
+          top: barStartOffset,
           right: defaultDayWidth +
               _dayWidth +
               (bar.isEndDate ? -barHorizontal : 0),
-          bottom: defaultDayHeight + barVerticalPadding,
+          bottom: barStartOffset + barSize,
         );
       }
 
       if (barPanel.isMore) {
+        final double startCircleOffset =
+            initializeY + (barSize + barVerticalPadding) * 4;
+
         _MoreCircle().paint(
           canvas,
           dx: _dayWidth * (i % _weekdayCnt) + _dayWidth / 2,
-          dy: _dayHeight * (lineIndex - 1) +
-              startBarYOffset +
-              barSize * 4 +
-              barVerticalPadding / 2,
+          dy: startCircleOffset + (barSize / 2),
+          size: barSize,
         );
       }
     }
@@ -382,7 +390,7 @@ class _Day {
         isActive: false,
       );
 
-  void paint(final Canvas canvas, final Offset offset) {
+  void paint(final Canvas canvas, final Offset offset, final double fontSize) {
     Color color = this.color;
 
     if (isSelect) {
@@ -396,7 +404,7 @@ class _Day {
         text: date.day.toString(),
         style: TextStyle(
           color: color,
-          fontSize: 12,
+          fontSize: fontSize,
         ),
       ),
       textDirection: TextDirection.ltr,
@@ -406,7 +414,7 @@ class _Day {
       canvas.drawCircle(
           Offset(
             offset.dx,
-            offset.dy + textPainter.height / 2,
+            offset.dy,
           ),
           textPainter.height,
           Paint()..color = highlightDayColor);
@@ -416,7 +424,7 @@ class _Day {
       canvas,
       Offset(
         offset.dx - textPainter.width / 2,
-        offset.dy,
+        offset.dy - textPainter.height / 2,
       ),
     );
   }
@@ -435,7 +443,6 @@ class _DayPanel {
 }
 
 class _MoreCircle {
-  final int _size = 10;
   final Color _color = Colors.grey[300]!;
 
   _MoreCircle();
@@ -444,13 +451,14 @@ class _MoreCircle {
     final Canvas canvas, {
     required double dx,
     required double dy,
+    required double size,
   }) {
     canvas.drawCircle(
       Offset(
         dx,
         dy,
       ),
-      _size / 2,
+      size / 2,
       Paint()..color = _color,
     );
   }
