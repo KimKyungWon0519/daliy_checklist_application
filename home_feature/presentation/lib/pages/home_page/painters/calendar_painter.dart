@@ -36,7 +36,7 @@ class CalendarPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    _startDayPanelOffset = size.height / _weekdayCnt / 2;
+    _startDayPanelOffset = _weekdayHeight + 2;
     _dayWidth = size.width / _weekdayCnt;
     _dayHeight = (size.height - _startDayPanelOffset) / _dayLineCnt;
 
