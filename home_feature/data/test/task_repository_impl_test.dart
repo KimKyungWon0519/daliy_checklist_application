@@ -33,6 +33,7 @@ void main() {
           selectedDate: SelectedDate(
             startDate: date,
           ),
+          colorCode: 0xFFFFFFFF,
         );
 
         int result = await taskRepositoryImpl.addTask(task);
@@ -41,12 +42,39 @@ void main() {
       }
     });
 
-    test('get all task', () async {
-      List<Task> tasks = await taskRepositoryImpl.getAllTask(date);
+    test('get task on selected date', () async {
+      List<Task> tasks = await taskRepositoryImpl.getTaskOnSelectedDate(date);
 
       for (int i = 0; i < 2; i++) {
         expect(tasks[i].goal, equals('test_${i + 1}'));
       }
+    });
+
+    test('get task on month', () async {
+      int result = 0;
+      result = await taskRepositoryImpl.addTask(Task(
+        goal: 'test1',
+        selectedDate: SelectedDate(
+          startDate: DateTime(2024, 4),
+        ),
+        colorCode: 0xFFFFFFFF,
+      ));
+
+      expect(result, 4);
+
+      result = await taskRepositoryImpl.addTask(Task(
+        goal: 'test2',
+        selectedDate: SelectedDate(
+          startDate: DateTime(2024, 6),
+        ),
+        colorCode: 0xFFFFFFFF,
+      ));
+
+      expect(result, 5);
+
+      List<Task> tasks = await taskRepositoryImpl.getAllTasks();
+
+      expect(tasks.length, 5);
     });
 
     tearDownAll(() {

@@ -13,6 +13,7 @@ void main() {
           startDate: DateTime(1900),
           endDate: DateTime(2300),
         ),
+        colorCode: 0xFFFFFFFF,
       );
 
       final Entity.Task destinationTask = sourceTask.toEntity();
@@ -28,6 +29,7 @@ void main() {
         goal: 'test',
         startDate: DateTime(1900),
         endDate: DateTime(2300),
+        colorCode: 0xFFFFFFFF,
       );
 
       final Model.Task destinationTask = sourceTask.toModel();

@@ -15,11 +15,18 @@ class TaskRepositoryImpl implements TaskRepository {
   }
 
   @override
-  Future<List<Task>> getAllTask(DateTime date) {
+  Future<List<Task>> getTaskOnSelectedDate(DateTime date) {
     final DateTime target = DateTime(date.year, date.month, date.day);
 
     return _taskDatabase
-        .getAllTask(target)
+        .getTaskOnSelectedDate(target)
+        .then((value) => value.map((e) => e.toModel()).toList());
+  }
+
+  @override
+  Future<List<Task>> getAllTasks() {
+    return _taskDatabase
+        .getAllTasks()
         .then((value) => value.map((e) => e.toModel()).toList());
   }
 }

@@ -16,9 +16,9 @@ void main() {
     final GetTask getTask = GetTask(taskRepository: taskRepository);
 
     test('Test empty get all', () async {
-      when(getTask.getAllTask(dateTime)).thenAnswer((_) async => []);
+      when(getTask.getTaskOnSelectedDate(dateTime)).thenAnswer((_) async => []);
 
-      List<Task> tasks = await getTask.getAllTask(dateTime);
+      List<Task> tasks = await getTask.getTaskOnSelectedDate(dateTime);
 
       expect(tasks.length, 0);
       expect(tasks, []);
@@ -32,12 +32,14 @@ void main() {
           selectedDate: SelectedDate(
             startDate: DateTime.now(),
           ),
+          colorCode: 0xFFFFFFFF,
         ),
       );
 
-      when(getTask.getAllTask(dateTime)).thenAnswer((_) async => sourceTasks);
+      when(getTask.getTaskOnSelectedDate(dateTime))
+          .thenAnswer((_) async => sourceTasks);
 
-      final List<Task> tasks = await getTask.getAllTask(dateTime);
+      final List<Task> tasks = await getTask.getTaskOnSelectedDate(dateTime);
 
       expect(tasks.length, 3);
       expect(tasks, equals(sourceTasks));
@@ -53,6 +55,7 @@ void main() {
       selectedDate: SelectedDate(
         startDate: DateTime.now(),
       ),
+      colorCode: 0xFFFFFFFF,
     );
 
     when(taskRepository.addTask(task)).thenAnswer((_) async => 1);
