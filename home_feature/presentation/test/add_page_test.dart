@@ -8,6 +8,7 @@ import 'package:presentation/pages/add_task_page/add_task_page.dart';
 import 'package:presentation/pages/add_task_page/local_widgets/date_field.dart';
 import 'package:presentation/pages/add_task_page/local_widgets/date_range_type_chips.dart';
 import 'package:presentation/pages/add_task_page/local_widgets/goal_field.dart';
+import 'package:presentation/pages/add_task_page/local_widgets/style_panel.dart';
 import 'package:presentation/presenters/viewmodels/add_viewmodel.dart';
 
 class MockAddViewModel extends Mock implements AddViewModel {
@@ -55,5 +56,6 @@ void main() {
       ),
       findsOneWidget,
     );
+    expect(find.byType(StylePanel), findsOneWidget);
   });
 }
