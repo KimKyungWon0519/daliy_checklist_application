@@ -42,6 +42,9 @@ class RowPanel extends StatelessWidget {
           child: Container(
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.secondaryContainer,
+              borderRadius: const BorderRadius.horizontal(
+                left: Radius.circular(15),
+              ),
             ),
             padding: const EdgeInsets.all(8),
             child: TaskPanel(
