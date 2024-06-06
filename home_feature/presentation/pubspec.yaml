@@ -17,8 +17,6 @@ dependencies:
   domain:
     path: ../domain
   mockito: ^5.4.4
-  flutter_screenutil: ^5.9.3
-  responsive_builder: ^0.7.0
 
 dev_dependencies:
   flutter_test:
