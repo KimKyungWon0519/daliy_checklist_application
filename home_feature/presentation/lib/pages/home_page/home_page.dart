@@ -49,38 +49,25 @@ class _HomePageState extends ConsumerState<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    RowPanel rowPanel = RowPanel(
-      selectedDateProvider: _viewModel.selectedDateProvider,
-      allTaskProvider: _viewModel.allTasksProvider,
-      selectedDateTasksProvider: _viewModel.selectedDateTasksProvider,
-      onPressedDay: (dateTime) => _onPressedDay(dateTime),
-      onPressedAddButton: _onPressedAddButton,
-    );
-
-    StackPanel stackPanel = StackPanel(
-      selectedDateProvider: _viewModel.selectedDateProvider,
-      allTasksProvider: _viewModel.allTasksProvider,
-      selectedDateTasksProvider: _viewModel.selectedDateTasksProvider,
-      onPressedDay: (dateTime) => _onPressedDay(dateTime),
-      onPressedAddButton: _onPressedAddButton,
-    );
-
     return Scaffold(
       body: SafeArea(
-        child: ResponsiveBuilder(
-          builder: (context, sizingInformation) {
-            if (sizingInformation.deviceScreenType ==
-                DeviceScreenType.desktop) {
-              return rowPanel;
-            }
-
-            return OrientationLayoutBuilder(
-              portrait: (context) {
-                return stackPanel;
-              },
-              landscape: (context) {
-                return rowPanel;
-              },
+        child: OrientationLayoutBuilder(
+          portrait: (context) {
+            return StackPanel(
+              selectedDateProvider: _viewModel.selectedDateProvider,
+              allTasksProvider: _viewModel.allTasksProvider,
+              selectedDateTasksProvider: _viewModel.selectedDateTasksProvider,
+              onPressedDay: (dateTime) => _onPressedDay(dateTime),
+              onPressedAddButton: _onPressedAddButton,
+            );
+          },
+          landscape: (context) {
+            return RowPanel(
+              selectedDateProvider: _viewModel.selectedDateProvider,
+              allTaskProvider: _viewModel.allTasksProvider,
+              selectedDateTasksProvider: _viewModel.selectedDateTasksProvider,
+              onPressedDay: (dateTime) => _onPressedDay(dateTime),
+              onPressedAddButton: _onPressedAddButton,
             );
           },
         ),
