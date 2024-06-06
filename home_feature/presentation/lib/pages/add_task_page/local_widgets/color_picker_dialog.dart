@@ -248,14 +248,11 @@ class _ColorSlider extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Expanded(
-          flex: 1,
-          child: Center(
-            child: Text(name),
-          ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Text(name),
         ),
-        Expanded(
-          flex: 9,
+        Flexible(
           child: SliderTheme(
             data: SliderThemeData(
               trackShape: GradientRectSliderTrackShape(colors),
