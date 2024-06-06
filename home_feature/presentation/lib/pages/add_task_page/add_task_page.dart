@@ -49,6 +49,7 @@ class _AddTaskPageState extends ConsumerState<AddTaskPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text('새로운 목표'),
         actions: [
@@ -59,20 +60,22 @@ class _AddTaskPageState extends ConsumerState<AddTaskPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8),
-        child: Column(
-          children: [
-            Form(
-              key: _formKey,
-              child: InputPanel(
-                dateTypeProvider: _viewModel.dateTypeProvider,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Form(
+                key: _formKey,
+                child: InputPanel(
+                  dateTypeProvider: _viewModel.dateTypeProvider,
+                  taskProvider: _viewModel.taskProvider,
+                ),
+              ),
+              const SizedBox(height: 5),
+              StylePanel(
                 taskProvider: _viewModel.taskProvider,
               ),
-            ),
-            const SizedBox(height: 5),
-            StylePanel(
-              taskProvider: _viewModel.taskProvider,
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
