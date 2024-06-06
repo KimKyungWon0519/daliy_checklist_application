@@ -51,24 +51,28 @@ class _HomePageState extends ConsumerState<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: OrientationLayoutBuilder(
-          portrait: (context) {
-            return StackPanel(
-              selectedDateProvider: _viewModel.selectedDateProvider,
-              allTasksProvider: _viewModel.allTasksProvider,
-              selectedDateTasksProvider: _viewModel.selectedDateTasksProvider,
-              onPressedDay: (dateTime) => _onPressedDay(dateTime),
-              onPressedAddButton: _onPressedAddButton,
-            );
-          },
-          landscape: (context) {
-            return RowPanel(
-              selectedDateProvider: _viewModel.selectedDateProvider,
-              allTaskProvider: _viewModel.allTasksProvider,
-              selectedDateTasksProvider: _viewModel.selectedDateTasksProvider,
-              onPressedDay: (dateTime) => _onPressedDay(dateTime),
-              onPressedAddButton: _onPressedAddButton,
-            );
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            double width = constraints.maxWidth;
+            double height = constraints.maxHeight;
+
+            if (width < height) {
+              return StackPanel(
+                selectedDateProvider: _viewModel.selectedDateProvider,
+                allTasksProvider: _viewModel.allTasksProvider,
+                selectedDateTasksProvider: _viewModel.selectedDateTasksProvider,
+                onPressedDay: (dateTime) => _onPressedDay(dateTime),
+                onPressedAddButton: _onPressedAddButton,
+              );
+            } else {
+              return RowPanel(
+                selectedDateProvider: _viewModel.selectedDateProvider,
+                allTaskProvider: _viewModel.allTasksProvider,
+                selectedDateTasksProvider: _viewModel.selectedDateTasksProvider,
+                onPressedDay: (dateTime) => _onPressedDay(dateTime),
+                onPressedAddButton: _onPressedAddButton,
+              );
+            }
           },
         ),
       ),
