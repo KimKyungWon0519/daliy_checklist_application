@@ -85,8 +85,8 @@ class _CustomCalendarState extends ConsumerState<CustomCalendar> {
         mainAxisSize: MainAxisSize.min,
         children: [
           const _MonthHeader(),
-          SizedBox(
-            height: MediaQuery.sizeOf(context).height / 1.5,
+          Expanded(
+            // height: MediaQuery.sizeOf(context).height / 1.5,
             child: _MonthPageView(tasks: tasks),
           ),
         ],

@@ -7,14 +7,12 @@ import 'task_panel_body.dart';
 import 'task_panel_header.dart';
 
 class TaskSheet extends StatefulWidget {
-  final Function(DateTime)? pageNavigator;
   final StateProvider<DateTime> selectedDateProvider;
   final StateProvider<List<Task>> tasksProvider;
   final VoidCallback? onPressedAddButton;
 
   const TaskSheet({
     super.key,
-    this.pageNavigator,
     required this.selectedDateProvider,
     required this.tasksProvider,
     this.onPressedAddButton,
@@ -51,7 +49,7 @@ class _TaskSheetState extends State<TaskSheet> {
             ),
           ),
           padding: const EdgeInsets.all(8),
-          child: _TaskPanel(
+          child: TaskPanel(
             controller: _controller,
             scrollController: scrollController,
             selectedDateProvider: widget.selectedDateProvider,
@@ -64,14 +62,14 @@ class _TaskSheetState extends State<TaskSheet> {
   }
 }
 
-class _TaskPanel extends StatelessWidget {
+class TaskPanel extends StatelessWidget {
   final DraggableScrollableController? controller;
   final ScrollController? scrollController;
   final StateProvider<DateTime> selectedDateProvider;
   final StateProvider<List<Task>> tasksProvider;
   final VoidCallback? onPressedAddButton;
 
-  const _TaskPanel({
+  const TaskPanel({
     super.key,
     this.controller,
     this.scrollController,

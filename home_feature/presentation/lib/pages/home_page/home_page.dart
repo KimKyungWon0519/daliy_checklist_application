@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:presentation/constants/app_constants.dart';
 import 'package:presentation/constants/ui_constants.dart';
+import 'package:presentation/pages/home_page/local_widgets/row_panel.dart';
+import 'package:presentation/pages/home_page/local_widgets/stack_panel.dart';
 import 'package:presentation/presenters/viewmodels/home_viewmodel.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 
 import 'local_widgets/custom_calendar.dart';
 import 'local_widgets/task_sheet.dart';
@@ -46,28 +49,40 @@ class _HomePageState extends ConsumerState<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    RowPanel rowPanel = RowPanel(
+      selectedDateProvider: _viewModel.selectedDateProvider,
+      allTaskProvider: _viewModel.allTasksProvider,
+      selectedDateTasksProvider: _viewModel.selectedDateTasksProvider,
+      onPressedDay: (dateTime) => _onPressedDay(dateTime),
+      onPressedAddButton: _onPressedAddButton,
+    );
+
+    StackPanel stackPanel = StackPanel(
+      selectedDateProvider: _viewModel.selectedDateProvider,
+      allTasksProvider: _viewModel.allTasksProvider,
+      selectedDateTasksProvider: _viewModel.selectedDateTasksProvider,
+      onPressedDay: (dateTime) => _onPressedDay(dateTime),
+      onPressedAddButton: _onPressedAddButton,
+    );
+
     return Scaffold(
       body: SafeArea(
-        child: Stack(
-          children: [
-            Padding(
-              padding: bodyPadding,
-              child: CustomCalendar(
-                selectedDateProvider: _viewModel.selectedDateProvider,
-                allTasksProvider: _viewModel.allTasksProvider,
-                onPressedDay: (selectedDateTime) =>
-                    _onPressedDay(selectedDateTime),
-              ),
-            ),
-            SizedBox.expand(
-              child: TaskSheet(
-                pageNavigator: widget.pageNavigator,
-                selectedDateProvider: _viewModel.selectedDateProvider,
-                tasksProvider: _viewModel.selectedDateTasksProvider,
-                onPressedAddButton: () => _onPressedAddButton(),
-              ),
-            ),
-          ],
+        child: ResponsiveBuilder(
+          builder: (context, sizingInformation) {
+            if (sizingInformation.deviceScreenType ==
+                DeviceScreenType.desktop) {
+              return rowPanel;
+            }
+
+            return OrientationLayoutBuilder(
+              portrait: (context) {
+                return stackPanel;
+              },
+              landscape: (context) {
+                return rowPanel;
+              },
+            );
+          },
         ),
       ),
     );
