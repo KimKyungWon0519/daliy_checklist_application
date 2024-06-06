@@ -36,7 +36,7 @@ class CalendarPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    _startDayPanelOffset = _weekdayHeight + 2;
+    _startDayPanelOffset = _weekdayHeight.toDouble() + 2;
     _dayWidth = size.width / _weekdayCnt;
     _dayHeight = (size.height - _startDayPanelOffset) / _dayLineCnt;
 
@@ -67,7 +67,6 @@ class CalendarPainter extends CustomPainter {
   }
 
   void _drawDay(final Canvas canvas, final Size size) {
-    final double textPanelSize = _dayHeight / 3;
     int lineIndex = 0;
 
     for (int i = 0; i < _days.length; i++) {
@@ -79,9 +78,12 @@ class CalendarPainter extends CustomPainter {
       final double dy = _dayHeight * (lineIndex - 1);
 
       _days[i].paint(
-          canvas,
-          Offset(dx, dy + _startDayPanelOffset + (_dayHeight / 3) / 2),
-          textPanelSize * 0.4);
+        canvas,
+        Offset(
+          dx,
+          dy + _startDayPanelOffset + _days[i]._textPainter.height + 2,
+        ),
+      );
 
       if (_days[i].isActive) {
         _DayPanel dayPanel = _DayPanel(
@@ -196,10 +198,13 @@ class CalendarPainter extends CustomPainter {
   }
 
   void _drawBarPanels(final Canvas canvas, final Size size) {
-    const int barVerticalPadding = 4;
-    final double initializeBarOffset = _startDayPanelOffset + _dayHeight / 3;
+    const int barVerticalPadding = 2;
+    final double initializeBarOffset =
+        _startDayPanelOffset + _days.first._textPainter.height * 2 + 4;
     final double barSize =
-        ((_dayHeight - _dayHeight / 3) - (barVerticalPadding * 5)) / 5;
+        ((_dayHeight - (_days.first._textPainter.height * 2 + 4)) -
+                (barVerticalPadding * 5)) /
+            5;
 
     const int barHorizontal = 2;
 
@@ -285,26 +290,48 @@ class CalendarPainter extends CustomPainter {
     int currentDay = -startDayOffset + 1;
 
     while (currentDay < _dayLineCnt * _weekdayCnt) {
+      DateTime date;
+      bool isActive = false;
+
       if (currentDay < 1) {
-        days.insert(
-            0,
-            _Day.isInactive(
-                date: DateTime(
-                    previousYear, previousMonth, maxDayInPreviousMonth--)));
+        date = DateTime(year, month - 1, maxDayInPreviousMonth--);
       } else if (currentDay <= maxDayInMonth) {
-        days.add(_Day.isActive(
-          date: DateTime(dateTime.year, dateTime.month, currentDay),
-          isCurrent: DateUtils.isSameDay(
-              DateTime.now(), dateTime.copyWith(day: currentDay)),
-          isSelect: DateUtils.isSameDay(
-              dateTime.copyWith(day: currentDay), selectDateTime),
-          highlightDayColor: highlightDayColor,
-        ));
+        date = DateTime(year, month, currentDay);
+        isActive = true;
       } else {
-        days.add(_Day.isInactive(
-            date: DateTime(dateTime.year, dateTime.month + 1,
-                currentDay - maxDayInMonth)));
+        date = DateTime(year, dateTime.month + 1, currentDay - maxDayInMonth);
       }
+
+      days.add(
+        _Day(
+          date,
+          isCurrent: DateUtils.isSameDay(DateTime.now(), date),
+          isActive: isActive,
+          isSelect: DateUtils.isSameDay(selectDateTime, date),
+          highlightDayColor: highlightDayColor,
+        ),
+      );
+
+      // if (currentDay < 1) {
+      //   days.insert(
+      //       0,
+      //       _Day.isInactive(
+      //           date: DateTime(
+      //               previousYear, previousMonth, maxDayInPreviousMonth--)));
+      // } else if (currentDay <= maxDayInMonth) {
+      //   days.add(_Day.isActive(
+      //     date: DateTime(dateTime.year, dateTime.month, currentDay),
+      //     isCurrent: DateUtils.isSameDay(
+      //         DateTime.now(), dateTime.copyWith(day: currentDay)),
+      //     isSelect: DateUtils.isSameDay(
+      //         dateTime.copyWith(day: currentDay), selectDateTime),
+      //     highlightDayColor: highlightDayColor,
+      //   ));
+      // } else {
+      //   days.add(_Day.isInactive(
+      //       date: DateTime(dateTime.year, dateTime.month + 1,
+      //           currentDay - maxDayInMonth)));
+      // }
 
       currentDay++;
     }
@@ -349,84 +376,74 @@ class _Weekday {
 
 class _Day {
   final DateTime date;
-  final Color color;
   final bool isCurrent;
   final bool isSelect;
   final bool isActive;
   final Color highlightDayColor;
 
-  const _Day(
+  late final TextPainter _textPainter;
+
+  _Day(
     this.date, {
-    required this.color,
     required this.isCurrent,
     required this.isActive,
     required this.isSelect,
     this.highlightDayColor = Colors.transparent,
-  });
+  }) {
+    _createTextPainter();
+  }
 
-  factory _Day.isActive({
-    required DateTime date,
-    required bool isCurrent,
-    required bool isSelect,
-    required Color highlightDayColor,
-  }) =>
-      _Day(
-        date,
-        color: Colors.black,
-        isCurrent: isCurrent,
-        isSelect: isSelect,
-        isActive: true,
-        highlightDayColor: highlightDayColor,
-      );
-
-  factory _Day.isInactive({
-    required DateTime date,
-  }) =>
-      _Day(
-        date,
-        color: Colors.grey,
-        isCurrent: false,
-        isSelect: false,
-        isActive: false,
-      );
-
-  void paint(final Canvas canvas, final Offset offset, final double fontSize) {
-    Color color = this.color;
-
-    if (isSelect) {
-      color = Colors.white;
-    } else if (isCurrent) {
-      color = highlightDayColor;
-    }
-
-    final TextPainter textPainter = TextPainter(
-      text: TextSpan(
-        text: date.day.toString(),
-        style: TextStyle(
-          color: color,
-          fontSize: fontSize,
-        ),
-      ),
-      textDirection: TextDirection.ltr,
-    )..layout();
-
+  void paint(final Canvas canvas, final Offset offset) {
     if (isSelect) {
       canvas.drawCircle(
           Offset(
             offset.dx,
             offset.dy,
           ),
-          textPainter.height,
-          Paint()..color = highlightDayColor);
+          _textPainter.height,
+          Paint()
+            ..color = isActive
+                ? highlightDayColor
+                : highlightDayColor.withOpacity(0.5));
     }
 
-    textPainter.paint(
+    _textPainter.paint(
       canvas,
       Offset(
-        offset.dx - textPainter.width / 2,
-        offset.dy - textPainter.height / 2,
+        offset.dx - _textPainter.width / 2,
+        offset.dy - _textPainter.height / 2,
       ),
     );
+  }
+
+  Size get textSize => _textPainter.size;
+
+  void _createTextPainter() {
+    Color color = Colors.black;
+    FontWeight? fontWeight;
+
+    if (isSelect) {
+      color = Colors.white;
+    } else if (isCurrent) {
+      color = highlightDayColor;
+      fontWeight = FontWeight.bold;
+    }
+
+    if (!isActive) {
+      color = color.withOpacity(0.5);
+    }
+
+    _textPainter = TextPainter(
+      text: TextSpan(
+        text: date.day.toString(),
+        style: TextStyle(
+          fontSize: 10,
+          color: color,
+          fontWeight: fontWeight,
+        ),
+      ),
+      textDirection: TextDirection.ltr,
+    )..layout();
   }
 }
 
