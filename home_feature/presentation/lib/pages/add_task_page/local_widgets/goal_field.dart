@@ -21,6 +21,9 @@ class GoalField extends StatelessWidget {
       ),
       validator: _validator,
       onSaved: (newValue) => onChanged(newValue!),
+      onTapOutside: (event) {
+        FocusScope.of(context).unfocus();
+      },
     );
   }
 

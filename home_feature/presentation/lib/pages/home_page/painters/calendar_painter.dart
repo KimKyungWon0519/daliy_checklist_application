@@ -130,7 +130,7 @@ class CalendarPainter extends CustomPainter {
           .toList()
         ..sort(
           (a, b) =>
-              a.selectedDate.diffDay().compareTo(a.selectedDate.diffDay()),
+              b.selectedDate.diffDay().compareTo(a.selectedDate.diffDay()),
         );
 
       if (dateTask.isEmpty) continue;
