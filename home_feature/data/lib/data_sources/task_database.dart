@@ -15,6 +15,10 @@ class TaskDatabase {
     return _isar.writeTxn(() => _isar.tasks.put(task));
   }
 
+  Future<int> updateTask(Task task) {
+    return _isar.writeTxn(() => _isar.tasks.put(task));
+  }
+
   Future<List<Task>> getTaskOnSelectedDate(DateTime selectedDate) {
     return _isar.txn(() => _isar.tasks
         .filter()
