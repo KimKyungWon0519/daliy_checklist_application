@@ -5,12 +5,14 @@ class Task {
   final String goal;
   final SelectedDate selectedDate;
   final int colorCode;
+  final bool isCompleted;
 
   const Task({
     this.id,
     required this.goal,
     required this.selectedDate,
     required this.colorCode,
+    this.isCompleted = false,
   });
 
   factory Task.empty() => Task(
@@ -23,11 +25,13 @@ class Task {
     String? goal,
     SelectedDate? selectedDate,
     int? colorCode,
+    bool? isCompleted,
   }) {
     return Task(
       goal: goal ?? this.goal,
       selectedDate: selectedDate ?? this.selectedDate,
       colorCode: colorCode ?? this.colorCode,
+      isCompleted: isCompleted ?? this.isCompleted,
     );
   }
 

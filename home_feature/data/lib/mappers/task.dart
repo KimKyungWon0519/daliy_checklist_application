@@ -8,6 +8,7 @@ extension DomainTaskMapper on Model.Task {
       startDate: selectedDate.startDate,
       endDate: selectedDate.endDate,
       colorCode: colorCode,
+      isCompleted: isCompleted,
     );
   }
 }
@@ -22,6 +23,7 @@ extension DataTaskMapper on Entity.Task {
         endDate: endDate,
       ),
       colorCode: colorCode,
+      isCompleted: isCompleted,
     );
   }
 }
