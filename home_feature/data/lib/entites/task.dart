@@ -4,7 +4,7 @@ part 'task.g.dart';
 
 @collection
 class Task {
-  Id id = Isar.autoIncrement;
+  Id id;
 
   final String goal;
   final DateTime startDate;
@@ -18,5 +18,6 @@ class Task {
     required this.colorCode,
     this.endDate,
     this.isCompleted = false,
+    this.id = Isar.autoIncrement,
   });
 }

@@ -1,11 +1,13 @@
 import 'package:domain/domain.dart';
 
 class Task {
+  final int? id;
   final String goal;
   final SelectedDate selectedDate;
   final int colorCode;
 
   const Task({
+    this.id,
     required this.goal,
     required this.selectedDate,
     required this.colorCode,

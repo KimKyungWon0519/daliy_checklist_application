@@ -15,6 +15,7 @@ extension DomainTaskMapper on Model.Task {
 extension DataTaskMapper on Entity.Task {
   Model.Task toModel() {
     return Model.Task(
+      id: id,
       goal: goal,
       selectedDate: Model.SelectedDate(
         startDate: startDate,
