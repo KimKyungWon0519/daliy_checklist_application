@@ -4,6 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:presentation/pages/home_page/local_widgets/custom_calendar.dart';
+import 'package:presentation/pages/home_page/local_widgets/row_panel.dart';
+import 'package:presentation/pages/home_page/local_widgets/stack_panel.dart';
 import 'package:presentation/pages/home_page/local_widgets/task_sheet.dart';
 import 'package:presentation/presentation.dart';
 
@@ -42,6 +44,6 @@ void main() {
     );
 
     expect(find.byType(CustomCalendar), findsOneWidget);
-    expect(find.byType(TaskSheet), findsOneWidget);
+    expect(find.byType(LayoutBuilder), findsOneWidget);
   });
 }

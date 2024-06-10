@@ -29,7 +29,6 @@ void main() {
         child: MaterialApp(
           home: Scaffold(
             body: TaskSheet(
-              pageNavigator: null,
               selectedDateProvider:
                   viewModelProvider<HomeViewModel>().selectedDateProvider,
               tasksProvider:

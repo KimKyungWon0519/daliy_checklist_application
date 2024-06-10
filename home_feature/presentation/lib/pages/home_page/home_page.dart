@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:presentation/constants/app_constants.dart';
 import 'package:presentation/constants/ui_constants.dart';
+import 'package:presentation/pages/home_page/local_widgets/row_panel.dart';
+import 'package:presentation/pages/home_page/local_widgets/stack_panel.dart';
 import 'package:presentation/presenters/viewmodels/home_viewmodel.dart';
 
 import 'local_widgets/custom_calendar.dart';
@@ -48,26 +50,29 @@ class _HomePageState extends ConsumerState<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Stack(
-          children: [
-            Padding(
-              padding: bodyPadding,
-              child: CustomCalendar(
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            double width = constraints.maxWidth;
+            double height = constraints.maxHeight;
+
+            if (width < height) {
+              return StackPanel(
                 selectedDateProvider: _viewModel.selectedDateProvider,
                 allTasksProvider: _viewModel.allTasksProvider,
-                onPressedDay: (selectedDateTime) =>
-                    _onPressedDay(selectedDateTime),
-              ),
-            ),
-            SizedBox.expand(
-              child: TaskSheet(
-                pageNavigator: widget.pageNavigator,
+                selectedDateTasksProvider: _viewModel.selectedDateTasksProvider,
+                onPressedDay: (dateTime) => _onPressedDay(dateTime),
+                onPressedAddButton: _onPressedAddButton,
+              );
+            } else {
+              return RowPanel(
                 selectedDateProvider: _viewModel.selectedDateProvider,
-                tasksProvider: _viewModel.selectedDateTasksProvider,
-                onPressedAddButton: () => _onPressedAddButton(),
-              ),
-            ),
-          ],
+                allTaskProvider: _viewModel.allTasksProvider,
+                selectedDateTasksProvider: _viewModel.selectedDateTasksProvider,
+                onPressedDay: (dateTime) => _onPressedDay(dateTime),
+                onPressedAddButton: _onPressedAddButton,
+              );
+            }
+          },
         ),
       ),
     );
