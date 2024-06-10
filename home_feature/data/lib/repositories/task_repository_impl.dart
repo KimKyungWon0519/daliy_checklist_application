@@ -29,4 +29,9 @@ class TaskRepositoryImpl implements TaskRepository {
         .getAllTasks()
         .then((value) => value.map((e) => e.toModel()).toList());
   }
+
+  @override
+  Future<int> updateCompletedFlag(Task task) {
+    return _taskDatabase.updateTask(task.toEntity());
+  }
 }
