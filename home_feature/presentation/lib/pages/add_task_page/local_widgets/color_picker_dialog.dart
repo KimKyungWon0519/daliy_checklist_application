@@ -152,15 +152,9 @@ class _HueSlider extends StatelessWidget {
 
     return _ColorSlider(
       name: 'H',
-      colors: const [
-        Colors.red,
-        Colors.orange,
-        Colors.yellow,
-        Colors.green,
-        Colors.blue,
-        Colors.indigo,
-        Colors.purple,
-        Colors.red,
+      colors: [
+        for (int i = 0; i <= 360; i++)
+          HSLColor.fromAHSL(1, i.toDouble(), 1, 0.5).toColor(),
       ],
       value: hue,
       thumbColor: HSLColor.fromAHSL(1, hue, 1, 0.5).toColor(),
