@@ -87,7 +87,8 @@ class _CustomCalendarState extends ConsumerState<CustomCalendar> {
           const _MonthHeader(),
           Expanded(
             // height: MediaQuery.sizeOf(context).height / 1.5,
-            child: _MonthPageView(tasks: tasks),
+            child: _MonthPageView(
+                tasks: tasks..removeWhere((element) => element.isCompleted)),
           ),
         ],
       ),

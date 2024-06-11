@@ -2,13 +2,9 @@ import 'package:domain/domain.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:presentation/constants/app_constants.dart';
-import 'package:presentation/constants/ui_constants.dart';
 import 'package:presentation/pages/home_page/local_widgets/row_panel.dart';
 import 'package:presentation/pages/home_page/local_widgets/stack_panel.dart';
 import 'package:presentation/presenters/viewmodels/home_viewmodel.dart';
-
-import 'local_widgets/custom_calendar.dart';
-import 'local_widgets/task_sheet.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   final Future<void> Function(DateTime)? pageNavigator;
@@ -62,6 +58,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                 selectedDateTasksProvider: _viewModel.selectedDateTasksProvider,
                 onPressedDay: (dateTime) => _onPressedDay(dateTime),
                 onPressedAddButton: _onPressedAddButton,
+                onChangedCompleted: _onChangedCompleted,
               );
             } else {
               return RowPanel(
@@ -70,6 +67,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                 selectedDateTasksProvider: _viewModel.selectedDateTasksProvider,
                 onPressedDay: (dateTime) => _onPressedDay(dateTime),
                 onPressedAddButton: _onPressedAddButton,
+                onChangedCompleted: _onChangedCompleted,
               );
             }
           },
@@ -104,5 +102,22 @@ class _HomePageState extends ConsumerState<HomePage> {
     ref
         .read(_viewModel.selectedDateTasksProvider.notifier)
         .update((state) => tasks);
+  }
+
+  void _onChangedCompleted(Task task, bool value) {
+    _viewModel.changedCompleted(task, value).then((value) async {
+      DateTime dateTime = ref.read(_viewModel.selectedDateProvider);
+
+      List<Task> selectedDateTasks =
+          await _viewModel.getTaskOnSelectedDate(dateTime);
+      List<Task> allTasks = await _viewModel.getAllTasks();
+
+      ref
+          .read(_viewModel.allTasksProvider.notifier)
+          .update((state) => allTasks);
+      ref
+          .read(_viewModel.selectedDateTasksProvider.notifier)
+          .update((state) => selectedDateTasks);
+    });
   }
 }

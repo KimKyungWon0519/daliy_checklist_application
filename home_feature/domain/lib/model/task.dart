@@ -28,6 +28,7 @@ class Task {
     bool? isCompleted,
   }) {
     return Task(
+      id: id,
       goal: goal ?? this.goal,
       selectedDate: selectedDate ?? this.selectedDate,
       colorCode: colorCode ?? this.colorCode,
@@ -37,6 +38,6 @@ class Task {
 
   @override
   String toString() {
-    return '(Task)[goal : $goal, selectedDate : $selectedDate]';
+    return '(Task)[id : $id, goal : $goal, selectedDate : $selectedDate, colorCode : $colorCode, isCompleted : $isCompleted]';
   }
 }

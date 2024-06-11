@@ -20,4 +20,9 @@ class Task {
     this.isCompleted = false,
     this.id = Isar.autoIncrement,
   });
+
+  @override
+  String toString() {
+    return '(Task)[id : $id, goal : $goal, startDate : $startDate, endDate : $endDate, colorCode : $colorCode, isCompleted : $isCompleted]';
+  }
 }

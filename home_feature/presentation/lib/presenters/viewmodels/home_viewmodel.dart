@@ -7,10 +7,13 @@ class HomeViewModel {
   late final StateProvider<List<Task>> allTasksProvider;
 
   late final GetTask _getTask;
+  late final UpdateTask _updateTask;
 
   HomeViewModel({
     required GetTask getTask,
-  }) : _getTask = getTask {
+    required UpdateTask updateTask,
+  })  : _getTask = getTask,
+        _updateTask = updateTask {
     selectedDateProvider = StateProvider((ref) => DateTime.now());
     selectedDateTasksProvider = StateProvider((ref) => []);
     allTasksProvider = StateProvider((ref) => []);
@@ -22,5 +25,10 @@ class HomeViewModel {
 
   Future<List<Task>> getAllTasks() {
     return _getTask.getAllTasks();
+  }
+
+  Future<int> changedCompleted(Task task, bool isCompleted) {
+    return _updateTask
+        .updateCompletedFlag(task.copyWith(isCompleted: isCompleted));
   }
 }

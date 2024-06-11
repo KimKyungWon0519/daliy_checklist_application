@@ -12,6 +12,7 @@ class RowPanel extends StatelessWidget {
   final StateProvider<List<Task>> selectedDateTasksProvider;
   final void Function(DateTime dateTime)? onPressedDay;
   final VoidCallback? onPressedAddButton;
+  final void Function(Task task, bool value)? onChangedCompleted;
 
   const RowPanel({
     super.key,
@@ -20,6 +21,7 @@ class RowPanel extends StatelessWidget {
     required this.selectedDateTasksProvider,
     this.onPressedDay,
     this.onPressedAddButton,
+    this.onChangedCompleted,
   });
 
   @override
@@ -51,6 +53,7 @@ class RowPanel extends StatelessWidget {
               selectedDateProvider: selectedDateProvider,
               tasksProvider: selectedDateTasksProvider,
               onPressedAddButton: onPressedAddButton,
+              onChangedCompleted: onChangedCompleted,
             ),
           ),
         ),

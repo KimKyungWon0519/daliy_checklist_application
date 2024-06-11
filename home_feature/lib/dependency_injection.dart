@@ -8,9 +8,13 @@ Future<void> initialize(final String directory) async {
       Data.TaskRepositoryImpl(taskDatabase: taskDatabase);
   final AddTask addTask = AddTask(taskRepository: taskRepositoryImpl);
   final GetTask getTask = GetTask(taskRepository: taskRepositoryImpl);
+  final UpdateTask updateTask = UpdateTask(taskRepository: taskRepositoryImpl);
 
   viewModelProvider.registerFactory(
     () => AddViewModel(addTask: addTask),
   );
-  viewModelProvider.registerFactory(() => HomeViewModel(getTask: getTask));
+  viewModelProvider.registerFactory(() => HomeViewModel(
+        getTask: getTask,
+        updateTask: updateTask,
+      ));
 }
