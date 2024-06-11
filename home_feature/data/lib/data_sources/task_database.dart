@@ -28,6 +28,7 @@ class TaskDatabase {
             .startDateLessThan(selectedDate, include: true)
             .and()
             .endDateGreaterThan(selectedDate, include: true))
+        .sortByIsCompleted()
         .findAll());
   }
 
