@@ -21,8 +21,22 @@ class TaskPanelBody extends ConsumerWidget {
         (context, index) {
           final Task task = tasks[index];
 
+          Color? color;
+          TextDecoration? decoration;
+
+          if (task.isCompleted) {
+            color = Colors.grey;
+            decoration = TextDecoration.lineThrough;
+          }
+
           return CheckboxListTile(
-            title: Text(task.goal),
+            title: Text(
+              task.goal,
+              style: TextStyle(
+                color: color,
+                decoration: decoration,
+              ),
+            ),
             value: task.isCompleted,
             onChanged: (value) {
               if (value == null) return;
