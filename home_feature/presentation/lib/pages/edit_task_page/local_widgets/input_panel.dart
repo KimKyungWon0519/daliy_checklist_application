@@ -7,7 +7,7 @@ import 'date_range_type_chips.dart';
 import 'default_panel.dart';
 import 'goal_field.dart';
 
-class InputPanel extends ConsumerWidget {
+class InputPanel extends StatelessWidget {
   final StateProvider<Task> taskProvider;
   final StateProvider<DateType> dateTypeProvider;
 
@@ -18,18 +18,11 @@ class InputPanel extends ConsumerWidget {
   });
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    Task task = ref.watch(taskProvider);
-
+  Widget build(BuildContext context) {
     return DefaultPanel(
       children: [
         GoalField(
-          initialValue: task.goal,
-          onChanged: (value) {
-            ref
-                .read(taskProvider.notifier)
-                .update((state) => state.copyWith(goal: value));
-          },
+          taskProvider: taskProvider,
         ),
         const Divider(),
         DateRangePicker(

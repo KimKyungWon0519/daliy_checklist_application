@@ -1,19 +1,26 @@
+import 'package:domain/domain.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class GoalField extends StatelessWidget {
-  final String? initialValue;
-  final void Function(String value) onChanged;
+class GoalField extends ConsumerWidget {
+  final StateProvider<Task> taskProvider;
+  String? _text;
 
-  const GoalField({
+  GoalField({
     super.key,
-    this.initialValue,
-    required this.onChanged,
+    required this.taskProvider,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    Task task = ref.watch(taskProvider);
+
+    if (_text == null && task.goal.isNotEmpty) {
+      _text = task.goal;
+    }
+
     return TextFormField(
-      controller: TextEditingController(text: initialValue),
+      controller: TextEditingController(text: _text),
       decoration: const InputDecoration(
         labelText: '목표',
         icon: Icon(Icons.short_text_rounded),
@@ -23,8 +30,17 @@ class GoalField extends StatelessWidget {
         ),
       ),
       validator: _validator,
-      onSaved: (newValue) => onChanged(newValue!),
+      onChanged: (value) => _text = value,
+      onSaved: (newValue) {
+        ref
+            .read(taskProvider.notifier)
+            .update((state) => state.copyWith(goal: newValue));
+      },
       onTapOutside: (event) {
+        ref
+            .read(taskProvider.notifier)
+            .update((state) => state.copyWith(goal: _text));
+
         FocusScope.of(context).unfocus();
       },
     );
