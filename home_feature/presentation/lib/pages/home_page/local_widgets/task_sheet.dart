@@ -11,6 +11,7 @@ class TaskSheet extends StatefulWidget {
   final StateProvider<List<Task>> tasksProvider;
   final VoidCallback? onPressedAddButton;
   final void Function(Task task, bool value)? onChangedCompleted;
+  final void Function(Task task)? onPressedTaskTile;
 
   const TaskSheet({
     super.key,
@@ -18,6 +19,7 @@ class TaskSheet extends StatefulWidget {
     required this.tasksProvider,
     this.onPressedAddButton,
     this.onChangedCompleted,
+    this.onPressedTaskTile,
   });
 
   @override
@@ -58,6 +60,7 @@ class _TaskSheetState extends State<TaskSheet> {
             tasksProvider: widget.tasksProvider,
             onPressedAddButton: widget.onPressedAddButton,
             onChangedCompleted: widget.onChangedCompleted,
+            onPressedTaskTile: widget.onPressedTaskTile,
           ),
         );
       },
@@ -72,6 +75,7 @@ class TaskPanel extends StatelessWidget {
   final StateProvider<List<Task>> tasksProvider;
   final VoidCallback? onPressedAddButton;
   final void Function(Task task, bool value)? onChangedCompleted;
+  final void Function(Task task)? onPressedTaskTile;
 
   const TaskPanel({
     super.key,
@@ -81,6 +85,7 @@ class TaskPanel extends StatelessWidget {
     required this.tasksProvider,
     this.onPressedAddButton,
     this.onChangedCompleted,
+    this.onPressedTaskTile,
   });
 
   @override
@@ -100,6 +105,7 @@ class TaskPanel extends StatelessWidget {
         TaskPanelBody(
           tasksProvider: tasksProvider,
           onChangedCompleted: onChangedCompleted,
+          onPressedTaskTile: onPressedTaskTile,
         ),
       ],
     );

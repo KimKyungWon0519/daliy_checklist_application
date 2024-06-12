@@ -19,9 +19,12 @@ class InputPanel extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    Task task = ref.watch(taskProvider);
+
     return DefaultPanel(
       children: [
         GoalField(
+          initialValue: task.goal,
           onChanged: (value) {
             ref
                 .read(taskProvider.notifier)

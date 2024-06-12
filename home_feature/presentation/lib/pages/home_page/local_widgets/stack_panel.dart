@@ -13,6 +13,7 @@ class StackPanel extends StatelessWidget {
   final void Function(DateTime dateTime)? onPressedDay;
   final VoidCallback? onPressedAddButton;
   final void Function(Task task, bool value)? onChangedCompleted;
+  final void Function(Task task)? onPressedTaskTile;
 
   const StackPanel({
     super.key,
@@ -22,6 +23,7 @@ class StackPanel extends StatelessWidget {
     this.onPressedDay,
     this.onPressedAddButton,
     this.onChangedCompleted,
+    this.onPressedTaskTile,
   });
 
   @override
@@ -46,6 +48,7 @@ class StackPanel extends StatelessWidget {
             tasksProvider: selectedDateTasksProvider,
             onPressedAddButton: onPressedAddButton,
             onChangedCompleted: onChangedCompleted,
+            onPressedTaskTile: onPressedTaskTile,
           ),
         ),
       ],

@@ -5,11 +5,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class TaskPanelBody extends ConsumerWidget {
   final StateProvider<List<Task>> tasksProvider;
   final void Function(Task task, bool value)? onChangedCompleted;
+  final void Function(Task task)? onPressedTaskTile;
 
   const TaskPanelBody({
     super.key,
     required this.tasksProvider,
     this.onChangedCompleted,
+    this.onPressedTaskTile,
   });
 
   @override
@@ -28,6 +30,25 @@ class TaskPanelBody extends ConsumerWidget {
             color = Colors.grey;
             decoration = TextDecoration.lineThrough;
           }
+
+          return ListTile(
+            title: Text(
+              task.goal,
+              style: TextStyle(
+                color: color,
+                decoration: decoration,
+              ),
+            ),
+            onTap: () => onPressedTaskTile?.call(task),
+            trailing: Checkbox(
+              onChanged: (value) {
+                if (value == null) return;
+
+                onChangedCompleted?.call(task, value);
+              },
+              value: task.isCompleted,
+            ),
+          );
 
           return CheckboxListTile(
             title: Text(

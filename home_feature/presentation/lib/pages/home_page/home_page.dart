@@ -59,6 +59,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                 onPressedDay: (dateTime) => _onPressedDay(dateTime),
                 onPressedAddButton: _onPressedAddButton,
                 onChangedCompleted: _onChangedCompleted,
+                onPressedTaskTile: _onPressedTaskTile,
               );
             } else {
               return RowPanel(
@@ -68,6 +69,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                 onPressedDay: (dateTime) => _onPressedDay(dateTime),
                 onPressedAddButton: _onPressedAddButton,
                 onChangedCompleted: _onChangedCompleted,
+                onPressedTaskTile: _onPressedTaskTile,
               );
             }
           },
@@ -92,6 +94,14 @@ class _HomePageState extends ConsumerState<HomePage> {
     }
   }
 
+  void _onPressedTaskTile(Task task) {
+    if (widget.pageNavigator != null) {
+      widget.pageNavigator!(task: task).then((value) {
+        _updateTask();
+      });
+    }
+  }
+
   Future<void> _onPressedDay(DateTime selectedDateTime) async {
     ref
         .read(_viewModel.selectedDateProvider.notifier)
@@ -106,18 +116,20 @@ class _HomePageState extends ConsumerState<HomePage> {
 
   void _onChangedCompleted(Task task, bool value) {
     _viewModel.changedCompleted(task, value).then((value) async {
-      DateTime dateTime = ref.read(_viewModel.selectedDateProvider);
-
-      List<Task> selectedDateTasks =
-          await _viewModel.getTaskOnSelectedDate(dateTime);
-      List<Task> allTasks = await _viewModel.getAllTasks();
-
-      ref
-          .read(_viewModel.allTasksProvider.notifier)
-          .update((state) => allTasks);
-      ref
-          .read(_viewModel.selectedDateTasksProvider.notifier)
-          .update((state) => selectedDateTasks);
+      _updateTask();
     });
+  }
+
+  void _updateTask() async {
+    DateTime dateTime = ref.read(_viewModel.selectedDateProvider);
+
+    List<Task> selectedDateTasks =
+        await _viewModel.getTaskOnSelectedDate(dateTime);
+    List<Task> allTasks = await _viewModel.getAllTasks();
+
+    ref.read(_viewModel.allTasksProvider.notifier).update((state) => allTasks);
+    ref
+        .read(_viewModel.selectedDateTasksProvider.notifier)
+        .update((state) => selectedDateTasks);
   }
 }

@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 
 class GoalField extends StatelessWidget {
+  final String? initialValue;
   final void Function(String value) onChanged;
 
   const GoalField({
     super.key,
+    this.initialValue,
     required this.onChanged,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: TextEditingController(text: initialValue),
       decoration: const InputDecoration(
         labelText: '목표',
         icon: Icon(Icons.short_text_rounded),
