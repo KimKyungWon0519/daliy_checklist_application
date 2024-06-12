@@ -1,10 +1,10 @@
 import 'package:domain/domain.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:presentation/pages/add_task_page/local_widgets/default_panel.dart';
 
 import 'date_field.dart';
 import 'date_range_type_chips.dart';
+import 'default_panel.dart';
 import 'goal_field.dart';
 
 class InputPanel extends ConsumerWidget {

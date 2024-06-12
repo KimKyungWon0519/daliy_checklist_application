@@ -1,7 +1,8 @@
 import 'package:domain/domain.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:presentation/pages/add_task_page/local_widgets/color_picker_dialog.dart';
+
+import 'color_picker_dialog.dart';
 
 class ColorTile extends ConsumerStatefulWidget {
   final StateProvider<Task> taskProvider;

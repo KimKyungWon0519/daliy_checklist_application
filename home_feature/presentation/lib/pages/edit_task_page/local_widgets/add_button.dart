@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class AddButton extends StatelessWidget {
+class FinishButton extends StatelessWidget {
   final VoidCallback onPressed;
 
-  const AddButton({
+  const FinishButton({
     super.key,
     required this.onPressed,
   });

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:presentation/pages/add_task_page/decorations/slider_track_shapes.dart';
+import 'package:presentation/pages/edit_task_page/decorations/slider_track_shapes.dart';
 
 class _HSLColorProvider extends InheritedWidget {
   final double hue;

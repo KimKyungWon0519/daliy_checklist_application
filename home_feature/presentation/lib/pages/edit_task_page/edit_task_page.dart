@@ -1,41 +1,37 @@
 import 'package:domain/domain.dart';
-import 'package:domain/model/task.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:presentation/constants/app_constants.dart';
-import 'package:presentation/pages/add_task_page/local_widgets/date_field.dart';
-import 'package:presentation/pages/add_task_page/local_widgets/date_range_type_chips.dart';
-import 'package:presentation/pages/add_task_page/local_widgets/input_panel.dart';
-import 'package:presentation/pages/add_task_page/local_widgets/style_panel.dart';
-import 'package:presentation/presenters/viewmodels/add_viewmodel.dart';
+import 'package:presentation/pages/edit_task_page/local_widgets/input_panel.dart';
+import 'package:presentation/pages/edit_task_page/local_widgets/style_panel.dart';
+import 'package:presentation/presenters/viewmodels/edit_viewmodel.dart';
 
 import 'local_widgets/add_button.dart';
-import 'local_widgets/goal_field.dart';
 
-class AddTaskPage extends ConsumerStatefulWidget {
+class EditTaskPage extends ConsumerStatefulWidget {
   final DateTime initialDate;
   final void Function()? pageNavigator;
 
-  const AddTaskPage({
+  const EditTaskPage({
     super.key,
     required this.initialDate,
     this.pageNavigator,
   });
 
   @override
-  ConsumerState<AddTaskPage> createState() => _AddTaskPageState();
+  ConsumerState<EditTaskPage> createState() => _AddTaskPageState();
 }
 
-class _AddTaskPageState extends ConsumerState<AddTaskPage> {
+class _AddTaskPageState extends ConsumerState<EditTaskPage> {
   late final GlobalKey<FormState> _formKey;
-  late final AddViewModel _viewModel;
+  late final EditViewModel _viewModel;
 
   @override
   void initState() {
     super.initState();
 
     _formKey = GlobalKey<FormState>();
-    _viewModel = viewModelProvider<AddViewModel>();
+    _viewModel = viewModelProvider<EditViewModel>();
 
     WidgetsBinding.instance.addPostFrameCallback(
       (timeStamp) {
@@ -53,7 +49,7 @@ class _AddTaskPageState extends ConsumerState<AddTaskPage> {
       appBar: AppBar(
         title: const Text('새로운 목표'),
         actions: [
-          AddButton(
+          FinishButton(
             onPressed: () => _onPressedAddButton(),
           )
         ],

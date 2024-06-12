@@ -45,7 +45,7 @@ class MainApp extends StatelessWidget {
                     final DateTime initialDate = DateFormat('yyyy/MM/dd')
                         .parse(state.pathParameters['start_date']!);
 
-                    return AddTaskPage(
+                    return EditTaskPage(
                       initialDate: initialDate,
                       pageNavigator: () => context.pop(),
                     );

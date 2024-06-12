@@ -11,7 +11,7 @@ Future<void> initialize(final String directory) async {
   final UpdateTask updateTask = UpdateTask(taskRepository: taskRepositoryImpl);
 
   viewModelProvider.registerFactory(
-    () => AddViewModel(addTask: addTask),
+    () => EditViewModel(addTask: addTask),
   );
   viewModelProvider.registerFactory(() => HomeViewModel(
         getTask: getTask,

@@ -4,14 +4,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:presentation/constants/app_constants.dart';
-import 'package:presentation/pages/add_task_page/add_task_page.dart';
-import 'package:presentation/pages/add_task_page/local_widgets/date_field.dart';
-import 'package:presentation/pages/add_task_page/local_widgets/date_range_type_chips.dart';
-import 'package:presentation/pages/add_task_page/local_widgets/goal_field.dart';
-import 'package:presentation/pages/add_task_page/local_widgets/style_panel.dart';
-import 'package:presentation/presenters/viewmodels/add_viewmodel.dart';
+import 'package:presentation/pages/edit_task_page/edit_task_page.dart';
+import 'package:presentation/pages/edit_task_page/local_widgets/date_field.dart';
+import 'package:presentation/pages/edit_task_page/local_widgets/date_range_type_chips.dart';
+import 'package:presentation/pages/edit_task_page/local_widgets/goal_field.dart';
+import 'package:presentation/pages/edit_task_page/local_widgets/style_panel.dart';
+import 'package:presentation/presenters/viewmodels/edit_viewmodel.dart';
 
-class MockAddViewModel extends Mock implements AddViewModel {
+class MockAddViewModel extends Mock implements EditViewModel {
   @override
   final StateProvider<DateType> dateTypeProvider =
       StateProvider((ref) => DateType.daily);
@@ -20,12 +20,12 @@ class MockAddViewModel extends Mock implements AddViewModel {
 }
 
 void main() {
-  viewModelProvider.registerFactory<AddViewModel>(() => MockAddViewModel());
+  viewModelProvider.registerFactory<EditViewModel>(() => MockAddViewModel());
   testWidgets('test goal input widget', (widgetTester) async {
     await widgetTester.pumpWidget(
       ProviderScope(
         child: MaterialApp(
-          home: AddTaskPage(
+          home: EditTaskPage(
             initialDate: DateTime.now(),
           ),
         ),

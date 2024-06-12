@@ -1,13 +1,13 @@
 import 'package:domain/domain.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class AddViewModel {
+class EditViewModel {
   late final AddTask _addTaskUseCase;
 
   late final StateProvider<DateType> dateTypeProvider;
   late final StateProvider<Task> taskProvider;
 
-  AddViewModel({
+  EditViewModel({
     required AddTask addTask,
   }) : _addTaskUseCase = addTask {
     dateTypeProvider = StateProvider<DateType>((ref) => DateType.daily);
