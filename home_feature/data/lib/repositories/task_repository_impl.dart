@@ -11,6 +11,18 @@ class TaskRepositoryImpl implements TaskRepository {
 
   @override
   Future<int> addTask(Task task) {
+    DateTime startDate = task.selectedDate.startDate;
+    DateTime? endDate = task.selectedDate.endDate;
+
+    startDate = DateTime(startDate.year, startDate.month, startDate.day);
+
+    if (endDate != null) {
+      endDate = DateTime(endDate.year, endDate.month, endDate.day);
+    }
+
+    task = task.copyWith(
+        selectedDate: SelectedDate(startDate: startDate, endDate: endDate));
+
     return _taskDatabase.addTask(task.toEntity());
   }
 
