@@ -1,5 +1,7 @@
-library home_feature;
+export 'package:presentation/pages/home_page/home_page.dart';
+export 'package:presentation/pages/edit_task_page/edit_task_page.dart';
 
-export 'package:home_feature/dependency_injection.dart';
-export 'package:home_feature/pages/home_page/home_page.dart';
-export 'package:home_feature/pages/add_task_page/add_task_page.dart';
+export 'package:presentation/presenters/viewmodels/edit_viewmodel.dart';
+export 'package:presentation/presenters/viewmodels/home_viewmodel.dart';
+
+export 'package:presentation/constants/app_constants.dart';

@@ -1,4 +1,4 @@
-name: home_feature
+name: presentation
 description: "A new Flutter package project."
 version: 0.0.1
 publish_to: none
@@ -16,6 +16,7 @@ dependencies:
 
   domain:
     path: ../domain
+  mockito: ^5.4.4
 
 dev_dependencies:
   flutter_test:
