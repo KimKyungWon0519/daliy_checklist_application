@@ -41,6 +41,12 @@ class _AddTaskPageState extends ConsumerState<EditTaskPage> {
           ref
               .read(_viewModel.taskProvider.notifier)
               .update((state) => widget.task!);
+
+          if (widget.task!.selectedDate.endDate != null) {
+            ref
+                .read(_viewModel.dateTypeProvider.notifier)
+                .update((state) => DateType.period);
+          }
         } else {
           ref.read(_viewModel.taskProvider.notifier).update((state) =>
               state.copyWith(
