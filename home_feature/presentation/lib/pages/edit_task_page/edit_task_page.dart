@@ -9,14 +9,16 @@ import 'package:presentation/presenters/viewmodels/edit_viewmodel.dart';
 import 'local_widgets/add_button.dart';
 
 class EditTaskPage extends ConsumerStatefulWidget {
-  final DateTime initialDate;
+  final DateTime? initialDate;
   final void Function()? pageNavigator;
+  final Task? task;
 
   const EditTaskPage({
     super.key,
-    required this.initialDate,
+    this.initialDate,
     this.pageNavigator,
-  });
+    this.task,
+  }) : assert(initialDate == null || task == null);
 
   @override
   ConsumerState<EditTaskPage> createState() => _AddTaskPageState();
@@ -35,9 +37,15 @@ class _AddTaskPageState extends ConsumerState<EditTaskPage> {
 
     WidgetsBinding.instance.addPostFrameCallback(
       (timeStamp) {
-        ref.read(_viewModel.taskProvider.notifier).update((state) =>
-            state.copyWith(
-                selectedDate: SelectedDate(startDate: widget.initialDate)));
+        if (widget.task != null) {
+          ref
+              .read(_viewModel.taskProvider.notifier)
+              .update((state) => widget.task!);
+        } else {
+          ref.read(_viewModel.taskProvider.notifier).update((state) =>
+              state.copyWith(
+                  selectedDate: SelectedDate(startDate: widget.initialDate!)));
+        }
       },
     );
   }
@@ -47,7 +55,7 @@ class _AddTaskPageState extends ConsumerState<EditTaskPage> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: const Text('새로운 목표'),
+        title: const Text('목표'),
         actions: [
           FinishButton(
             onPressed: () => _onPressedAddButton(),

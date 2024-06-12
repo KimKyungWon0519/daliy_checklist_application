@@ -9,12 +9,18 @@ final class AppRoutes {
     path: '/home',
     name: 'home',
     builder: (context, state) => HomePage(
-      pageNavigator: (DateTime selectedDate) async {
+      pageNavigator: ({dateTime, task}) async {
+        Map<String, dynamic> queryParameters = {};
+
+        if (dateTime != null) {
+          queryParameters.addAll({'start_date': dateTime});
+        } else if (task != null) {
+          queryParameters.addAll({'task': task});
+        }
+
         await context.pushNamed(
-          add.name!,
-          pathParameters: {
-            'start_date': DateFormat('yyyy/MM/dd').format(selectedDate),
-          },
+          'add',
+          extra: queryParameters,
         );
       },
     ),
@@ -22,14 +28,14 @@ final class AppRoutes {
   );
 
   static final GoRoute add = GoRoute(
-    path: 'add/:start_date',
+    path: 'add',
     name: 'add',
     builder: (context, state) {
-      final DateTime initialDate =
-          DateFormat('yyyy/MM/dd').parse(state.pathParameters['start_date']!);
+      Map<String, dynamic> extra = state.extra! as Map<String, dynamic>;
 
       return EditTaskPage(
-        initialDate: initialDate,
+        initialDate: extra['start_date'],
+        task: extra['task'],
         pageNavigator: () => context.pop(),
       );
     },

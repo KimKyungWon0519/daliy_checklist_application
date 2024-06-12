@@ -7,7 +7,7 @@ import 'package:presentation/pages/home_page/local_widgets/stack_panel.dart';
 import 'package:presentation/presenters/viewmodels/home_viewmodel.dart';
 
 class HomePage extends ConsumerStatefulWidget {
-  final Future<void> Function(DateTime)? pageNavigator;
+  final Future<void> Function({DateTime? dateTime, Task? task})? pageNavigator;
 
   const HomePage({
     super.key,
@@ -80,7 +80,7 @@ class _HomePageState extends ConsumerState<HomePage> {
     final DateTime selectedDate = ref.read(_viewModel.selectedDateProvider);
 
     if (widget.pageNavigator != null) {
-      widget.pageNavigator!(selectedDate).then((value) async {
+      widget.pageNavigator!(dateTime: selectedDate).then((value) async {
         await _viewModel.getTaskOnSelectedDate(selectedDate).then((value) => ref
             .read(_viewModel.selectedDateTasksProvider.notifier)
             .update((state) => value));

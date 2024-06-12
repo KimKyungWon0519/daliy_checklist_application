@@ -12,7 +12,7 @@ class FinishButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: onPressed,
-      child: Text('추가'),
+      child: Text('완료'),
     );
   }
 }
