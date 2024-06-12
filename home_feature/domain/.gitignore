@@ -1,6 +1,3 @@
-# Build Files
-*.mocks.*
-
 # Miscellaneous
 *.class
 *.log

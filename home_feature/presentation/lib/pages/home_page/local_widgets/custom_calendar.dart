@@ -1,8 +1,7 @@
-import 'package:domain/domain.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:presentation/constants/ui_constants.dart';
-import 'package:presentation/pages/home_page/painters/calendar_painter.dart';
+import 'package:home_feature/constants/ui_constants.dart';
+import 'package:home_feature/pages/home_page/painters/calendar_painter.dart';
 
 class _CalendarProvider extends InheritedWidget {
   final DateTime selectedDateTime;
@@ -42,14 +41,10 @@ class _CalendarProvider extends InheritedWidget {
 
 class CustomCalendar extends ConsumerStatefulWidget {
   final StateProvider<DateTime> selectedDateProvider;
-  final StateProvider<List<Task>> allTasksProvider;
-  final void Function(DateTime selectedDateTime) onPressedDay;
 
   const CustomCalendar({
     super.key,
     required this.selectedDateProvider,
-    required this.allTasksProvider,
-    required this.onPressedDay,
   });
 
   @override
@@ -69,13 +64,16 @@ class _CustomCalendarState extends ConsumerState<CustomCalendar> {
   @override
   Widget build(BuildContext context) {
     final DateTime selectedDateTime = ref.watch(widget.selectedDateProvider);
-    final List<Task> tasks = ref.watch(widget.allTasksProvider);
 
     return _CalendarProvider(
       selectedDateTime: selectedDateTime,
       viewDateTime: _viewDateTime,
       localizations: MaterialLocalizations.of(context),
-      onPressedDay: widget.onPressedDay,
+      onPressedDay: (selectedDateTime) {
+        ref
+            .read(widget.selectedDateProvider.notifier)
+            .update((state) => selectedDateTime);
+      },
       onChangeMonth: (dateTime) {
         setState(() {
           _viewDateTime = dateTime;
@@ -85,10 +83,9 @@ class _CustomCalendarState extends ConsumerState<CustomCalendar> {
         mainAxisSize: MainAxisSize.min,
         children: [
           const _MonthHeader(),
-          Expanded(
-            // height: MediaQuery.sizeOf(context).height / 1.5,
-            child: _MonthPageView(
-                tasks: tasks..removeWhere((element) => element.isCompleted)),
+          SizedBox(
+            height: MediaQuery.sizeOf(context).height / 1.5,
+            child: const _MonthPageView(),
           ),
         ],
       ),
@@ -114,12 +111,7 @@ class _MonthHeader extends StatelessWidget {
 }
 
 class _MonthPageView extends StatefulWidget {
-  final List<Task> tasks;
-
-  const _MonthPageView({
-    super.key,
-    required this.tasks,
-  });
+  const _MonthPageView({super.key});
 
   @override
   State<_MonthPageView> createState() => _MonthPageViewState();
@@ -150,7 +142,6 @@ class _MonthPageViewState extends State<_MonthPageView> {
       itemBuilder: (context, index) => _MonthPanel(
         dateTime: DateUtils.addMonthsToMonthDate(_firstDate, index),
         selectedDateTime: calendarProvider.selectedDateTime,
-        tasks: widget.tasks,
       ),
       itemCount: _dateLength,
     );
@@ -183,13 +174,11 @@ class _MonthPageViewState extends State<_MonthPageView> {
 class _MonthPanel extends StatelessWidget {
   final DateTime dateTime;
   final DateTime selectedDateTime;
-  final List<Task> tasks;
 
   const _MonthPanel({
     super.key,
     required this.dateTime,
     required this.selectedDateTime,
-    required this.tasks,
   });
 
   @override
@@ -201,7 +190,6 @@ class _MonthPanel extends StatelessWidget {
       localizations: calendarProvider.localizations,
       selectDateTime: selectedDateTime,
       highlightDayColor: Theme.of(context).colorScheme.primary,
-      tasks: tasks,
     );
 
     return GestureDetector(

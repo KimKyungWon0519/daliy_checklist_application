@@ -1,5 +1,5 @@
 import 'package:go_router/go_router.dart';
-import 'package:home_feature/home_feature.dart';
+import 'package:home_feature/presentation.dart';
 import 'package:intl/intl.dart';
 
 final class AppRoutes {
@@ -9,18 +9,12 @@ final class AppRoutes {
     path: '/home',
     name: 'home',
     builder: (context, state) => HomePage(
-      pageNavigator: ({dateTime, task}) async {
-        Map<String, dynamic> queryParameters = {};
-
-        if (dateTime != null) {
-          queryParameters.addAll({'start_date': dateTime});
-        } else if (task != null) {
-          queryParameters.addAll({'task': task});
-        }
-
-        await context.pushNamed(
-          'add',
-          extra: queryParameters,
+      onClickAddButton: (DateTime selectedDate) {
+        context.pushNamed(
+          add.name!,
+          pathParameters: {
+            'start_date': DateFormat('yyyy/MM/dd').format(selectedDate),
+          },
         );
       },
     ),
@@ -28,16 +22,13 @@ final class AppRoutes {
   );
 
   static final GoRoute add = GoRoute(
-    path: 'add',
+    path: 'add/:start_date',
     name: 'add',
     builder: (context, state) {
-      Map<String, dynamic> extra = state.extra! as Map<String, dynamic>;
+      final DateTime initialDate =
+          DateFormat('yyyy/MM/dd').parse(state.pathParameters['start_date']!);
 
-      return EditTaskPage(
-        initialDate: extra['start_date'],
-        task: extra['task'],
-        pageNavigator: () => context.pop(),
-      );
+      return AddTaskPage(initialDate: initialDate);
     },
   );
 

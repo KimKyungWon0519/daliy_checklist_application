@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:presentation/constants/ui_constants.dart';
+import 'package:home_feature/constants/ui_constants.dart';
 
 class Header extends SliverPersistentHeaderDelegate {
   final _headerSize = kToolbarHeight + 10;
 
   final DraggableScrollableController? draggableSheetController;
   final ScrollController? scrollController;
+  final Function(DateTime)? onClickAddButton;
   final StateProvider<DateTime> selectedDateProvider;
-  final VoidCallback? onPressedAddButton;
 
   const Header({
     this.draggableSheetController,
     this.scrollController,
+    this.onClickAddButton,
     required this.selectedDateProvider,
-    this.onPressedAddButton,
   });
 
   @override
@@ -37,8 +37,8 @@ class Header extends SliverPersistentHeaderDelegate {
           children: [
             const _Handle(),
             _Title(
+              onClickAddButton: onClickAddButton,
               selectedDateProvider: selectedDateProvider,
-              onPressedAddButton: onPressedAddButton,
             ),
           ],
         ),
@@ -104,13 +104,13 @@ class _Handle extends StatelessWidget {
 }
 
 class _Title extends ConsumerWidget {
+  final Function(DateTime)? onClickAddButton;
   final StateProvider<DateTime> selectedDateProvider;
-  final VoidCallback? onPressedAddButton;
 
   const _Title({
     super.key,
+    this.onClickAddButton,
     required this.selectedDateProvider,
-    this.onPressedAddButton,
   });
 
   @override
@@ -126,7 +126,8 @@ class _Title extends ConsumerWidget {
         title: Text(DateFormat('yyyy/MM/dd').format(selectedDateTime)),
         actions: [
           _AddIconButton(
-            onPressedAddButton: onPressedAddButton,
+            onClickAddButton: onClickAddButton,
+            selectedDateProvider: selectedDateProvider,
           ),
         ],
       ),
@@ -135,17 +136,23 @@ class _Title extends ConsumerWidget {
 }
 
 class _AddIconButton extends ConsumerWidget {
-  final VoidCallback? onPressedAddButton;
+  final Function(DateTime)? onClickAddButton;
+  final StateProvider<DateTime> selectedDateProvider;
 
   const _AddIconButton({
     super.key,
-    this.onPressedAddButton,
+    this.onClickAddButton,
+    required this.selectedDateProvider,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return IconButton(
-      onPressed: onPressedAddButton,
+      onPressed: () {
+        DateTime selectedDate = ref.read(selectedDateProvider);
+
+        onClickAddButton?.call(selectedDate);
+      },
       icon: const Icon(Icons.add),
     );
   }
