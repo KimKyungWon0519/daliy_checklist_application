@@ -28,3 +28,15 @@ class AddTask {
     return _taskRepository.addTask(task);
   }
 }
+
+class UpdateTask {
+  late final TaskRepository _taskRepository;
+
+  UpdateTask({
+    required final TaskRepository taskRepository,
+  }) : _taskRepository = taskRepository;
+
+  Future<int> updateCompletedFlag(Task task) {
+    return _taskRepository.updateCompletedFlag(task);
+  }
+}

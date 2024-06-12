@@ -10,12 +10,14 @@ class TaskSheet extends StatefulWidget {
   final StateProvider<DateTime> selectedDateProvider;
   final StateProvider<List<Task>> tasksProvider;
   final VoidCallback? onPressedAddButton;
+  final void Function(Task task, bool value)? onChangedCompleted;
 
   const TaskSheet({
     super.key,
     required this.selectedDateProvider,
     required this.tasksProvider,
     this.onPressedAddButton,
+    this.onChangedCompleted,
   });
 
   @override
@@ -55,6 +57,7 @@ class _TaskSheetState extends State<TaskSheet> {
             selectedDateProvider: widget.selectedDateProvider,
             tasksProvider: widget.tasksProvider,
             onPressedAddButton: widget.onPressedAddButton,
+            onChangedCompleted: widget.onChangedCompleted,
           ),
         );
       },
@@ -68,6 +71,7 @@ class TaskPanel extends StatelessWidget {
   final StateProvider<DateTime> selectedDateProvider;
   final StateProvider<List<Task>> tasksProvider;
   final VoidCallback? onPressedAddButton;
+  final void Function(Task task, bool value)? onChangedCompleted;
 
   const TaskPanel({
     super.key,
@@ -76,6 +80,7 @@ class TaskPanel extends StatelessWidget {
     required this.selectedDateProvider,
     required this.tasksProvider,
     this.onPressedAddButton,
+    this.onChangedCompleted,
   });
 
   @override
@@ -92,7 +97,10 @@ class TaskPanel extends StatelessWidget {
           ),
           pinned: true,
         ),
-        TaskPanelBody(tasksProvider: tasksProvider),
+        TaskPanelBody(
+          tasksProvider: tasksProvider,
+          onChangedCompleted: onChangedCompleted,
+        ),
       ],
     );
   }
