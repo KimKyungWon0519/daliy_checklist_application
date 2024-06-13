@@ -1,7 +1,7 @@
 import 'package:domain/domain.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class HomeViewModel {
+class CalendarViewModel {
   late final StateProvider<DateTime> selectedDateProvider;
   late final StateProvider<List<Task>> selectedDateTasksProvider;
   late final StateProvider<List<Task>> allTasksProvider;
@@ -9,7 +9,7 @@ class HomeViewModel {
   late final GetTask _getTask;
   late final UpdateTask _updateTask;
 
-  HomeViewModel({
+  CalendarViewModel({
     required GetTask getTask,
     required UpdateTask updateTask,
   })  : _getTask = getTask,
