@@ -1,7 +1,7 @@
 import 'package:daily_checklist_application/src/feature/presentation/initial_page/initial_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:home_feature/home_feature.dart';
+import 'package:calendar_feature/calendar_feature.dart';
 
 final class AppRoutes {
   const AppRoutes._();

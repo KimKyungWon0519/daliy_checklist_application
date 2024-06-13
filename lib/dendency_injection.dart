@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:home_feature/home_feature.dart' as HomeFeature;
+import 'package:calendar_feature/calendar_feature.dart' as HomeFeature;
 import 'package:path_provider/path_provider.dart';
 
 Future<void> init() async {

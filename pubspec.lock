@@ -65,6 +65,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "8.9.2"
+  calendar_feature:
+    dependency: "direct main"
+    description:
+      path: calendar_feature
+      relative: true
+    source: path
+    version: "0.0.1"
   characters:
     dependency: transitive
     description:
@@ -124,14 +131,14 @@ packages:
   data:
     dependency: transitive
     description:
-      path: "home_feature/data"
+      path: "calendar_feature/data"
       relative: true
     source: path
     version: "0.0.1"
   domain:
     dependency: transitive
     description:
-      path: "home_feature/domain"
+      path: "calendar_feature/domain"
       relative: true
     source: path
     version: "0.0.1"
@@ -222,13 +229,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "14.0.2"
-  home_feature:
-    dependency: "direct main"
-    description:
-      path: home_feature
-      relative: true
-    source: path
-    version: "0.0.1"
   intl:
     dependency: "direct main"
     description:
@@ -392,7 +392,7 @@ packages:
   presentation:
     dependency: transitive
     description:
-      path: "home_feature/presentation"
+      path: "calendar_feature/presentation"
       relative: true
     source: path
     version: "0.0.1"

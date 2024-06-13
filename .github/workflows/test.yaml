@@ -4,7 +4,7 @@ on:
   pull_request:
 
 jobs:
-  home_feature_test:
+  calendar_feature_test:
     runs-on: ubuntu-latest
 
     steps:
@@ -17,13 +17,13 @@ jobs:
           flutter-version: '3.16.9'
 
       - name: Testing presentation
-        working-directory: ./home_feature/presentation
+        working-directory: ./calendar_feature/presentation
         run: flutter test -j 1
 
       - name: Testing domain
-        working-directory: ./home_feature/domain
+        working-directory: ./calendar_feature/domain
         run: dart pub run build_runner build && dart test -j 1
 
       - name: Testing data
-        working-directory: ./home_feature/data
+        working-directory: ./calendar_feature/data
         run: dart pub run build_runner build && dart test -j 1
