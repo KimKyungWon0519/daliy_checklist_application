@@ -27,3 +27,18 @@ jobs:
       - name: Testing data
         working-directory: ./calendar_feature/data
         run: dart pub run build_runner build && dart test -j 1
+  home_feature_test:
+    runs_on: ubuntu-latest
+
+    step:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.16.9'
+
+      - name: Testing presentation
+        working-directory: ./home_feature/presentation
+        run: flutter test -j 1
