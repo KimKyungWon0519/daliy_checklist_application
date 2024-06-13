@@ -4,12 +4,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:presentation/constants/app_constants.dart';
-import 'package:presentation/pages/home_page/local_widgets/task_panel_body.dart';
-import 'package:presentation/pages/home_page/local_widgets/task_panel_header.dart';
-import 'package:presentation/pages/home_page/local_widgets/task_sheet.dart';
-import 'package:presentation/presenters/viewmodels/home_viewmodel.dart';
+import 'package:presentation/pages/calendar_page/local_widgets/task_panel_body.dart';
+import 'package:presentation/pages/calendar_page/local_widgets/task_panel_header.dart';
+import 'package:presentation/pages/calendar_page/local_widgets/task_sheet.dart';
+import 'package:presentation/presenters/viewmodels/calendar_viewmodel.dart';
 
-class MockHomeViewModel extends Mock implements HomeViewModel {
+class MockHomeViewModel extends Mock implements CalendarViewModel {
   @override
   final StateProvider<DateTime> selectedDateProvider =
       StateProvider((ref) => DateTime.now());
@@ -20,7 +20,8 @@ class MockHomeViewModel extends Mock implements HomeViewModel {
 }
 
 void main() {
-  viewModelProvider.registerFactory<HomeViewModel>(() => MockHomeViewModel());
+  viewModelProvider
+      .registerFactory<CalendarViewModel>(() => MockHomeViewModel());
 
   testWidgets(
     'check task sheet panel ui',
@@ -30,9 +31,9 @@ void main() {
           home: Scaffold(
             body: TaskSheet(
               selectedDateProvider:
-                  viewModelProvider<HomeViewModel>().selectedDateProvider,
-              tasksProvider:
-                  viewModelProvider<HomeViewModel>().selectedDateTasksProvider,
+                  viewModelProvider<CalendarViewModel>().selectedDateProvider,
+              tasksProvider: viewModelProvider<CalendarViewModel>()
+                  .selectedDateTasksProvider,
             ),
           ),
         ),

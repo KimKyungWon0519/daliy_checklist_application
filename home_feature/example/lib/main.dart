@@ -25,7 +25,7 @@ class MainApp extends StatelessWidget {
           GoRoute(
               path: '/home',
               name: 'home',
-              builder: (context, state) => HomePage(
+              builder: (context, state) => CalendarPage(
                     pageNavigator: ({dateTime, task}) async {
                       Map<String, dynamic> queryParameters = {};
 

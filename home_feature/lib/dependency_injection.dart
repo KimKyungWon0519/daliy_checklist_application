@@ -13,7 +13,7 @@ Future<void> initialize(final String directory) async {
   viewModelProvider.registerFactory(
     () => EditViewModel(addTask: addTask),
   );
-  viewModelProvider.registerFactory(() => HomeViewModel(
+  viewModelProvider.registerFactory(() => CalendarViewModel(
         getTask: getTask,
         updateTask: updateTask,
       ));

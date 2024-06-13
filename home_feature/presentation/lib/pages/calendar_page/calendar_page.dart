@@ -2,30 +2,30 @@ import 'package:domain/domain.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:presentation/constants/app_constants.dart';
-import 'package:presentation/pages/home_page/local_widgets/row_panel.dart';
-import 'package:presentation/pages/home_page/local_widgets/stack_panel.dart';
-import 'package:presentation/presenters/viewmodels/home_viewmodel.dart';
+import 'package:presentation/pages/calendar_page/local_widgets/row_panel.dart';
+import 'package:presentation/pages/calendar_page/local_widgets/stack_panel.dart';
+import 'package:presentation/presenters/viewmodels/calendar_viewmodel.dart';
 
-class HomePage extends ConsumerStatefulWidget {
+class CalendarPage extends ConsumerStatefulWidget {
   final Future<void> Function({DateTime? dateTime, Task? task})? pageNavigator;
 
-  const HomePage({
+  const CalendarPage({
     super.key,
     this.pageNavigator,
   });
 
   @override
-  ConsumerState<HomePage> createState() => _HomePageState();
+  ConsumerState<CalendarPage> createState() => _HomePageState();
 }
 
-class _HomePageState extends ConsumerState<HomePage> {
-  late final HomeViewModel _viewModel;
+class _HomePageState extends ConsumerState<CalendarPage> {
+  late final CalendarViewModel _viewModel;
 
   @override
   void initState() {
     super.initState();
 
-    _viewModel = viewModelProvider<HomeViewModel>();
+    _viewModel = viewModelProvider<CalendarViewModel>();
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       final DateTime nowDate = DateTime.now();

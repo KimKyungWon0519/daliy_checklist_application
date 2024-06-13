@@ -1,14 +1,15 @@
+import 'package:daily_checklist_application/src/feature/presentation/initial_page/initial_page.dart';
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:home_feature/home_feature.dart';
-import 'package:intl/intl.dart';
 
 final class AppRoutes {
   const AppRoutes._();
 
-  static final GoRoute home = GoRoute(
-    path: '/home',
-    name: 'home',
-    builder: (context, state) => HomePage(
+  static final GoRoute calendar = GoRoute(
+    path: '/calendar',
+    name: 'calendar',
+    builder: (context, state) => CalendarPage(
       pageNavigator: ({dateTime, task}) async {
         Map<String, dynamic> queryParameters = {};
 
@@ -41,7 +42,39 @@ final class AppRoutes {
     },
   );
 
-  static final List<GoRoute> routes = [
-    home,
+  static final GoRoute home = GoRoute(
+    path: '/home',
+    name: 'home',
+    builder: (context, state) {
+      return Container();
+    },
+  );
+
+  static final GoRoute menu = GoRoute(
+    path: '/menu',
+    name: 'menu',
+    builder: (context, state) {
+      return Container();
+    },
+  );
+
+  static final StatefulShellRoute initial = StatefulShellRoute.indexedStack(
+    branches: [
+      StatefulShellBranch(
+        routes: [home],
+      ),
+      StatefulShellBranch(
+        routes: [calendar],
+      ),
+      StatefulShellBranch(
+        routes: [menu],
+      ),
+    ],
+    builder: (context, state, navigationShell) =>
+        InitialPage(navigationShell: navigationShell),
+  );
+
+  static final List<RouteBase> routes = [
+    initial,
   ];
 }

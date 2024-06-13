@@ -4,11 +4,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:presentation/constants/app_constants.dart';
-import 'package:presentation/pages/home_page/local_widgets/custom_calendar.dart';
-import 'package:presentation/pages/home_page/painters/calendar_painter.dart';
-import 'package:presentation/presenters/viewmodels/home_viewmodel.dart';
+import 'package:presentation/pages/calendar_page/local_widgets/custom_calendar.dart';
+import 'package:presentation/pages/calendar_page/painters/calendar_painter.dart';
+import 'package:presentation/presenters/viewmodels/calendar_viewmodel.dart';
 
-class MockHomeViewModel extends Mock implements HomeViewModel {
+class MockHomeViewModel extends Mock implements CalendarViewModel {
   @override
   final StateProvider<DateTime> selectedDateProvider =
       StateProvider((ref) => DateTime.now());
@@ -22,7 +22,8 @@ class MockHomeViewModel extends Mock implements HomeViewModel {
 }
 
 void main() {
-  viewModelProvider.registerFactory<HomeViewModel>(() => MockHomeViewModel());
+  viewModelProvider
+      .registerFactory<CalendarViewModel>(() => MockHomeViewModel());
 
   testWidgets('check calendar widget', (widgetTester) async {
     await widgetTester.pumpWidget(
@@ -31,10 +32,10 @@ void main() {
           home: Scaffold(
             body: CustomCalendar(
               selectedDateProvider:
-                  viewModelProvider<HomeViewModel>().selectedDateProvider,
+                  viewModelProvider<CalendarViewModel>().selectedDateProvider,
               onPressedDay: (selectedDateTime) {},
               allTasksProvider:
-                  viewModelProvider<HomeViewModel>().allTasksProvider,
+                  viewModelProvider<CalendarViewModel>().allTasksProvider,
             ),
           ),
         ),

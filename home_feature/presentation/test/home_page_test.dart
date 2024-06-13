@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:presentation/pages/home_page/local_widgets/custom_calendar.dart';
-import 'package:presentation/pages/home_page/local_widgets/row_panel.dart';
-import 'package:presentation/pages/home_page/local_widgets/stack_panel.dart';
-import 'package:presentation/pages/home_page/local_widgets/task_sheet.dart';
+import 'package:presentation/pages/calendar_page/local_widgets/custom_calendar.dart';
+import 'package:presentation/pages/calendar_page/local_widgets/row_panel.dart';
+import 'package:presentation/pages/calendar_page/local_widgets/stack_panel.dart';
+import 'package:presentation/pages/calendar_page/local_widgets/task_sheet.dart';
 import 'package:presentation/presentation.dart';
 
-class MockHomeViewModel extends Mock implements HomeViewModel {
+class MockHomeViewModel extends Mock implements CalendarViewModel {
   @override
   final StateProvider<DateTime> selectedDateProvider =
       StateProvider((ref) => DateTime.now());
@@ -33,12 +33,13 @@ class MockHomeViewModel extends Mock implements HomeViewModel {
 }
 
 void main() {
-  viewModelProvider.registerFactory<HomeViewModel>(() => MockHomeViewModel());
+  viewModelProvider
+      .registerFactory<CalendarViewModel>(() => MockHomeViewModel());
   testWidgets('Test ui of home screen', (widgetTester) async {
     await widgetTester.pumpWidget(
       const ProviderScope(
         child: MaterialApp(
-          home: HomePage(),
+          home: CalendarPage(),
         ),
       ),
     );
