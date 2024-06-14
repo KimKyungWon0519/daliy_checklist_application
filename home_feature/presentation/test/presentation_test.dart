@@ -63,6 +63,8 @@ void main() {
       expect(find.byType(TodayInfo), findsOneWidget);
       expect(find.byType(PostponeInfo), findsOneWidget);
       expect(find.byType(FutureInfo), findsOneWidget);
+      expect(find.byType(AllInfo), findsOneWidget);
+      expect(find.byType(CompletedInfo), findsOneWidget);
     });
   });
 }

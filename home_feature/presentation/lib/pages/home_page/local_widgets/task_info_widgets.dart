@@ -39,3 +39,27 @@ class FutureInfo extends StatelessWidget {
     );
   }
 }
+
+class AllInfo extends StatelessWidget {
+  const AllInfo({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const TaskInfoCard(
+      title: '모든 할 일',
+      count: 0,
+    );
+  }
+}
+
+class CompletedInfo extends StatelessWidget {
+  const CompletedInfo({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const TaskInfoCard(
+      title: '완료된 일',
+      count: 0,
+    );
+  }
+}

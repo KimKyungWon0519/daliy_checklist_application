@@ -18,6 +18,8 @@ class HomePage extends StatelessWidget {
             TodayInfo(),
             PostponeInfo(),
             FutureInfo(),
+            AllInfo(),
+            CompletedInfo(),
           ],
         ),
       ),
