@@ -12,8 +12,8 @@ dependencies:
   path_provider: ^2.1.3
   domain:
     path: ../domain
-  shared_feature:
-    path: ../../shared_feature
+  shared_data:
+    path: ../../shared_feature/shared_data
 
 
 dev_dependencies:

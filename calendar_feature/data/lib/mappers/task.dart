@@ -1,4 +1,4 @@
-import 'package:shared_feature/shared_feature.dart' as SharedFeature;
+import 'package:shared_data/shared_data.dart' as SharedFeature;
 import 'package:domain/domain.dart' as Model;
 import 'package:isar/isar.dart';
 
