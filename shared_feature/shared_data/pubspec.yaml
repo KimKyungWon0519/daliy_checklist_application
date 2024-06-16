@@ -1,6 +1,7 @@
 name: shared_data
 description: A starting point for Dart libraries or applications.
 version: 1.0.0
+publish_to: none
 # repository: https://github.com/my_org/my_repo
 
 environment:
@@ -9,6 +10,8 @@ environment:
 # Add regular dependencies here.
 dependencies:
   isar: ^3.1.0+1
+  shared_domain:
+    path: ../shared_domain
   # path: ^1.8.0
 
 dev_dependencies:
