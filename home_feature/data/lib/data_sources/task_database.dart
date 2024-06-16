@@ -5,4 +5,8 @@ class TaskDatabase {
   late final Isar _isar;
 
   TaskDatabase(String directory) : _isar = createIsar(directory);
+
+  Stream<void> getTasksChangedWatcher() {
+    return _isar.tasks.watchLazy();
+  }
 }
