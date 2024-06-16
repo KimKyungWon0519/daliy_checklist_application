@@ -8,6 +8,8 @@ environment:
 
 # Add regular dependencies here.
 dependencies:
+  shared_domain:
+    path: ../../shared_feature/shared_domain
   # path: ^1.8.0
 
 dev_dependencies:
