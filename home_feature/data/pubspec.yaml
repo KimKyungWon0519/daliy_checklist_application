@@ -12,6 +12,8 @@ dependencies:
   isar: ^3.1.0+1
   shared_data: 
     path: ../../shared_feature/shared_data
+  domain:
+    path: ../domain
   # path: ^1.8.0
 
 dev_dependencies:
