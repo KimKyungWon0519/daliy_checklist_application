@@ -1,10 +1,10 @@
-import 'package:data/entites/task.dart' as Entity;
+import 'package:shared_feature/shared_feature.dart' as SharedFeature;
 import 'package:domain/domain.dart' as Model;
 import 'package:isar/isar.dart';
 
 extension DomainTaskMapper on Model.Task {
-  Entity.Task toEntity() {
-    return Entity.Task(
+  SharedFeature.Task toEntity() {
+    return SharedFeature.Task(
       id: id ?? Isar.autoIncrement,
       goal: goal,
       startDate: selectedDate.startDate,
@@ -15,7 +15,7 @@ extension DomainTaskMapper on Model.Task {
   }
 }
 
-extension DataTaskMapper on Entity.Task {
+extension DataTaskMapper on SharedFeature.Task {
   Model.Task toModel() {
     return Model.Task(
       id: id,
