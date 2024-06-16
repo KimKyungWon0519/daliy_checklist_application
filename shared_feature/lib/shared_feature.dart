@@ -1,1 +1,1 @@
-export 'package:data/data.dart';
+export 'package:shared_data/shared_data.dart';

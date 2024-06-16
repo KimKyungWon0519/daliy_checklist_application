@@ -2,6 +2,7 @@ name: shared_feature
 description: "A new Flutter package project."
 version: 0.0.1
 homepage:
+publish_to: none
 
 environment:
   sdk: '>=3.2.6 <4.0.0'
@@ -11,8 +12,8 @@ dependencies:
   flutter:
     sdk: flutter
   
-  data:
-    path: ./data
+  shared_data:
+    path: ./shared_data
 
 dev_dependencies:
   flutter_test:
