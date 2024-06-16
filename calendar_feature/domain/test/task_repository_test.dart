@@ -1,8 +1,7 @@
-import 'package:domain/model/selected_date.dart';
-import 'package:domain/model/task.dart';
 import 'package:domain/repositories/task_repository.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:shared_domain/shared_domain.dart';
 import 'package:test/test.dart';
 import 'task_repository_test.mocks.dart';
 

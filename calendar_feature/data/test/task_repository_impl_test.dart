@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:data/data_sources/task_database.dart';
 import 'package:data/repositories/task_repository_impl.dart';
-import 'package:domain/domain.dart';
 import 'package:isar/isar.dart';
+import 'package:domain/domain.dart';
 import 'package:test/test.dart';
 
 void main() {

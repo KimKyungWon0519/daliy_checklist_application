@@ -1,5 +1,5 @@
-import 'package:domain/model/task.dart';
 import 'package:domain/repositories/task_repository.dart';
+import 'package:shared_domain/shared_domain.dart';
 
 class GetTask {
   late final TaskRepository _taskRepository;
