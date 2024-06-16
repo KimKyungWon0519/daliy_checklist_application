@@ -10,8 +10,8 @@ environment:
 # Add regular dependencies here.
 dependencies:
   isar: ^3.1.0+1
-  shared_feature: 
-    path: ../../shared_feature
+  shared_data: 
+    path: ../../shared_feature/shared_data
   # path: ^1.8.0
 
 dev_dependencies:
