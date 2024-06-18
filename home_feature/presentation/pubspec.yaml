@@ -2,6 +2,7 @@ name: presentation
 description: "A new Flutter package project."
 version: 0.0.1
 homepage:
+publish_to: none
 
 environment:
   sdk: '>=3.2.6 <4.0.0'
@@ -11,6 +12,8 @@ dependencies:
   flutter:
     sdk: flutter
   intl: ^0.19.0
+  domain:
+    path: ../domain
 
 dev_dependencies:
   flutter_test:
