@@ -194,14 +194,14 @@ packages:
   shared_data:
     dependency: transitive
     description:
-      path: "../../shared_feature/shared_data"
+      path: "../../shared_feature/data"
       relative: true
     source: path
     version: "1.0.0"
   shared_domain:
     dependency: transitive
     description:
-      path: "../../shared_feature/shared_domain"
+      path: "../../shared_feature/domain"
       relative: true
     source: path
     version: "1.0.0"

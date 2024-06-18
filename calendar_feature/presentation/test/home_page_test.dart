@@ -1,13 +1,10 @@
-import 'package:domain/domain.dart';
+import 'package:calendar_domain/domain.dart';
+import 'package:calendar_presentation/pages/calendar_page/local_widgets/custom_calendar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:presentation/pages/calendar_page/local_widgets/custom_calendar.dart';
-import 'package:presentation/pages/calendar_page/local_widgets/row_panel.dart';
-import 'package:presentation/pages/calendar_page/local_widgets/stack_panel.dart';
-import 'package:presentation/pages/calendar_page/local_widgets/task_sheet.dart';
-import 'package:presentation/presentation.dart';
+import 'package:calendar_presentation/presentation.dart';
 
 class MockHomeViewModel extends Mock implements CalendarViewModel {
   @override

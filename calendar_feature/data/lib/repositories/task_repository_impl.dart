@@ -1,6 +1,6 @@
-import 'package:data/data_sources/task_database.dart';
-import 'package:data/mappers/task.dart';
-import 'package:domain/domain.dart';
+import 'package:calendar_data/data_sources/task_database.dart';
+import 'package:calendar_data/mappers/task.dart';
+import 'package:calendar_domain/domain.dart';
 
 class TaskRepositoryImpl implements TaskRepository {
   late final TaskDatabase _taskDatabase;

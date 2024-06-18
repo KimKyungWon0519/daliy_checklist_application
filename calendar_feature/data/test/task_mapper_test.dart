@@ -1,6 +1,6 @@
-import 'package:data/mappers/task.dart';
-import 'package:domain/domain.dart' as Model;
-import 'package:shared_data/shared_data.dart' as Entity;
+import 'package:calendar_data/mappers/task.dart';
+import 'package:calendar_domain/domain.dart' as Model;
+import 'package:shared_data/data.dart' as Entity;
 
 import 'package:test/test.dart';
 

@@ -1,8 +1,8 @@
-import 'package:domain/repositories/task_repository.dart';
-import 'package:domain/usecases/task_usecase.dart';
+import 'package:calendar_domain/repositories/task_repository.dart';
+import 'package:calendar_domain/usecases/task_usecase.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:shared_domain/shared_domain.dart';
+import 'package:shared_domain/domain.dart';
 import 'package:test/test.dart';
 
 import 'test_usecase_test.mocks.dart';

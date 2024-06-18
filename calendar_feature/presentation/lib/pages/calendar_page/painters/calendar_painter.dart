@@ -1,6 +1,4 @@
-import 'dart:math';
-
-import 'package:domain/domain.dart';
+import 'package:calendar_domain/domain.dart';
 import 'package:flutter/material.dart';
 
 class CalendarPainter extends CustomPainter {

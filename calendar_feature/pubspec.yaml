@@ -2,6 +2,7 @@ name: calendar_feature
 description: "A new Flutter package project."
 version: 0.0.1
 homepage:
+publish_to: none
 
 environment:
   sdk: '>=3.2.6 <4.0.0'
@@ -11,11 +12,11 @@ dependencies:
   flutter:
     sdk: flutter
   
-  presentation:
+  calendar_presentation:
     path: ./presentation
-  domain:
+  calendar_domain:
     path: ./domain
-  data:
+  calendar_data:
     path: ./data
   isar_flutter_libs: ^3.1.0+1
 

@@ -1,4 +1,4 @@
-import 'package:shared_domain/shared_domain.dart';
+import 'package:shared_domain/domain.dart';
 
 abstract interface class TaskRepository {
   Stream<void> getTasksChangedWatcher();

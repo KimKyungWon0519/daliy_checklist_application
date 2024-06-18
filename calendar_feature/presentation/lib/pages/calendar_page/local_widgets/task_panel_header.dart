@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:presentation/constants/ui_constants.dart';
+import 'package:calendar_presentation/constants/ui_constants.dart';
 
 class Header extends SliverPersistentHeaderDelegate {
   final _headerSize = kToolbarHeight + 10;

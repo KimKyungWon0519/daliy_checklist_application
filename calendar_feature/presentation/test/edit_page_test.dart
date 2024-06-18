@@ -1,15 +1,15 @@
-import 'package:domain/domain.dart';
+import 'package:calendar_domain/domain.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:presentation/constants/app_constants.dart';
-import 'package:presentation/pages/edit_task_page/edit_task_page.dart';
-import 'package:presentation/pages/edit_task_page/local_widgets/date_field.dart';
-import 'package:presentation/pages/edit_task_page/local_widgets/date_range_type_chips.dart';
-import 'package:presentation/pages/edit_task_page/local_widgets/goal_field.dart';
-import 'package:presentation/pages/edit_task_page/local_widgets/style_panel.dart';
-import 'package:presentation/presenters/viewmodels/edit_viewmodel.dart';
+import 'package:calendar_presentation/constants/app_constants.dart';
+import 'package:calendar_presentation/pages/edit_task_page/edit_task_page.dart';
+import 'package:calendar_presentation/pages/edit_task_page/local_widgets/date_field.dart';
+import 'package:calendar_presentation/pages/edit_task_page/local_widgets/date_range_type_chips.dart';
+import 'package:calendar_presentation/pages/edit_task_page/local_widgets/goal_field.dart';
+import 'package:calendar_presentation/pages/edit_task_page/local_widgets/style_panel.dart';
+import 'package:calendar_presentation/presenters/viewmodels/edit_viewmodel.dart';
 
 class MockAddViewModel extends Mock implements EditViewModel {
   @override

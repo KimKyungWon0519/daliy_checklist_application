@@ -1,5 +1,5 @@
 import 'package:isar/isar.dart';
-import 'package:shared_data/shared_data.dart';
+import 'package:shared_data/data.dart';
 
 class TaskDatabase {
   late final Isar _isar;

@@ -3,17 +3,19 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class HomeViewModel {
   late final GetTask _getTask;
-  late final StateProvider<List<Task>> _tasksProvider;
+  late final StateProvider<List<Task>> tasksProvider;
 
   HomeViewModel({
     required GetTask getTask,
-  }) : _getTask = getTask {
-    _tasksProvider = StateProvider((ref) {
-      _getTask.getTasksChangedWatcher().listen((event) {
-        print('??');
-      });
+    List<Task>? initialTask,
+  })  : _getTask = getTask,
+        tasksProvider = StateProvider((ref) => initialTask ?? []);
 
-      return [];
-    });
+  void addTaskUpdateListener(void Function(void event) listener) {
+    _getTask.getTasksChangedWatcher().listen(listener);
+  }
+
+  Future<List<Task>> getAllTasks() {
+    return _getTask.getAllTasks();
   }
 }

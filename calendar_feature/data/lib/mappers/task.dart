@@ -1,5 +1,5 @@
-import 'package:shared_data/shared_data.dart' as SharedFeature;
-import 'package:domain/domain.dart' as Model;
+import 'package:shared_data/data.dart' as SharedFeature;
+import 'package:calendar_domain/domain.dart' as Model;
 import 'package:isar/isar.dart';
 
 extension DomainTaskMapper on Model.Task {
