@@ -15,6 +15,7 @@ dependencies:
   domain:
     path: ../domain
   flutter_riverpod: ^2.5.1
+  get_it: ^7.6.7
 
 dev_dependencies:
   flutter_test:
