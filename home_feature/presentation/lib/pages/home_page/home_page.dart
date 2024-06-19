@@ -36,7 +36,6 @@ class _HomePageState extends ConsumerState<HomePage> {
   @override
   Widget build(BuildContext context) {
     List<Task> tasks = ref.watch(_viewModel.tasksProvider);
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('체크리스트'),

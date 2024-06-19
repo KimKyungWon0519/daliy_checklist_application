@@ -6,9 +6,11 @@ class TaskHandlerRepositoryImpl implements TaskHandlerRepository {
     DateTime nowTime = DateTime.now();
     nowTime = DateTime(nowTime.year, nowTime.month, nowTime.day);
 
-    return tasks.where((element) {
+    tasks = tasks.where((element) {
       return element.selectedDate.isIncludeDate(nowTime);
     }).toList();
+
+    return _removeCompletedTask(tasks);
   }
 
   @override
@@ -16,12 +18,13 @@ class TaskHandlerRepositoryImpl implements TaskHandlerRepository {
     DateTime nowTime = DateTime.now();
     nowTime = DateTime(nowTime.year, nowTime.month, nowTime.day);
 
-    return tasks.where((element) {
-      DateTime time =
-          element.selectedDate.endDate ?? element.selectedDate.startDate;
+    tasks = tasks.where((element) {
+      DateTime time = element.selectedDate.startDate;
 
       return nowTime.compareTo(time) == -1;
     }).toList();
+
+    return _removeCompletedTask(tasks);
   }
 
   @override
@@ -29,16 +32,22 @@ class TaskHandlerRepositoryImpl implements TaskHandlerRepository {
     DateTime nowTime = DateTime.now();
     nowTime = DateTime(nowTime.year, nowTime.month, nowTime.day);
 
-    return tasks.where((element) {
+    tasks = tasks.where((element) {
       DateTime time =
           element.selectedDate.endDate ?? element.selectedDate.startDate;
 
       return nowTime.compareTo(time) == 1;
     }).toList();
+
+    return _removeCompletedTask(tasks);
   }
 
   @override
   List<Task> getCompletedTasks(List<Task> tasks) {
     return tasks.where((element) => element.isCompleted).toList();
+  }
+
+  List<Task> _removeCompletedTask(List<Task> tasks) {
+    return tasks.where((element) => !element.isCompleted).toList();
   }
 }
