@@ -1,26 +1,72 @@
-import 'package:domain/repositories/task_handler_repository.dart';
+import 'package:domain/usecases/task_handler.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
+import 'package:shared_domain/models/selected_date.dart';
 import 'package:shared_domain/models/task.dart';
+import 'package:test/expect.dart';
+import 'package:test/scaffolding.dart';
 
-class TaskHandlerUseCase {
-  late final TaskHandlerRepository _taskHandlerRepository;
+import 'task_handler.mocks.dart';
 
-  TaskHandlerUseCase({
-    required TaskHandlerRepository taskHandlerRepository,
-  }) : _taskHandlerRepository = taskHandlerRepository;
+@GenerateMocks([TaskHandlerUseCase])
+void main() {
+  group('test for TaskHandlerRepositoryImpl', () {
+    final TaskHandlerUseCase taskHandlerUseCase = MockTaskHandlerUseCase();
+    DateTime nowTime = DateTime.now();
+    nowTime = DateTime(nowTime.year, nowTime.month, nowTime.day);
 
-  List<Task> getTodayTasks(List<Task> tasks) {
-    return _taskHandlerRepository.getTodayTasks(tasks);
-  }
+    List<Task> tasks = List.empty();
 
-  List<Task> getPostponeTasks(List<Task> tasks) {
-    return _taskHandlerRepository.getPostponeTasks(tasks);
-  }
+    test('Get Today', () {
+      when(taskHandlerUseCase.getTodayTasks(tasks)).thenAnswer((_) => [
+            Task(
+                goal: 'test',
+                selectedDate: SelectedDate(startDate: DateTime.now()),
+                colorCode: 0),
+          ]);
 
-  List<Task> getFutureTasks(List<Task> tasks) {
-    return _taskHandlerRepository.getFutureTasks(tasks);
-  }
+      List<Task> result = taskHandlerUseCase.getTodayTasks(tasks);
 
-  List<Task> getCompletedTasks(List<Task> tasks) {
-    return _taskHandlerRepository.getCompletedTasks(tasks);
-  }
+      expect(result.length, 1);
+    });
+
+    test('Get Postpone', () {
+      when(taskHandlerUseCase.getPostponeTasks(tasks)).thenAnswer((_) => [
+            Task(
+                goal: 'test',
+                selectedDate: SelectedDate(startDate: DateTime.now()),
+                colorCode: 0),
+          ]);
+
+      List<Task> result = taskHandlerUseCase.getPostponeTasks(tasks);
+
+      expect(result.length, 1);
+    });
+
+    test('Get Future', () {
+      when(taskHandlerUseCase.getFutureTasks(tasks)).thenAnswer((_) => [
+            Task(
+                goal: 'test',
+                selectedDate: SelectedDate(startDate: DateTime.now()),
+                colorCode: 0),
+          ]);
+
+      List<Task> result = taskHandlerUseCase.getFutureTasks(tasks);
+
+      expect(result.length, 1);
+    });
+
+    test('Get Completed', () {
+      when(taskHandlerUseCase.getCompletedTasks(tasks)).thenAnswer((_) => [
+            Task(
+                goal: 'test',
+                selectedDate: SelectedDate(startDate: DateTime.now()),
+                colorCode: 0),
+          ]);
+
+      List<Task> result = taskHandlerUseCase.getCompletedTasks(tasks);
+
+      expect(result.length, 1);
+    });
+  });
 }
