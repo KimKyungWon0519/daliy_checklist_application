@@ -46,14 +46,20 @@ class _HomePageState extends ConsumerState<HomePage> {
         child: Column(
           children: [
             TodayInfo(
-              tasks: _viewModel.getTodayTask(tasks),
+              tasks: _viewModel.getTodayTasks(tasks),
             ),
-            const PostponeInfo(),
-            const FutureInfo(),
+            PostponeInfo(
+              tasks: _viewModel.getPostponeTasks(tasks),
+            ),
+            FutureInfo(
+              tasks: _viewModel.getFutureTasks(tasks),
+            ),
             AllInfo(
               tasks: tasks,
             ),
-            const CompletedInfo(),
+            CompletedInfo(
+              tasks: _viewModel.getCompletedTasks(tasks),
+            ),
           ],
         ),
       ),

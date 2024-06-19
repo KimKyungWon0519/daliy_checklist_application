@@ -22,12 +22,19 @@ class HomeViewModel {
     return _getTask.getAllTasks();
   }
 
-  List<Task> getTodayTask(List<Task> tasks) {
-    DateTime nowTime = DateTime.now();
-    nowTime = DateTime(nowTime.year, nowTime.month, nowTime.day);
+  List<Task> getTodayTasks(List<Task> tasks) {
+    return _taskHandlerUseCase.getTodayTasks(tasks);
+  }
 
-    return tasks.where((element) {
-      return element.selectedDate.isIncludeDate(nowTime);
-    }).toList();
+  List<Task> getPostponeTasks(List<Task> tasks) {
+    return _taskHandlerUseCase.getPostponeTasks(tasks);
+  }
+
+  List<Task> getFutureTasks(List<Task> tasks) {
+    return _taskHandlerUseCase.getFutureTasks(tasks);
+  }
+
+  List<Task> getCompletedTasks(List<Task> tasks) {
+    return _taskHandlerUseCase.getCompletedTasks(tasks);
   }
 }

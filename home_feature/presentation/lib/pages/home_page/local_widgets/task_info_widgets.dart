@@ -23,25 +23,35 @@ class TodayInfo extends StatelessWidget {
 }
 
 class PostponeInfo extends StatelessWidget {
-  const PostponeInfo({super.key});
+  final List<Task> tasks;
+
+  const PostponeInfo({
+    super.key,
+    required this.tasks,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return const TaskInfoCard(
+    return TaskInfoCard(
       title: '앞으로 할 일',
-      tasks: [],
+      tasks: tasks,
     );
   }
 }
 
 class FutureInfo extends StatelessWidget {
-  const FutureInfo({super.key});
+  final List<Task> tasks;
+
+  const FutureInfo({
+    super.key,
+    required this.tasks,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return const TaskInfoCard(
+    return TaskInfoCard(
       title: '남은 할 일',
-      tasks: [],
+      tasks: tasks,
     );
   }
 }
@@ -64,13 +74,18 @@ class AllInfo extends StatelessWidget {
 }
 
 class CompletedInfo extends StatelessWidget {
-  const CompletedInfo({super.key});
+  final List<Task> tasks;
+
+  const CompletedInfo({
+    super.key,
+    required this.tasks,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return const TaskInfoCard(
+    return TaskInfoCard(
       title: '완료된 일',
-      tasks: [],
+      tasks: tasks,
     );
   }
 }
