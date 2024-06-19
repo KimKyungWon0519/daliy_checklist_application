@@ -10,4 +10,17 @@ class TaskHandlerRepositoryImpl implements TaskHandlerRepository {
       return element.selectedDate.isIncludeDate(nowTime);
     }).toList();
   }
+
+  @override
+  List<Task> getPostponeTasks(List<Task> tasks) {
+    DateTime nowTime = DateTime.now();
+    nowTime = DateTime(nowTime.year, nowTime.month, nowTime.day);
+
+    return tasks.where((element) {
+      DateTime time =
+          element.selectedDate.endDate ?? element.selectedDate.startDate;
+
+      return nowTime.compareTo(time) == -1;
+    }).toList();
+  }
 }
