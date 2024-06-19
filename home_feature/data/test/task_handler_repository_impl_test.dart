@@ -111,25 +111,25 @@ void main() {
     test('Get Today', () {
       List<Task> result = taskHandlerRepositoryImpl.getTodayTasks(tasks);
 
-      expect(result, 2);
+      expect(result.length, 2);
     });
 
     test('Get Postpone', () {
       List<Task> result = taskHandlerRepositoryImpl.getPostponeTasks(tasks);
 
-      expect(result, 2);
+      expect(result.length, 2);
     });
 
     test('Get Future', () {
       List<Task> result = taskHandlerRepositoryImpl.getFutureTasks(tasks);
 
-      expect(result, 2);
+      expect(result.length, 2);
     });
 
     test('Get Completed', () {
       List<Task> result = taskHandlerRepositoryImpl.getCompletedTasks(tasks);
 
-      expect(result, 1);
+      expect(result.length, 1);
     });
   });
 }
