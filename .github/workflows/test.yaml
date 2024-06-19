@@ -52,6 +52,10 @@ jobs:
         working-directory: ./home_feature/presentation
         run: flutter test -j 1
 
+      - name: Testing domain
+        working-directory: ./home_feature/domain
+        run: dart pub run build_runner build && dart test -j 1
+
       - name: Testing data
         working-directory: ./home_feature/data
         run: dart test -j 1
