@@ -36,4 +36,9 @@ class TaskHandlerRepositoryImpl implements TaskHandlerRepository {
       return nowTime.compareTo(time) == 1;
     }).toList();
   }
+
+  @override
+  List<Task> getCompletedTasks(List<Task> tasks) {
+    return tasks.where((element) => element.isCompleted).toList();
+  }
 }
