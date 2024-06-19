@@ -35,9 +35,7 @@ class _HomePageState extends ConsumerState<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    List<Task> task = ref.watch(_viewModel.tasksProvider);
-
-    print(task.length);
+    List<Task> tasks = ref.watch(_viewModel.tasksProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -45,13 +43,17 @@ class _HomePageState extends ConsumerState<HomePage> {
       ),
       body: Container(
         padding: EdgeInsets.all(10),
-        child: const Column(
+        child: Column(
           children: [
-            TodayInfo(),
-            PostponeInfo(),
-            FutureInfo(),
-            AllInfo(),
-            CompletedInfo(),
+            TodayInfo(
+              tasks: _viewModel.getTodayTask(tasks),
+            ),
+            const PostponeInfo(),
+            const FutureInfo(),
+            AllInfo(
+              tasks: tasks,
+            ),
+            const CompletedInfo(),
           ],
         ),
       ),

@@ -1,16 +1,43 @@
+import 'package:domain/domain.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/mockito.dart';
 import 'package:presentation/pages/home_page/local_widgets/task_info_card.dart';
 import 'package:presentation/pages/home_page/local_widgets/task_info_widgets.dart';
 import 'package:presentation/presentation.dart';
 
+class MockViewModel extends Mock implements HomeViewModel {
+  final StateProvider<List<Task>> tasksProvider = StateProvider((ref) => []);
+
+  @override
+  Future<List<Task>> getAllTasks() {
+    return Future.value([]);
+  }
+
+  @override
+  List<Task> getTodayTask(List<Task> tasks) {
+    return [];
+  }
+}
+
 void main() {
+  viewModelProvider.registerFactory<HomeViewModel>(
+    () => MockViewModel(),
+  );
+
   group('test home page', () {
     testWidgets('test for task card ( show date )', (widgetTester) async {
       await widgetTester.pumpWidget(
-        const MaterialApp(
-          home: Scaffold(
-            body: TaskInfoCard(title: 'test', date: 'test', count: 0),
+        const ProviderScope(
+          child: MaterialApp(
+            home: Scaffold(
+              body: TaskInfoCard(
+                title: 'test',
+                date: 'test',
+                tasks: [],
+              ),
+            ),
           ),
         ),
       );
@@ -32,9 +59,14 @@ void main() {
 
     testWidgets('test for task card ( unshow date )', (widgetTester) async {
       await widgetTester.pumpWidget(
-        const MaterialApp(
-          home: Scaffold(
-            body: TaskInfoCard(title: 'test', count: 0),
+        const ProviderScope(
+          child: MaterialApp(
+            home: Scaffold(
+              body: TaskInfoCard(
+                title: 'test',
+                tasks: [],
+              ),
+            ),
           ),
         ),
       );
@@ -55,8 +87,10 @@ void main() {
 
     testWidgets('home page', (widgetTester) async {
       await widgetTester.pumpWidget(
-        const MaterialApp(
-          home: HomePage(),
+        const ProviderScope(
+          child: MaterialApp(
+            home: HomePage(),
+          ),
         ),
       );
 

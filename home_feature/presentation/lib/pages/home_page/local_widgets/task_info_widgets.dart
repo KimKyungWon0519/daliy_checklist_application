@@ -1,17 +1,23 @@
+import 'package:domain/domain.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import './task_info_card.dart';
 
 class TodayInfo extends StatelessWidget {
-  const TodayInfo({super.key});
+  final List<Task> tasks;
+
+  const TodayInfo({
+    super.key,
+    required this.tasks,
+  });
 
   @override
   Widget build(BuildContext context) {
     return TaskInfoCard(
       title: '오늘 할 일',
       date: DateFormat('yyyy/MM/dd').format(DateTime.now()),
-      count: 0,
+      tasks: tasks,
     );
   }
 }
@@ -23,7 +29,7 @@ class PostponeInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return const TaskInfoCard(
       title: '앞으로 할 일',
-      count: 0,
+      tasks: [],
     );
   }
 }
@@ -35,19 +41,24 @@ class FutureInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return const TaskInfoCard(
       title: '남은 할 일',
-      count: 0,
+      tasks: [],
     );
   }
 }
 
 class AllInfo extends StatelessWidget {
-  const AllInfo({super.key});
+  final List<Task> tasks;
+
+  const AllInfo({
+    super.key,
+    required this.tasks,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return const TaskInfoCard(
+    return TaskInfoCard(
       title: '모든 할 일',
-      count: 0,
+      tasks: tasks,
     );
   }
 }
@@ -59,7 +70,7 @@ class CompletedInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return const TaskInfoCard(
       title: '완료된 일',
-      count: 0,
+      tasks: [],
     );
   }
 }

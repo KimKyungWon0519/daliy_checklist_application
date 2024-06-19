@@ -18,4 +18,13 @@ class HomeViewModel {
   Future<List<Task>> getAllTasks() {
     return _getTask.getAllTasks();
   }
+
+  List<Task> getTodayTask(List<Task> tasks) {
+    DateTime nowTime = DateTime.now();
+    nowTime = DateTime(nowTime.year, nowTime.month, nowTime.day);
+
+    return tasks.where((element) {
+      return element.selectedDate.isIncludeDate(nowTime);
+    }).toList();
+  }
 }

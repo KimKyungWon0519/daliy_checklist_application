@@ -16,6 +16,7 @@ dependencies:
     path: ../domain
   flutter_riverpod: ^2.5.1
   get_it: ^7.6.7
+  mockito: ^5.4.4
 
 dev_dependencies:
   flutter_test:
