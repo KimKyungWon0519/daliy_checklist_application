@@ -16,7 +16,22 @@ class MockViewModel extends Mock implements HomeViewModel {
   }
 
   @override
-  List<Task> getTodayTask(List<Task> tasks) {
+  List<Task> getTodayTasks(List<Task> tasks) {
+    return [];
+  }
+
+  @override
+  List<Task> getPostponeTasks(List<Task> tasks) {
+    return [];
+  }
+
+  @override
+  List<Task> getFutureTasks(List<Task> tasks) {
+    return [];
+  }
+
+  @override
+  List<Task> getCompletedTasks(List<Task> tasks) {
     return [];
   }
 }
