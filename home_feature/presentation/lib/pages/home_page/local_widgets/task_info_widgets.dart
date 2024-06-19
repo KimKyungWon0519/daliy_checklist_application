@@ -50,7 +50,7 @@ class FutureInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TaskInfoCard(
-      title: '남은 할 일',
+      title: '지난 할 일',
       tasks: tasks,
     );
   }
