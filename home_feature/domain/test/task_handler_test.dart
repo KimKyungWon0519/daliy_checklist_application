@@ -6,7 +6,7 @@ import 'package:shared_domain/models/task.dart';
 import 'package:test/expect.dart';
 import 'package:test/scaffolding.dart';
 
-import 'task_handler.mocks.dart';
+import 'task_handler_test.mocks.dart';
 
 @GenerateMocks([TaskHandlerUseCase])
 void main() {
