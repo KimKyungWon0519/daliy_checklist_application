@@ -17,6 +17,10 @@ jobs:
         with:
           flutter-version: '3.16.9'
 
+      - name: Initialize Isar
+        working-directory: ./shared_feature/data
+        run: dart pub run build_runner build
+
       - name: Testing presentation
         working-directory: ./calendar_feature/presentation
         run: flutter test -j 1
@@ -40,6 +44,14 @@ jobs:
         with:
           flutter-version: '3.16.9'
 
+      - name: Initialize Shared Feature
+        working-directory: ./shared_feature/data
+        run: dart pub run build_runner build
+
       - name: Testing presentation
         working-directory: ./home_feature/presentation
         run: flutter test -j 1
+
+      - name: Testing data
+        working-directory: ./home_feature/data
+        run: dart test -j 1
