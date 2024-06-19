@@ -29,7 +29,7 @@ jobs:
         working-directory: ./calendar_feature/data
         run: dart pub run build_runner build && dart test -j 1
   home_feature_test:
-    runs_on: ubuntu-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
