@@ -10,7 +10,7 @@ import 'task_handler_repository_test.mocks.dart';
 
 @GenerateMocks([TaskHandlerRepository])
 void main() {
-  group('test for TaskHandlerRepositoryImpl', () {
+  group('test for TaskHandlerRepository', () {
     final TaskHandlerRepository taskHandlerRepository =
         MockTaskHandlerRepository();
     DateTime nowTime = DateTime.now();
