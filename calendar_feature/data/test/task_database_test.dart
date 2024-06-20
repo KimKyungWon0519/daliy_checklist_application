@@ -1,8 +1,8 @@
 import 'dart:io';
 
-import 'package:data/data.dart';
-import 'package:data/entites/task.dart';
+import 'package:calendar_data/data.dart';
 import 'package:isar/isar.dart';
+import 'package:shared_data/data.dart';
 import 'package:test/test.dart';
 
 void main() {

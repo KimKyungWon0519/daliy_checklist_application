@@ -1,10 +1,10 @@
-import 'package:domain/domain.dart';
+import 'package:calendar_domain/domain.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:presentation/constants/app_constants.dart';
-import 'package:presentation/pages/calendar_page/local_widgets/row_panel.dart';
-import 'package:presentation/pages/calendar_page/local_widgets/stack_panel.dart';
-import 'package:presentation/presenters/viewmodels/calendar_viewmodel.dart';
+import 'package:calendar_presentation/constants/app_constants.dart';
+import 'package:calendar_presentation/pages/calendar_page/local_widgets/row_panel.dart';
+import 'package:calendar_presentation/pages/calendar_page/local_widgets/stack_panel.dart';
+import 'package:calendar_presentation/presenters/viewmodels/calendar_viewmodel.dart';
 
 class CalendarPage extends ConsumerStatefulWidget {
   final Future<void> Function({DateTime? dateTime, Task? task})? pageNavigator;

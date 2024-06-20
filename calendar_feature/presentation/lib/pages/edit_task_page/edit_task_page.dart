@@ -1,10 +1,10 @@
-import 'package:domain/domain.dart';
+import 'package:calendar_domain/domain.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:presentation/constants/app_constants.dart';
-import 'package:presentation/pages/edit_task_page/local_widgets/input_panel.dart';
-import 'package:presentation/pages/edit_task_page/local_widgets/style_panel.dart';
-import 'package:presentation/presenters/viewmodels/edit_viewmodel.dart';
+import 'package:calendar_presentation/constants/app_constants.dart';
+import 'package:calendar_presentation/pages/edit_task_page/local_widgets/input_panel.dart';
+import 'package:calendar_presentation/pages/edit_task_page/local_widgets/style_panel.dart';
+import 'package:calendar_presentation/presenters/viewmodels/edit_viewmodel.dart';
 
 import 'local_widgets/add_button.dart';
 

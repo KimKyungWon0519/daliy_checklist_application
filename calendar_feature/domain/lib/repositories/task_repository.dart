@@ -1,4 +1,4 @@
-import 'package:domain/model/task.dart';
+import 'package:shared_domain/domain.dart';
 
 abstract interface class TaskRepository {
   Future<int> addTask(Task task);

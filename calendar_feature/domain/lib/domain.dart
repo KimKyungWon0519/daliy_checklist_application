@@ -1,10 +1,10 @@
 /* model */
-export 'package:domain/model/task.dart';
-export 'package:domain/model/date_type.dart';
-export 'package:domain/model/selected_date.dart';
+export 'package:calendar_domain/model/date_type.dart';
 
 /* repositories */
-export 'package:domain/repositories/task_repository.dart';
+export 'package:calendar_domain/repositories/task_repository.dart';
 
 /* usecase */
-export 'package:domain/usecases/task_usecase.dart';
+export 'package:calendar_domain/usecases/task_usecase.dart';
+
+export 'package:shared_domain/domain.dart';

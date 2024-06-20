@@ -1,7 +1,2 @@
-library home_feature;
-
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+export 'package:presentation/presentation.dart' show HomePage;
+export 'package:home_feature/dependency_injection.dart';
