@@ -1,15 +1,16 @@
+import 'package:domain/domain.dart';
 import 'package:flutter/material.dart';
 
 class TaskInfoCard extends StatelessWidget {
   final String title;
   final String? date;
-  final int count;
+  final List<Task> tasks;
 
   const TaskInfoCard({
     super.key,
     required this.title,
-    required this.count,
     this.date,
+    required this.tasks,
   });
 
   @override
@@ -34,7 +35,7 @@ class TaskInfoCard extends StatelessWidget {
             ),
             const Spacer(),
             Text(
-              count.toString(),
+              '${tasks.length}',
               style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,

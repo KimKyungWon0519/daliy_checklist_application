@@ -1,7 +1,7 @@
-import 'package:domain/domain.dart';
+import 'package:calendar_domain/domain.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:presentation/constants/ui_constants.dart';
+import 'package:calendar_presentation/constants/ui_constants.dart';
 
 import 'custom_calendar.dart';
 import 'task_sheet.dart';

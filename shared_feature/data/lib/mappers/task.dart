@@ -1,4 +1,4 @@
-import 'package:shared_domain/shared_domain.dart' as Model;
+import 'package:shared_domain/domain.dart' as Model;
 import 'package:shared_data/entities/task.dart' as Entity;
 import 'package:isar/isar.dart';
 
