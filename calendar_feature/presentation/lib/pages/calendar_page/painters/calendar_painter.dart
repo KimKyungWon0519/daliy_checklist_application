@@ -286,13 +286,19 @@ class CalendarPainter extends CustomPainter {
         DateUtils.getDaysInMonth(previousYear, previousMonth);
 
     int currentDay = -startDayOffset + 1;
+    int previousDay = maxDayInPreviousMonth - startDayOffset + 1;
+
+    if (startDayOffset == 0) {
+      currentDay -= 7;
+      previousDay -= 7;
+    }
 
     while (currentDay < _dayLineCnt * _weekdayCnt) {
       DateTime date;
       bool isActive = false;
 
       if (currentDay < 1) {
-        date = DateTime(year, month - 1, maxDayInPreviousMonth--);
+        date = DateTime(year, month - 1, previousDay++);
       } else if (currentDay <= maxDayInMonth) {
         date = DateTime(year, month, currentDay);
         isActive = true;
