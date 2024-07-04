@@ -6,10 +6,12 @@ import './task_info_card.dart';
 
 class TodayInfo extends StatelessWidget {
   final List<Task> tasks;
+  final void Function(String title, List<Task> tasks)? pageNavigator;
 
   const TodayInfo({
     super.key,
     required this.tasks,
+    this.pageNavigator,
   });
 
   @override
@@ -18,6 +20,7 @@ class TodayInfo extends StatelessWidget {
       title: '오늘 할 일',
       date: DateFormat('yyyy/MM/dd').format(DateTime.now()),
       tasks: tasks,
+      pageNavigator: pageNavigator,
     );
   }
 }

@@ -6,7 +6,12 @@ import 'package:presentation/presentation.dart';
 import './local_widgets/task_info_widgets.dart';
 
 class HomePage extends ConsumerStatefulWidget {
-  const HomePage({super.key});
+  final void Function(String title, List<Task> tasks)? pageNavigator;
+
+  const HomePage({
+    super.key,
+    this.pageNavigator,
+  });
 
   @override
   ConsumerState<HomePage> createState() => _HomePageState();
@@ -46,6 +51,7 @@ class _HomePageState extends ConsumerState<HomePage> {
           children: [
             TodayInfo(
               tasks: _viewModel.getTodayTasks(tasks),
+              pageNavigator: widget.pageNavigator,
             ),
             PostponeInfo(
               tasks: _viewModel.getPostponeTasks(tasks),
