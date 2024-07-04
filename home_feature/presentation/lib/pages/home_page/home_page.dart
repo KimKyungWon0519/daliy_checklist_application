@@ -55,15 +55,19 @@ class _HomePageState extends ConsumerState<HomePage> {
             ),
             PostponeInfo(
               tasks: _viewModel.getPostponeTasks(tasks),
+              pageNavigator: widget.pageNavigator,
             ),
             FutureInfo(
               tasks: _viewModel.getFutureTasks(tasks),
+              pageNavigator: widget.pageNavigator,
             ),
             AllInfo(
               tasks: tasks,
+              pageNavigator: widget.pageNavigator,
             ),
             CompletedInfo(
               tasks: _viewModel.getCompletedTasks(tasks),
+              pageNavigator: widget.pageNavigator,
             ),
           ],
         ),

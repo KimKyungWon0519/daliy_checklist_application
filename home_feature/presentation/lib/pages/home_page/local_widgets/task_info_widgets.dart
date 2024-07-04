@@ -27,10 +27,12 @@ class TodayInfo extends StatelessWidget {
 
 class PostponeInfo extends StatelessWidget {
   final List<Task> tasks;
+  final void Function(String title, List<Task> tasks)? pageNavigator;
 
   const PostponeInfo({
     super.key,
     required this.tasks,
+    this.pageNavigator,
   });
 
   @override
@@ -38,16 +40,19 @@ class PostponeInfo extends StatelessWidget {
     return TaskInfoCard(
       title: '앞으로 할 일',
       tasks: tasks,
+      pageNavigator: pageNavigator,
     );
   }
 }
 
 class FutureInfo extends StatelessWidget {
   final List<Task> tasks;
+  final void Function(String title, List<Task> tasks)? pageNavigator;
 
   const FutureInfo({
     super.key,
     required this.tasks,
+    this.pageNavigator,
   });
 
   @override
@@ -55,16 +60,19 @@ class FutureInfo extends StatelessWidget {
     return TaskInfoCard(
       title: '지난 할 일',
       tasks: tasks,
+      pageNavigator: pageNavigator,
     );
   }
 }
 
 class AllInfo extends StatelessWidget {
   final List<Task> tasks;
+  final void Function(String title, List<Task> tasks)? pageNavigator;
 
   const AllInfo({
     super.key,
     required this.tasks,
+    this.pageNavigator,
   });
 
   @override
@@ -72,16 +80,19 @@ class AllInfo extends StatelessWidget {
     return TaskInfoCard(
       title: '모든 할 일',
       tasks: tasks,
+      pageNavigator: pageNavigator,
     );
   }
 }
 
 class CompletedInfo extends StatelessWidget {
   final List<Task> tasks;
+  final void Function(String title, List<Task> tasks)? pageNavigator;
 
   const CompletedInfo({
     super.key,
     required this.tasks,
+    this.pageNavigator,
   });
 
   @override
@@ -89,6 +100,7 @@ class CompletedInfo extends StatelessWidget {
     return TaskInfoCard(
       title: '완료된 일',
       tasks: tasks,
+      pageNavigator: pageNavigator,
     );
   }
 }
