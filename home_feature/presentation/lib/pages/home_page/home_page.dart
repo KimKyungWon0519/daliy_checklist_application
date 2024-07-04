@@ -41,7 +41,7 @@ class _HomePageState extends ConsumerState<HomePage> {
         title: const Text('체크리스트'),
       ),
       body: Container(
-        padding: EdgeInsets.all(10),
+        padding: EdgeInsets.all(8),
         child: Column(
           children: [
             TodayInfo(
