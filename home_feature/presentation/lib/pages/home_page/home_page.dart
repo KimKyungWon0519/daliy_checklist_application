@@ -6,7 +6,7 @@ import 'package:presentation/presentation.dart';
 import './local_widgets/task_info_widgets.dart';
 
 class HomePage extends ConsumerStatefulWidget {
-  final void Function(String title, List<Task> tasks)? pageNavigator;
+  final void Function(TasksType type, List<Task> tasks)? pageNavigator;
 
   const HomePage({
     super.key,

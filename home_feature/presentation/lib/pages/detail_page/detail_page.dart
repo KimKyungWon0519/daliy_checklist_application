@@ -8,12 +8,12 @@ import 'package:presentation/pages/detail_page/local_widgets/daily_tile.dart';
 import 'package:presentation/presenter/viewmodels/detail_viewmodel.dart';
 
 class DetailPage extends ConsumerStatefulWidget {
-  final String title;
+  final TasksType type;
   final List<Task> tasks;
 
   const DetailPage({
     super.key,
-    required this.title,
+    required this.type,
     required this.tasks,
   });
 
@@ -51,7 +51,7 @@ class _DetailPageState extends ConsumerState<DetailPage> {
         getTaskMap(tasks);
 
     return Scaffold(
-      appBar: AppBar(title: Text(widget.title)),
+      appBar: AppBar(title: Text(widget.type.name)),
       body: Padding(
         padding: const EdgeInsets.all(8),
         child: ListView.builder(

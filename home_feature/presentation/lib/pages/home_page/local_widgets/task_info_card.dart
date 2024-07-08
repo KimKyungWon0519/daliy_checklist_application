@@ -2,14 +2,14 @@ import 'package:domain/domain.dart';
 import 'package:flutter/material.dart';
 
 class TaskInfoCard extends StatelessWidget {
-  final String title;
+  final TasksType type;
   final String? date;
   final List<Task> tasks;
-  final void Function(String title, List<Task> task)? pageNavigator;
+  final void Function(TasksType type, List<Task> task)? pageNavigator;
 
   const TaskInfoCard({
     super.key,
-    required this.title,
+    required this.type,
     this.date,
     required this.tasks,
     this.pageNavigator,
@@ -19,7 +19,7 @@ class TaskInfoCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        pageNavigator?.call(title, tasks);
+        pageNavigator?.call(type, tasks);
       },
       child: Card(
         child: Padding(
@@ -30,7 +30,7 @@ class TaskInfoCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    title,
+                    type.name,
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
