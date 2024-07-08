@@ -5,5 +5,7 @@ enum TasksType {
   all('모든 할 일'),
   completed('완료된 일');
 
-  const TasksType(String name);
+  final String name;
+
+  const TasksType(this.name);
 }
