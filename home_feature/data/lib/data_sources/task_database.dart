@@ -13,4 +13,10 @@ class TaskDatabase {
   Future<List<Task>> getAllTasks() {
     return _isar.txn(() => _isar.tasks.where().findAll());
   }
+
+  Future<void> updateTask(Task task) {
+    return _isar.writeTxn(
+      () => _isar.tasks.put(task),
+    );
+  }
 }
