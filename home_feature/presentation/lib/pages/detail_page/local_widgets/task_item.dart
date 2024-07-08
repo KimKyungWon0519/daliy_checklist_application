@@ -29,6 +29,11 @@ class TaskItem extends StatelessWidget {
           ),
           const SizedBox(width: 5),
           Text(task.goal),
+          const Spacer(),
+          Checkbox(
+            value: task.isCompleted,
+            onChanged: (value) {},
+          ),
         ],
       ),
     );
