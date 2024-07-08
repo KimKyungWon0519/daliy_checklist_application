@@ -29,41 +29,53 @@ class _DetailPageState extends ConsumerState<DetailPage> {
     super.initState();
 
     _viewModel = viewModelProvider<DetailViewModel>();
+
+    WidgetsBinding.instance.addPostFrameCallback(
+      (timeStamp) {
+        ref
+            .read(_viewModel.tasksProvider.notifier)
+            .update((state) => widget.tasks);
+      },
+    );
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-
-    ref.read(_viewModel.tasksProvider.notifier).update((state) => widget.tasks);
   }
 
   @override
   Widget build(BuildContext context) {
+    final List<Task> tasks = ref.watch(_viewModel.tasksProvider);
+    final SplayTreeMap<DateTime, List<Task>> tasksWithinDateTimeMap =
+        getTaskMap(tasks);
+
     return Scaffold(
       appBar: AppBar(title: Text(widget.title)),
       body: Padding(
         padding: const EdgeInsets.all(8),
         child: ListView.builder(
           itemBuilder: (context, index) {
-            DateTime dateTime = getTaskMap().entries.elementAt(index).key;
-            List<Task> tasks = getTaskMap().entries.elementAt(index).value;
+            DateTime dateTime =
+                tasksWithinDateTimeMap.entries.elementAt(index).key;
+            List<Task> tasks =
+                tasksWithinDateTimeMap.entries.elementAt(index).value;
 
             return DailyTile(
               dateTime: dateTime,
               tasks: tasks,
             );
           },
-          itemCount: getTaskMap().keys.length,
+          itemCount: tasksWithinDateTimeMap.keys.length,
         ),
       ),
     );
   }
 
-  SplayTreeMap<DateTime, List<Task>> getTaskMap() {
+  SplayTreeMap<DateTime, List<Task>> getTaskMap(List<Task> tasks) {
     SplayTreeMap<DateTime, List<Task>> map = SplayTreeMap();
 
-    for (Task task in widget.tasks) {
+    for (Task task in tasks) {
       if (map[task.selectedDate.startDate] == null) {
         map[task.selectedDate.startDate] = List.empty(growable: true);
       }
