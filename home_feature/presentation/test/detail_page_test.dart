@@ -5,41 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:intl/intl.dart';
-import 'package:mockito/mockito.dart';
 import 'package:presentation/pages/detail_page/local_widgets/daily_tile.dart';
 import 'package:presentation/pages/detail_page/local_widgets/task_item.dart';
-import 'package:presentation/pages/home_page/local_widgets/task_info_card.dart';
-import 'package:presentation/pages/home_page/local_widgets/task_info_widgets.dart';
 import 'package:presentation/presentation.dart';
-
-class MockViewModel extends Mock implements HomeViewModel {
-  final StateProvider<List<Task>> tasksProvider = StateProvider((ref) => []);
-
-  @override
-  Future<List<Task>> getAllTasks() {
-    return Future.value([]);
-  }
-
-  @override
-  List<Task> getTodayTasks(List<Task> tasks) {
-    return [];
-  }
-
-  @override
-  List<Task> getPostponeTasks(List<Task> tasks) {
-    return [];
-  }
-
-  @override
-  List<Task> getFutureTasks(List<Task> tasks) {
-    return [];
-  }
-
-  @override
-  List<Task> getCompletedTasks(List<Task> tasks) {
-    return [];
-  }
-}
 
 class MockDetailViewModel extends DetailViewModel {
   @override
@@ -92,13 +60,6 @@ void main() {
         final Text text = widgetTester.widget(find.byType(Text));
 
         expect(text.data, 'goal');
-
-        // expect(find.descendant(of: of, matching: matching), matcher)
-        // expect(find.byType(Row), findsOneWidget);
-        // expect(
-        //   find.descendant(of: find.byType(Row), matching: find.byType(Text)),
-        //   findsOneWidget,
-        // );
       },
     );
 
