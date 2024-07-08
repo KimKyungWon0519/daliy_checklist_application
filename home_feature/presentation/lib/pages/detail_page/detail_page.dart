@@ -42,6 +42,12 @@ class _DetailPageState extends ConsumerState<DetailPage> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+
+    _viewModel.addTaskUpdateListener((event) async {
+      _viewModel.getAllTasks(widget.type).then((value) {
+        ref.read(_viewModel.tasksProvider.notifier).update((state) => value);
+      });
+    });
   }
 
   @override
@@ -64,12 +70,17 @@ class _DetailPageState extends ConsumerState<DetailPage> {
             return DailyTile(
               dateTime: dateTime,
               tasks: tasks,
+              changeisCompleted: changeisCompleted,
             );
           },
           itemCount: tasksWithinDateTimeMap.keys.length,
         ),
       ),
     );
+  }
+
+  void changeisCompleted(Task task, bool isCompleted) {
+    _viewModel.changeCompletedTask(task, isCompleted);
   }
 
   SplayTreeMap<DateTime, List<Task>> getTaskMap(List<Task> tasks) {

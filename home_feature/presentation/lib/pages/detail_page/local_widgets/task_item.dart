@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 
 class TaskItem extends StatelessWidget {
   final Task task;
+  final void Function(Task task, bool isCompleted)? changeisCompleted;
 
   const TaskItem({
     super.key,
     required this.task,
+    this.changeisCompleted,
   });
 
   @override
@@ -32,7 +34,9 @@ class TaskItem extends StatelessWidget {
           const Spacer(),
           Checkbox(
             value: task.isCompleted,
-            onChanged: (value) {},
+            onChanged: (value) {
+              changeisCompleted?.call(task, value ?? false);
+            },
           ),
         ],
       ),

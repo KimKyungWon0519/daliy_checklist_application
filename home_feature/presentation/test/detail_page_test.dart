@@ -5,11 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:intl/intl.dart';
+import 'package:mockito/mockito.dart';
 import 'package:presentation/pages/detail_page/local_widgets/daily_tile.dart';
 import 'package:presentation/pages/detail_page/local_widgets/task_item.dart';
 import 'package:presentation/presentation.dart';
 
-class MockDetailViewModel extends DetailViewModel {
+class MockDetailViewModel extends Mock implements DetailViewModel {
   @override
   final StateProvider<List<Task>> tasksProvider =
       StateProvider((ref) => [Task.empty()]);
