@@ -22,13 +22,20 @@ class DetailPage extends ConsumerStatefulWidget {
 }
 
 class _DetailPageState extends ConsumerState<DetailPage> {
-  late final DetailViewModel _detailViewModel;
+  late final DetailViewModel _viewModel;
 
   @override
   void initState() {
     super.initState();
 
-    _detailViewModel = viewModelProvider<DetailViewModel>();
+    _viewModel = viewModelProvider<DetailViewModel>();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    ref.read(_viewModel.tasksProvider.notifier).update((state) => widget.tasks);
   }
 
   @override
