@@ -48,7 +48,7 @@ void main() {
           child: MaterialApp(
             home: Scaffold(
               body: TaskInfoCard(
-                title: 'test',
+                type: TasksType.all,
                 date: 'test',
                 tasks: [],
               ),
@@ -78,7 +78,7 @@ void main() {
           child: MaterialApp(
             home: Scaffold(
               body: TaskInfoCard(
-                title: 'test',
+                type: TasksType.all,
                 tasks: [],
               ),
             ),
