@@ -19,6 +19,8 @@ Future<void> initialize(final String directory) async {
     taskHandlerUseCase: taskHandlerUseCase,
     initialTask: task,
   );
+  final DetailViewModel detailViewModel = DetailViewModel();
 
   viewModelProvider.registerFactory<HomeViewModel>(() => homeViewModel);
+  viewModelProvider.registerFactory<DetailViewModel>(() => detailViewModel);
 }
