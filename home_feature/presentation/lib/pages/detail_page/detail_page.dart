@@ -3,7 +3,9 @@ import 'dart:collection';
 import 'package:domain/domain.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:presentation/constants/app_constants.dart';
 import 'package:presentation/pages/detail_page/local_widgets/daily_tile.dart';
+import 'package:presentation/presenter/viewmodels/detail_viewmodel.dart';
 
 class DetailPage extends ConsumerStatefulWidget {
   final String title;
@@ -20,6 +22,15 @@ class DetailPage extends ConsumerStatefulWidget {
 }
 
 class _DetailPageState extends ConsumerState<DetailPage> {
+  late final DetailViewModel _detailViewModel;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _detailViewModel = viewModelProvider<DetailViewModel>();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
