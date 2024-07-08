@@ -6,6 +6,7 @@ import 'package:data/repositories/task_repository_impl.dart';
 import 'package:domain/domain.dart' as Domain;
 import 'package:isar/isar.dart';
 import 'package:shared_data/data.dart' as SharedData;
+import 'package:shared_data/entities/task.dart';
 import 'package:test/expect.dart';
 import 'package:test/scaffolding.dart';
 
@@ -27,6 +28,15 @@ void main() {
       TaskDatabase taskDatabase = TaskDatabase(directory.path);
 
       taskRepositoryImpl = TaskRepositoryImpl(taskDatabase: taskDatabase);
+    });
+
+    test('test for update task', () async {
+      await taskRepositoryImpl.updateTask(Domain.Task.empty());
+
+      List<Domain.Task> tasks = await taskRepositoryImpl.getAllTasks();
+
+      expect(tasks.length, 1);
+      expect(tasks.first.id, 1);
     });
 
     test('test for stream listener', () async {
@@ -51,7 +61,7 @@ void main() {
     test('get all task', () async {
       List<Domain.Task> tasks = await taskRepositoryImpl.getAllTasks();
 
-      expect(tasks.length, 1);
+      expect(tasks.length, 2);
     });
 
     tearDownAll(() {
