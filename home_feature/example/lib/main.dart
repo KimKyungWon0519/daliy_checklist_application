@@ -21,20 +21,22 @@ class MainApp extends StatelessWidget {
           GoRoute(
             path: '/',
             builder: (context, state) => HomePage(
-              pageNavigator: (title, tasks) {
-                context.push('/$title', extra: tasks);
+              pageNavigator: (type, tasks) {
+                context.push('/${type.name}', extra: {
+                  'type': type,
+                  'tasks': tasks,
+                });
               },
             ),
             routes: [
               GoRoute(
                 path: ':type',
                 builder: (context, state) {
-                  final String title = state.pathParameters['type']!;
-                  final dynamic tasks = state.extra!;
+                  final dynamic extra = state.extra!;
 
                   return DetailPage(
-                    title: title,
-                    tasks: tasks,
+                    type: extra['type'],
+                    tasks: extra['tasks'],
                   );
                 },
               ),
