@@ -16,3 +16,15 @@ class GetTask {
     return _taskRepository.getTasksChangedWatcher();
   }
 }
+
+class UpdateTask {
+  late final TaskRepository _taskRepository;
+
+  UpdateTask({
+    required TaskRepository taskRepository,
+  }) : _taskRepository = taskRepository;
+
+  Future<void> changeCompleted(Task task, bool isCompleted) {
+    return _taskRepository.updateTask(task.copyWith(isCompleted: isCompleted));
+  }
+}
