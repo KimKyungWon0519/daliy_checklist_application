@@ -4,4 +4,5 @@ abstract interface class TaskRepository {
   Stream<void> getTasksChangedWatcher();
 
   Future<List<Task>> getAllTasks();
+  Future<void> updateTask(Task task);
 }

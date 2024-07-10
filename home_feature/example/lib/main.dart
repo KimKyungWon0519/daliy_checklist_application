@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:home_feature/home_feature.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -14,8 +15,36 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: HomePage(),
+    return MaterialApp.router(
+      routerConfig: GoRouter(
+        routes: [
+          GoRoute(
+            path: '/',
+            builder: (context, state) => HomePage(
+              pageNavigator: (type, tasks) {
+                context.push('/${type.name}', extra: {
+                  'type': type,
+                  'tasks': tasks,
+                });
+              },
+            ),
+            routes: [
+              GoRoute(
+                path: ':type',
+                builder: (context, state) {
+                  final dynamic extra = state.extra!;
+
+                  return DetailPage(
+                    type: extra['type'],
+                    tasks: extra['tasks'],
+                  );
+                },
+              ),
+            ],
+          ),
+        ],
+        initialLocation: '/',
+      ),
     );
   }
 }

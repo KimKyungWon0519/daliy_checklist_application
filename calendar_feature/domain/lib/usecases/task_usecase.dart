@@ -39,4 +39,8 @@ class UpdateTask {
   Future<int> updateCompletedFlag(Task task) {
     return _taskRepository.updateCompletedFlag(task);
   }
+
+  Stream<void> getTasksWatcher() {
+    return _taskRepository.getTasksWatcher();
+  }
 }

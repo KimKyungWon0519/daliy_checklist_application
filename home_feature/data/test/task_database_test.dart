@@ -24,6 +24,16 @@ void main() {
       taskDatabase = TaskDatabase(directory.path);
     });
 
+    test('test for update task', () async {
+      await taskDatabase.updateTask(
+          Task(goal: 'test', startDate: DateTime.now(), colorCode: 0xFFFFFFFF));
+
+      List<Task> tasks = await taskDatabase.getAllTasks();
+
+      expect(tasks.length, 1);
+      expect(tasks.first.id, 1);
+    });
+
     test('test for stream listener', () async {
       bool streamUpdate = false;
       final Completer completer = Completer<void>();
@@ -35,8 +45,8 @@ void main() {
 
       Isar isar = createIsar(directory.path);
 
-      await isar.writeTxn(() => isar.tasks.put(Task(
-          goal: 'test', startDate: DateTime.now(), colorCode: 0xFFFFFFFF)));
+      await taskDatabase.updateTask(
+          Task(goal: 'test', startDate: DateTime.now(), colorCode: 0xFFFFFFFF));
 
       await completer.future;
 
@@ -46,7 +56,7 @@ void main() {
     test('get all task', () async {
       List<Task> tasks = await taskDatabase.getAllTasks();
 
-      expect(tasks.length, 1);
+      expect(tasks.length, 2);
     });
 
     tearDownAll(() {

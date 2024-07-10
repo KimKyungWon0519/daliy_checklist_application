@@ -27,6 +27,11 @@ class MockHomeViewModel extends Mock implements CalendarViewModel {
   Future<List<Task>> getTaskOnSelectedDate(final DateTime date) {
     return Future.value([]);
   }
+
+  @override
+  Stream<void> getTasksWatcher() {
+    return const Stream.empty();
+  }
 }
 
 void main() {

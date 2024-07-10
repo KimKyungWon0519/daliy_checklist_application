@@ -31,4 +31,8 @@ class CalendarViewModel {
     return _updateTask
         .updateCompletedFlag(task.copyWith(isCompleted: isCompleted));
   }
+
+  Stream<void> getTasksWatcher() {
+    return _updateTask.getTasksWatcher();
+  }
 }

@@ -2,46 +2,53 @@ import 'package:domain/domain.dart';
 import 'package:flutter/material.dart';
 
 class TaskInfoCard extends StatelessWidget {
-  final String title;
+  final TasksType type;
   final String? date;
   final List<Task> tasks;
+  final void Function(TasksType type, List<Task> task)? pageNavigator;
 
   const TaskInfoCard({
     super.key,
-    required this.title,
+    required this.type,
     this.date,
     required this.tasks,
+    this.pageNavigator,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(10),
-        child: Row(
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
+    return GestureDetector(
+      onTap: () {
+        pageNavigator?.call(type, tasks);
+      },
+      child: Card(
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Row(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    type.name,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-                if (date != null) Text(date!),
-              ],
-            ),
-            const Spacer(),
-            Text(
-              '${tasks.length}',
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
+                  if (date != null) Text(date!),
+                ],
               ),
-            ),
-          ],
+              const Spacer(),
+              Text(
+                '${tasks.length}',
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

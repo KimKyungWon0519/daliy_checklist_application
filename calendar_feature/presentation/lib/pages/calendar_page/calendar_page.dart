@@ -1,4 +1,5 @@
 import 'package:calendar_domain/domain.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:calendar_presentation/constants/app_constants.dart';
@@ -39,6 +40,21 @@ class _HomePageState extends ConsumerState<CalendarPage> {
       _viewModel.getAllTasks().then((value) => ref
           .read(_viewModel.allTasksProvider.notifier)
           .update((state) => value));
+    });
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    _viewModel.getTasksWatcher().listen((event) {
+      _viewModel.getAllTasks().then((value) {
+        List<Task> tasks = ref.read(_viewModel.allTasksProvider);
+
+        if (!listEquals(tasks, value)) {
+          _updateTask();
+        }
+      });
     });
   }
 

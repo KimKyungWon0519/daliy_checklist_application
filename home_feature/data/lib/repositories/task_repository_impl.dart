@@ -20,4 +20,9 @@ class TaskRepositoryImpl implements TaskRepository {
   Stream<void> getTasksChangedWatcher() {
     return _taskDatabase.getTasksChangedWatcher();
   }
+
+  @override
+  Future<void> updateTask(Task task) {
+    return _taskDatabase.updateTask(task.toEntity());
+  }
 }

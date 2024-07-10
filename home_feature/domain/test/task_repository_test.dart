@@ -24,6 +24,11 @@ class MockTaskRepository implements TaskRepository {
           colorCode: 0)
     ]);
   }
+
+  @override
+  Future<void> updateTask(Domain.Task task) {
+    throw UnimplementedError();
+  }
 }
 
 void main() {

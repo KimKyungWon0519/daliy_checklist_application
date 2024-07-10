@@ -5,4 +5,5 @@ abstract interface class TaskRepository {
   Future<List<Task>> getTaskOnSelectedDate(DateTime date);
   Future<List<Task>> getAllTasks();
   Future<int> updateCompletedFlag(Task task);
+  Stream<void> getTasksWatcher();
 }

@@ -9,6 +9,7 @@ Future<void> initialize(final String directory) async {
   final TaskHandlerRepository taskHandlerRepository =
       TaskHandlerRepositoryImpl();
   final GetTask getTask = GetTask(taskRepository: taskRepository);
+  final UpdateTask updateTask = UpdateTask(taskRepository: taskRepository);
   final TaskHandlerUseCase taskHandlerUseCase =
       TaskHandlerUseCase(taskHandlerRepository: taskHandlerRepository);
 
@@ -19,6 +20,12 @@ Future<void> initialize(final String directory) async {
     taskHandlerUseCase: taskHandlerUseCase,
     initialTask: task,
   );
+  final DetailViewModel detailViewModel = DetailViewModel(
+    updateTask: updateTask,
+    taskHandlerUseCase: taskHandlerUseCase,
+    getTask: getTask,
+  );
 
   viewModelProvider.registerFactory<HomeViewModel>(() => homeViewModel);
+  viewModelProvider.registerFactory<DetailViewModel>(() => detailViewModel);
 }

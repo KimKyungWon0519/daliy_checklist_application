@@ -6,7 +6,12 @@ import 'package:presentation/presentation.dart';
 import './local_widgets/task_info_widgets.dart';
 
 class HomePage extends ConsumerStatefulWidget {
-  const HomePage({super.key});
+  final void Function(TasksType type, List<Task> tasks)? pageNavigator;
+
+  const HomePage({
+    super.key,
+    this.pageNavigator,
+  });
 
   @override
   ConsumerState<HomePage> createState() => _HomePageState();
@@ -41,23 +46,28 @@ class _HomePageState extends ConsumerState<HomePage> {
         title: const Text('체크리스트'),
       ),
       body: Container(
-        padding: EdgeInsets.all(10),
+        padding: EdgeInsets.all(8),
         child: Column(
           children: [
             TodayInfo(
               tasks: _viewModel.getTodayTasks(tasks),
+              pageNavigator: widget.pageNavigator,
             ),
             PostponeInfo(
               tasks: _viewModel.getPostponeTasks(tasks),
+              pageNavigator: widget.pageNavigator,
             ),
             FutureInfo(
               tasks: _viewModel.getFutureTasks(tasks),
+              pageNavigator: widget.pageNavigator,
             ),
             AllInfo(
               tasks: tasks,
+              pageNavigator: widget.pageNavigator,
             ),
             CompletedInfo(
               tasks: _viewModel.getCompletedTasks(tasks),
+              pageNavigator: widget.pageNavigator,
             ),
           ],
         ),
