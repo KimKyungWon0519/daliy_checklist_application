@@ -45,7 +45,9 @@ class _DetailPageState extends ConsumerState<DetailPage> {
 
     _viewModel.addTaskUpdateListener((event) async {
       _viewModel.getAllTasks(widget.type).then((value) {
-        ref.read(_viewModel.tasksProvider.notifier).update((state) => value);
+        if (ref.context.mounted) {
+          ref.read(_viewModel.tasksProvider.notifier).update((state) => value);
+        }
       });
     });
   }
