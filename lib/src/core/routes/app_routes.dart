@@ -47,7 +47,34 @@ final class AppRoutes {
     path: '/home',
     name: 'home',
     builder: (context, state) {
-      return HomePage();
+      return HomePage(
+        pageNavigator: (type, tasks) {
+          context.pushNamed(
+            'tasks',
+            pathParameters: {
+              'type': type.name,
+            },
+            extra: {
+              'type': type,
+              'tasks': tasks,
+            },
+          );
+        },
+      );
+    },
+    routes: [tasks],
+  );
+
+  static final GoRoute tasks = GoRoute(
+    path: ':type',
+    name: 'tasks',
+    builder: (context, state) {
+      final dynamic extra = state.extra!;
+
+      return DetailPage(
+        type: extra['type'],
+        tasks: extra['tasks'],
+      );
     },
   );
 
