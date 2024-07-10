@@ -46,4 +46,9 @@ class TaskRepositoryImpl implements TaskRepository {
   Future<int> updateCompletedFlag(Task task) {
     return _taskDatabase.updateTask(task.toEntity());
   }
+
+  @override
+  Stream<void> getTasksWatcher() {
+    return _taskDatabase.getTasksWatcher();
+  }
 }

@@ -32,4 +32,8 @@ class TaskDatabase {
   Future<List<Task>> getAllTasks() {
     return _isar.txn(() => _isar.tasks.where().findAll());
   }
+
+  Stream<void> getTasksWatcher() {
+    return _isar.tasks.watchLazy();
+  }
 }
