@@ -19,9 +19,10 @@ class TaskHandlerRepositoryImpl implements TaskHandlerRepository {
     nowTime = DateTime(nowTime.year, nowTime.month, nowTime.day);
 
     tasks = tasks.where((element) {
-      DateTime time = element.selectedDate.startDate;
+      DateTime time =
+          element.selectedDate.endDate ?? element.selectedDate.startDate;
 
-      return nowTime.compareTo(time) == -1;
+      return time.compareTo(nowTime) == -1;
     }).toList();
 
     return _removeCompletedTask(tasks);
@@ -33,10 +34,9 @@ class TaskHandlerRepositoryImpl implements TaskHandlerRepository {
     nowTime = DateTime(nowTime.year, nowTime.month, nowTime.day);
 
     tasks = tasks.where((element) {
-      DateTime time =
-          element.selectedDate.endDate ?? element.selectedDate.startDate;
+      DateTime time = element.selectedDate.startDate;
 
-      return nowTime.compareTo(time) == 1;
+      return time.compareTo(nowTime) == 1;
     }).toList();
 
     return _removeCompletedTask(tasks);
